@@ -15,7 +15,7 @@
 #'   to `Y`'s onehot encoding. Typically, `colnames(Y)`. if `NULL`, then the
 #'   decoder returns the column number.
 #' @param n_classes The total number of classes expected in `Y`. Used for input
-#'   checking in the returned doecoder, also, to reconstruct the correct
+#'   checking in the returned decoder, also, to reconstruct the correct
 #'   dimensions if the passed in `Y` is missing `dim()` attributes.
 #'
 #' @return A binary class matrix

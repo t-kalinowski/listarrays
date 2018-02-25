@@ -32,7 +32,7 @@ to \code{Y}'s onehot encoding. Typically, \code{colnames(Y)}. if \code{NULL}, th
 decoder returns the column number.}
 
 \item{n_classes}{The total number of classes expected in \code{Y}. Used for input
-checking in the returned doecoder, also, to reconstruct the correct
+checking in the returned decoder, also, to reconstruct the correct
 dimensions if the passed in \code{Y} is missing \code{dim()} attributes.}
 }
 \value{

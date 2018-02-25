@@ -53,7 +53,7 @@ seq_along_cols <- function(x) seq_along_dim(x, 2L)
 #'
 #' @param x a dataframe, array, or vector, or anything with a `[` method
 #'   defined. In the case of a vector, this is equivalent to `rev`
-#' @param .dim a scalar integer. Which dimention to reverse.
+#' @param .dim a scalar integer. Which dimension to reverse.
 #'
 #' @export
 reverse_dim <- function(x, .dim) {
