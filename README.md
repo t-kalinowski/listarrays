@@ -24,16 +24,16 @@ The package provides:
 
     -   `modify_along_dim()` takes an array, calls the passed function `.f()` on each subset of the specified dimension, and returns an array of the same shape.
 
-    -   All the functions have two varients for the two most common cases of the 1st and 2nd dimension. For example `split_on_rows()` and `split_on_cols()`, which are equivalent to `split_on_dim(X, 1)` and `split_on_dim(X, 2)`
+    -   All the functions have two varients `*_rows()` and `*_cols()` for the two most common cases of the 1st and 2nd dimension. For example `split_on_rows()` and `split_on_cols()`, which are equivalent to `split_on_dim(X, 1)` and `split_on_dim(X, 2)`
 
 -   A family of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example `seq_along_rows()` (a combination of `seq_along()` and `nrow()`, with some error checks for common pitfalls).
 
 -   Many of the functions are agnostic about the number of dimensions in the array passed. In practice, this means that you can use the same code path for arrays of various sizes. For example, to extract `idx` on the 1st dimension, you can use `extract_rows(X, idx)`, and it will work for an array of any number of dimensions. Contrast this with the base alternative `X[idx,,]`, where you have to modify the number of commas `,` to match the number of dimensions in `X`.
 
--   Many of the functions work recursively if provided a list of arrays. This is particularly useful in combination with `` zeallot::`%<-%` `` multi-assignment operator. And allows patterns like.
+-   Many of the functions work recursively if provided a list of arrays. This is particularly useful in combination with `` zeallot::`%<-%` `` multi-assignment operator, which allows for patterns like:
 
     ``` r
     c(X, Y) %<-% shuffle_rows(X, Y, in_sync = TRUE)
     ```
 
--   A set of functions that help encode and decode between atomic vectors and onehot (binary class representation) matrix's.
+-   A set of functions that help encode atomic vectors as `onehot()` binary matrix's and `decode_onehot()` back into atomic vectors.

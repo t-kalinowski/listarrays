@@ -79,16 +79,16 @@
 <li><p><code><a href="reference/split-array.html">split_on_dim()</a></code> takes an array and returns a list.</p></li>
 <li><p><code><a href="reference/bind-arrays.html">bind_on_dim()</a></code> and <code><a href="reference/bind-arrays.html">bind_as_dim()</a></code> take a list and return a single array.</p></li>
 <li><p><code><a href="reference/modify_along_dim.html">modify_along_dim()</a></code> takes an array, calls the passed function <code>.f()</code> on each subset of the specified dimension, and returns an array of the same shape.</p></li>
-<li><p>All the functions have two varients for the two most common cases of the 1st and 2nd dimension. For example <code><a href="reference/split-array.html">split_on_rows()</a></code> and <code><a href="reference/split-array.html">split_on_cols()</a></code>, which are equivalent to <code><a href="reference/split-array.html">split_on_dim(X, 1)</a></code> and <code><a href="reference/split-array.html">split_on_dim(X, 2)</a></code></p></li>
+<li><p>All the functions have two varients <code>*_rows()</code> and <code>*_cols()</code> for the two most common cases of the 1st and 2nd dimension. For example <code><a href="reference/split-array.html">split_on_rows()</a></code> and <code><a href="reference/split-array.html">split_on_cols()</a></code>, which are equivalent to <code><a href="reference/split-array.html">split_on_dim(X, 1)</a></code> and <code><a href="reference/split-array.html">split_on_dim(X, 2)</a></code></p></li>
 </ul>
 </li>
 <li><p>A family of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example <code><a href="reference/seq_along_dim.html">seq_along_rows()</a></code> (a combination of <code>seq_along()</code> and <code>nrow()</code>, with some error checks for common pitfalls).</p></li>
 <li><p>Many of the functions are agnostic about the number of dimensions in the array passed. In practice, this means that you can use the same code path for arrays of various sizes. For example, to extract <code>idx</code> on the 1st dimension, you can use <code><a href="reference/extract_dim.html">extract_rows(X, idx)</a></code>, and it will work for an array of any number of dimensions. Contrast this with the base alternative <code>X[idx,,]</code>, where you have to modify the number of commas <code>,</code> to match the number of dimensions in <code>X</code>.</p></li>
 <li>
-<p>Many of the functions work recursively if provided a list of arrays. This is particularly useful in combination with <code><a href="http://www.rdocumentation.org/packages/zeallot/topics/operator">zeallot::`%&lt;-%`</a></code> multi-assignment operator. And allows patterns like.</p>
+<p>Many of the functions work recursively if provided a list of arrays. This is particularly useful in combination with <code><a href="http://www.rdocumentation.org/packages/zeallot/topics/operator">zeallot::`%&lt;-%`</a></code> multi-assignment operator, which allows for patterns like:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(X, Y) <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw"><a href="reference/shuffle_rows.html">shuffle_rows</a></span>(X, Y, <span class="dt">in_sync =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </li>
-<li><p>A set of functions that help encode and decode between atomic vectors and onehot (binary class representation) matrix’s.</p></li>
+<li><p>A set of functions that help encode atomic vectors as <code><a href="reference/onehot.html">onehot()</a></code> binary matrix’s and <code><a href="reference/onehot.html">decode_onehot()</a></code> back into atomic vectors.</p></li>
 </ul>
 </div>
 </div>
