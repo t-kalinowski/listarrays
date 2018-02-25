@@ -3,7 +3,7 @@
 purrrays
 ========
 
-purrays is designed to make working with R arrays easier, particularly multi-dimensional arrays. This package was born out of a few frustrations that I encounterd while perparing data for machine learning with keras. Purrays has no dependancies, but it is inspired by and designed to work well with the packages purrr, magrittr, and zeallot.
+purrays is designed to make working with R arrays easier, particularly multi-dimensional arrays. Purrays has no dependancies, but it is inspired by and designed to work well with the packages purrr, magrittr, and zeallot.
 
 Installation
 ------------
