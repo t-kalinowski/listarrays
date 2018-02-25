@@ -1,0 +1,18 @@
+Package: purrrays
+Type: Package
+Title: Functional Arrays, purrr-style
+Version: 0.1.0
+Authors@R: person("Tomasz", "Kalinowski", email = "kalinowskit@gmail.com", 
+    role = c("aut", "cre"))
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: A toolbox for working with R arrays in a functional style. Contains 
+    a family of functions for flexibly splitting, modifying and bind arrays 
+    along specified dimensions. Designed to work well with packages purrr, 
+    magrittr, and zeallot.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    testthat, rlang, zeallot
