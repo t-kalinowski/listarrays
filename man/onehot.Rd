@@ -25,8 +25,15 @@ must contain all levels found in \code{y}.}
 
 \item{named}{if the returned matrix should have column names}
 
-\item{key}{A vector of names, typically, \code{colnames(Y)}. if \code{NULL}, then the
+\item{Y}{a matrix, as returned by \code{onehot()} or similar.}
+
+\item{classes}{A character vector of class names in the order corresponding
+to \code{Y}'s onehot encoding. Typically, \code{colnames(Y)}. if \code{NULL}, then the
 decoder returns the column number.}
+
+\item{n_classes}{The total number of classes expected in \code{Y}. Used for input
+checking in the returned doecoder, also, to reconstruct the correct
+dimensions if the passed in \code{Y} is missing \code{dim()} attributes.}
 }
 \value{
 A binary class matrix
@@ -35,16 +42,18 @@ A binary class matrix
 Convert vector to a onehot representation (binary class matrix)
 }
 \examples{
-y <- letters[1:4]
-c(Y, decode) \%<-\% onehot_with_decoder(y)
-Y
-decode(Y)
-identical(y, decode(Y))
-decode(Y[2,,drop = TRUE])
-decode(Y[2,,drop = FALSE])
-decode(Y[2:3,])
+if(require(zeallot)) {
+  y <- letters[1:4]
+  c(Y, decode) \%<-\% onehot_with_decoder(y)
+  Y
+  decode(Y)
+  identical(y, decode(Y))
+  decode(Y[2,,drop = TRUE])
+  decode(Y[2,,drop = FALSE])
+  decode(Y[2:3,])
 
-rm(Y, decode)
+  rm(Y, decode)
+}
 
 # more peicemeal functions
 Y <- onehot(y)

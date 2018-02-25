@@ -113,18 +113,20 @@ the same in all returned objects)</p></td>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fl'>1</span>:<span class='fl'>9</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>array</span>(<span class='fl'>1</span>:<span class='fl'>27</span>, <span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>))
 
-<span class='fu'>c</span>(<span class='no'>xs</span>, <span class='no'>ys</span>, <span class='no'>zs</span>) <span class='kw'>%&lt;-%</span> <span class='fu'>shuffle_rows</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>)
+<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>zeallot</span>)) {
+  <span class='fu'>c</span>(<span class='no'>xs</span>, <span class='no'>ys</span>, <span class='no'>zs</span>) <span class='kw'>%&lt;-%</span> <span class='fu'>shuffle_rows</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>)
 
-<span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>y</span>), <span class='kw'>function</span>(<span class='no'>r</span>) {
-  <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>[<span class='no'>r</span>], <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>[<span class='no'>r</span>,], <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>[<span class='no'>r</span>,,])
-})
+  <span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>y</span>), <span class='kw'>function</span>(<span class='no'>r</span>) {
+    <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>[<span class='no'>r</span>], <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>[<span class='no'>r</span>,], <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>[<span class='no'>r</span>,,])
+  })
 
-<span class='no'>ls</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>y</span>), <span class='kw'>function</span>(<span class='no'>r</span>) {
-  <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>xs</span>[<span class='no'>r</span>], <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>ys</span>[<span class='no'>r</span>,], <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>zs</span>[<span class='no'>r</span>,,])
-})
+  <span class='no'>ls</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>y</span>), <span class='kw'>function</span>(<span class='no'>r</span>) {
+    <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>xs</span>[<span class='no'>r</span>], <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>ys</span>[<span class='no'>r</span>,], <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>zs</span>[<span class='no'>r</span>,,])
+  })
 
-<span class='fu'>stopifnot</span>(
-  <span class='fu'>length</span>(<span class='fu'>unique</span>(<span class='fu'>c</span>(<span class='no'>l</span>, <span class='no'>ls</span>))) <span class='kw'>==</span> <span class='fu'>length</span>(<span class='no'>l</span>))</div></pre>
+  <span class='fu'>stopifnot</span>(
+    <span class='fu'>length</span>(<span class='fu'>unique</span>(<span class='fu'>c</span>(<span class='no'>l</span>, <span class='no'>ls</span>))) <span class='kw'>==</span> <span class='fu'>length</span>(<span class='no'>l</span>))
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

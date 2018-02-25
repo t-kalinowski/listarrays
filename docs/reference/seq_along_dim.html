@@ -100,6 +100,10 @@ determining dimensions, so atomic vectors are treated as 1 dimensional
 arrays (i.e., <code>seq_along_rows</code> is equivalent to <code>seq_along</code> when <code>x</code> is an
 atomic vector or list).</p></td>
     </tr>
+    <tr>
+      <th>.dim</th>
+      <td><p>a scalar integer, specifying which dimension to generate a sequence for.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -124,7 +128,7 @@ vectorized equivalents.</p>
 #&gt;                 mpg cyl disp  hp drat    wt  qsec vs am gear carb
 #&gt; Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>3</span>
-<span class='fu'>identical</span>(<span class='fu'>row_along</span>(<span class='no'>x</span>), <span class='fu'>seq_along</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; <span class='error'>Error in row_along(x): could not find function "row_along"</span></div><div class='input'>
+<span class='fu'>identical</span>(<span class='fu'>seq_along_rows</span>(<span class='no'>x</span>), <span class='fu'>seq_along</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

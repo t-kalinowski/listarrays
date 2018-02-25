@@ -5,14 +5,18 @@
 #' Convert vector to a onehot representation (binary class matrix)
 #'
 #' @param y character, factor, or numeric vector
+#' @param Y a matrix, as returned by `onehot()` or similar.
 #' @param order `NULL`, `FALSE`, or a character vector. If `NULL` (the default),
 #'   then levels are sorted with `sort()`. If `FALSE`, then levels are taken in
 #'   order of their first appearance in `y`. If a character vector, then `order`
 #'   must contain all levels found in `y`.
 #' @param named if the returned matrix should have column names
-#'
-#' @param key A vector of names, typically, `colnames(Y)`. if `NULL`, then the
+#' @param classes A character vector of class names in the order corresponding
+#'   to `Y`'s onehot encoding. Typically, `colnames(Y)`. if `NULL`, then the
 #'   decoder returns the column number.
+#' @param n_classes The total number of classes expected in `Y`. Used for input
+#'   checking in the returned doecoder, also, to reconstruct the correct
+#'   dimensions if the passed in `Y` is missing `dim()` attributes.
 #'
 #' @return A binary class matrix
 #' @export
@@ -21,16 +25,18 @@
 #' @family array-helpers
 #'
 #' @examples
-#' y <- letters[1:4]
-#' c(Y, decode) %<-% onehot_with_decoder(y)
-#' Y
-#' decode(Y)
-#' identical(y, decode(Y))
-#' decode(Y[2,,drop = TRUE])
-#' decode(Y[2,,drop = FALSE])
-#' decode(Y[2:3,])
+#' if(require(zeallot)) {
+#'   y <- letters[1:4]
+#'   c(Y, decode) %<-% onehot_with_decoder(y)
+#'   Y
+#'   decode(Y)
+#'   identical(y, decode(Y))
+#'   decode(Y[2,,drop = TRUE])
+#'   decode(Y[2,,drop = FALSE])
+#'   decode(Y[2:3,])
 #'
-#' rm(Y, decode)
+#'   rm(Y, decode)
+#' }
 #'
 #' # more peicemeal functions
 #' Y <- onehot(y)

@@ -109,9 +109,20 @@ must contain all levels found in <code>y</code>.</p></td>
       <td><p>if the returned matrix should have column names</p></td>
     </tr>
     <tr>
-      <th>key</th>
-      <td><p>A vector of names, typically, <code>colnames(Y)</code>. if <code>NULL</code>, then the
+      <th>Y</th>
+      <td><p>a matrix, as returned by <code>onehot()</code> or similar.</p></td>
+    </tr>
+    <tr>
+      <th>classes</th>
+      <td><p>A character vector of class names in the order corresponding
+to <code>Y</code>'s onehot encoding. Typically, <code>colnames(Y)</code>. if <code>NULL</code>, then the
 decoder returns the column number.</p></td>
+    </tr>
+    <tr>
+      <th>n_classes</th>
+      <td><p>The total number of classes expected in <code>Y</code>. Used for input
+checking in the returned doecoder, also, to reconstruct the correct
+dimensions if the passed in <code>Y</code> is missing <code>dim()</code> attributes.</p></td>
     </tr>
     </table>
     
@@ -127,14 +138,18 @@ decoder returns the column number.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>4</span>]
-<span class='fu'>c</span>(<span class='no'>Y</span>, <span class='no'>decode</span>) <span class='kw'>%&lt;-%</span> <span class='fu'>onehot_with_decoder</span>(<span class='no'>y</span>)
-<span class='no'>Y</span></div><div class='output co'>#&gt;      a b c d
-#&gt; [1,] 1 0 0 0
-#&gt; [2,] 0 1 0 0
-#&gt; [3,] 0 0 1 0
-#&gt; [4,] 0 0 0 1</div><div class='input'><span class='fu'>decode</span>(<span class='no'>Y</span>)</div><div class='output co'>#&gt; [1] "a" "b" "c" "d"</div><div class='input'><span class='fu'>identical</span>(<span class='no'>y</span>, <span class='fu'>decode</span>(<span class='no'>Y</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>decode</span>(<span class='no'>Y</span>[<span class='fl'>2</span>,,<span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>])</div><div class='output co'>#&gt; [1] "b"</div><div class='input'><span class='fu'>decode</span>(<span class='no'>Y</span>[<span class='fl'>2</span>,,<span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>])</div><div class='output co'>#&gt; [1] "b"</div><div class='input'><span class='fu'>decode</span>(<span class='no'>Y</span>[<span class='fl'>2</span>:<span class='fl'>3</span>,])</div><div class='output co'>#&gt; [1] "b" "c"</div><div class='input'>
-<span class='fu'>rm</span>(<span class='no'>Y</span>, <span class='no'>decode</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>zeallot</span>)) {
+  <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>4</span>]
+  <span class='fu'>c</span>(<span class='no'>Y</span>, <span class='no'>decode</span>) <span class='kw'>%&lt;-%</span> <span class='fu'>onehot_with_decoder</span>(<span class='no'>y</span>)
+  <span class='no'>Y</span>
+  <span class='fu'>decode</span>(<span class='no'>Y</span>)
+  <span class='fu'>identical</span>(<span class='no'>y</span>, <span class='fu'>decode</span>(<span class='no'>Y</span>))
+  <span class='fu'>decode</span>(<span class='no'>Y</span>[<span class='fl'>2</span>,,<span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>])
+  <span class='fu'>decode</span>(<span class='no'>Y</span>[<span class='fl'>2</span>,,<span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>])
+  <span class='fu'>decode</span>(<span class='no'>Y</span>[<span class='fl'>2</span>:<span class='fl'>3</span>,])
+
+  <span class='fu'>rm</span>(<span class='no'>Y</span>, <span class='no'>decode</span>)
+}
 
 <span class='co'># more peicemeal functions</span>
 <span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'>onehot</span>(<span class='no'>y</span>)

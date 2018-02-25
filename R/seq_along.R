@@ -9,6 +9,7 @@
 #'   determining dimensions, so atomic vectors are treated as 1 dimensional
 #'   arrays (i.e., `seq_along_rows` is equivalent to `seq_along` when `x` is an
 #'   atomic vector or list).
+#' @param .dim a scalar integer, specifying which dimension to generate a sequence for.
 #'
 #'
 #' @return a vector of integers 1:nrow(x), safe for use in `for` loops and
@@ -20,7 +21,7 @@
 #'   print(mtcars[r,])
 #'
 #' x <- 1:3
-#' identical(row_along(x), seq_along(x))
+#' identical(seq_along_rows(x), seq_along(x))
 #'
 #' @export
 seq_along_dim <- function(x, .dim) {
@@ -52,6 +53,7 @@ seq_along_cols <- function(x) seq_along_dim(x, 2L)
 #'
 #' @param x a dataframe, array, or vector, or anything with a `[` method
 #'   defined. In the case of a vector, this is equivalent to `rev`
+#' @param .dim a scalar integer. Which dimention to reverse.
 #'
 #' @export
 reverse_dim <- function(x, .dim) {

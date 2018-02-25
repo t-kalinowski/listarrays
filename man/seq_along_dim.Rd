@@ -19,6 +19,8 @@ respectively. Objects supplied are coerced with \code{as.array} prior to
 determining dimensions, so atomic vectors are treated as 1 dimensional
 arrays (i.e., \code{seq_along_rows} is equivalent to \code{seq_along} when \code{x} is an
 atomic vector or list).}
+
+\item{.dim}{a scalar integer, specifying which dimension to generate a sequence for.}
 }
 \value{
 a vector of integers 1:nrow(x), safe for use in \code{for} loops and
@@ -32,7 +34,7 @@ for (r in seq_along_rows(mtcars[1:4,]))
   print(mtcars[r,])
 
 x <- 1:3
-identical(row_along(x), seq_along(x))
+identical(seq_along_rows(x), seq_along(x))
 
 }
 \seealso{

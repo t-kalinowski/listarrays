@@ -92,9 +92,9 @@
 
 <span class='fu'>split_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>split_along_rows</span>(<span class='no'>x</span>)
+<span class='fu'>split_along_rows</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>split_along_cols</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>split_along_cols</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -107,6 +107,10 @@ attribute is treated as a 1 dimensions array. Names of list are preserved.</p></
     <tr>
       <th>.dim</th>
       <td><p>a scalar integer, specifying which dimension to split along</p></td>
+    </tr>
+    <tr>
+      <th>f</th>
+      <td><p>a vector or list of vectors. Must be the same length as the dimension being split. Passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code> (also, <code><a href='http://www.rdocumentation.org/packages/base/topics/interaction'>base::interaction()</a></code> if a list).</p></td>
     </tr>
     <tr>
       <th>drop</th>

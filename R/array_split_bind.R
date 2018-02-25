@@ -110,11 +110,10 @@ modify_along_cols <- function(X, .f, ...)
 #' @param X an array, or list of arrays. Atomic vectors without a dimension
 #'   attribute is treated as a 1 dimensions array. Names of list are preserved.
 #' @param .dim a scalar integer, specifying which dimension to split along
+#' @param f a vector or list of vectors. Must be the same length as the dimension being split. Passed on to `base::split()` (also, `base::interaction()` if a list).
 #' @param drop passed on to `[`.
 #' @param .keep_names Logical. If `TRUE` then if the dim being split along has
 #'   dimnames, then the returned list has those names.
-#'
-#'
 #'
 #' @return A list of arrays, or if a list of arrays was passed in, then a list
 #'   of lists of arrays.
@@ -181,11 +180,15 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE) {
 
 #' @rdname split-array
 #' @export
-split_along_rows <- function(x) split_along_dim(x, 1L)
+split_along_rows <-
+  function(X, drop = NULL, .keep_names = TRUE)
+    split_along_dim(X, 1L, drop = drop, .keep_names = .keep_names)
 
 #' @rdname split-array
 #' @export
-split_along_cols <- function(x) split_along_dim(x, 2L)
+split_along_cols <-
+  function(X, drop = NULL, .keep_names = TRUE)
+    split_along_dim(X, 2L, drop = drop, .keep_names = .keep_names)
 
 
 

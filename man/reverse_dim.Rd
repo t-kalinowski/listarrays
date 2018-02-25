@@ -15,6 +15,8 @@ reverse_cols(x)
 \arguments{
 \item{x}{a dataframe, array, or vector, or anything with a \code{[} method
 defined. In the case of a vector, this is equivalent to \code{rev}}
+
+\item{.dim}{a scalar integer. Which dimention to reverse.}
 }
 \description{
 reverse order along a dimension

@@ -18,15 +18,17 @@ split_on_cols(X, f = colnames(X) \%||\% seq_along_cols(X), drop = NULL)
 
 split_along_dim(X, .dim, drop = NULL, .keep_names = TRUE)
 
-split_along_rows(x)
+split_along_rows(X, drop = NULL, .keep_names = TRUE)
 
-split_along_cols(x)
+split_along_cols(X, drop = NULL, .keep_names = TRUE)
 }
 \arguments{
 \item{X}{an array, or list of arrays. Atomic vectors without a dimension
 attribute is treated as a 1 dimensions array. Names of list are preserved.}
 
 \item{.dim}{a scalar integer, specifying which dimension to split along}
+
+\item{f}{a vector or list of vectors. Must be the same length as the dimension being split. Passed on to \code{base::split()} (also, \code{base::interaction()} if a list).}
 
 \item{drop}{passed on to \code{[}.}
 
