@@ -32,7 +32,7 @@
 extract_dim <- function(X, .dim, idx, drop = NULL) {
   stopifnot(is.scalar.integerish(.dim))
 
-  if(is.list(X))
+  if(is.list(X) && is.null(dim(X)))
     return(lapply(X, function(x) extract_dim(x, .dim, idx, drop = drop)))
 
   expr <- extract_dim_chr_expr(X, .dim,  drop = drop)

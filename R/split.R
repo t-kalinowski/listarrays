@@ -32,7 +32,7 @@ split_on_dim <- function(X, .dim,
     f <- interaction(f, drop = TRUE)
 
 
-  if (is.list(X))
+  if (is.list(X) && is.null(dim(X)))
     lapply(X, function(x) split_on_dim(x, .dim, f = f, drop = drop))
   else {
     id <- seq_along_dim(X, .dim)
@@ -64,7 +64,7 @@ split_on_cols <- function(X,
 #' @rdname split-array
 #' @export
 split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE) {
-  if (is.list(X))
+  if (is.list(X) && is.null(dim(X))) # don't recurse on data.frame or other overloaded array-type classes
     return(lapply(X, function(x)
       split_along_dim(x, .dim, drop = drop, .keep_names = .keep_names)))
 

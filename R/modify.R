@@ -21,7 +21,7 @@
 #' modify_along_dim(x, 3, ~.x/mean(.x))
 modify_along_dim <- function(X, .dim, .f, ...) {
 
-  if(is.list(X))
+  if(is.list(X) && is.null(dim(X)))
     return(lapply(X, function(x) modify_along_dim(x, .dim, .f, ...)))
 
 
