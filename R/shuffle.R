@@ -9,7 +9,6 @@
 #'
 #' @return A list of objects passed on to `...`
 #' @export
-#' @family array-helpers
 #'
 #' @examples
 #' x <- 1:3

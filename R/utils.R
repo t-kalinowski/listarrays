@@ -1,18 +1,5 @@
 
 
-# commas <- function(n) pc(rep_len(",", n))
-
-#
-# robust_ncol <- function(Y) {
-#   if(is.matrix(Y))
-#     ncol(Y)
-#   else if (is.null(dim))
-#     length(Y)
-#   else
-#     stop("Only 1 and 2 dimensional vectors supported")
-# }
-#
-
 
 
 
@@ -37,7 +24,7 @@ robust_dim <- function(x) {
 
 
 robust_ncol <- function(x) {
-  # not sure what the intended behavior should be for vectors or 1 dimensional arrays
+  # not sure what the behavior should be for vectors or 1 dimensional arrays
   if (is.null(d <- ncol(x))) {
     if (length(x))
       1L
@@ -85,7 +72,7 @@ is.scalar.integerish <- function(x)
   is.integerish(x, n = 1L)
 
 
-check_is.integerish <- function(x, n) {
+check.is.integerish <- function(x, n) {
   nm <- deparse(substitute(x))
   if(!(is.integerish(x, n))) {
     msg <- paste(nm, "must be an integer")
@@ -93,7 +80,6 @@ check_is.integerish <- function(x, n) {
       msg <- paste(msg, "of length", n)
     stop(msg, call. = FALSE)
   }
-
 }
 
 

@@ -15,7 +15,6 @@
 #' @return a vector of integers 1:nrow(x), safe for use in `for` loops and
 #'   vectorized equivalents.
 #' @export
-#' @family array-helpers
 #' @examples
 #' for (r in seq_along_rows(mtcars[1:4,]))
 #'   print(mtcars[r,])

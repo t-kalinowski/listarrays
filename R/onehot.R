@@ -22,7 +22,6 @@
 #' @export
 #' @seealso [keras::to_categorical]
 #' @rdname onehot
-#' @family array-helpers
 #'
 #' @examples
 #' if(require(zeallot)) {

@@ -38,7 +38,3 @@ if(require(zeallot)) {
     length(unique(c(l, ls))) == length(l))
 }
 }
-\seealso{
-Other array-helpers: \code{\link{onehot_with_decoder}},
-  \code{\link{seq_along_dim}}
-}

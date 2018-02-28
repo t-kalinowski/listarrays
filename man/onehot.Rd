@@ -79,7 +79,4 @@ onehot(paste(4:8), paste(4:8))
 }
 \seealso{
 \link[keras:to_categorical]{keras::to_categorical}
-
-Other array-helpers: \code{\link{seq_along_dim}},
-  \code{\link{shuffle_rows}}
 }

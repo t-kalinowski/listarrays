@@ -37,7 +37,3 @@ x <- 1:3
 identical(seq_along_rows(x), seq_along(x))
 
 }
-\seealso{
-Other array-helpers: \code{\link{onehot_with_decoder}},
-  \code{\link{shuffle_rows}}
-}
