@@ -6,11 +6,11 @@
 \alias{extract_cols}
 \title{Extract with \code{[} on a specified dimension}
 \usage{
-extract_dim(X, .dim, idx, drop = NULL)
+extract_dim(X, .dim, idx, drop = NULL, depth = Inf)
 
-extract_rows(X, idx, drop = NULL)
+extract_rows(X, idx, drop = NULL, depth = Inf)
 
-extract_cols(X, idx, drop = NULL)
+extract_cols(X, idx, drop = NULL, depth = Inf)
 }
 \arguments{
 \item{X}{Typically, an array, but any object with a \code{[} method is accepted
@@ -23,6 +23,11 @@ extract_cols(X, idx, drop = NULL)
 \item{drop}{Passed on to \code{[}. If \code{NULL} (the default), then drop is omitted
 from the argument, and the default is used (defaults to TRUE for most
 objects, including arrays)}
+
+\item{depth}{Scalar number, how many levels to recurse down. Set this if you
+want to explicit treat a list as a vector (that is, a one-dimentional
+array). (You can alternatively set dim attributes with \code{dim<-} on the list
+to prevent recursion)}
 }
 \description{
 Extract with \code{[} on a specified dimension

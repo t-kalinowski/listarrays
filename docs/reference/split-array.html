@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Split an array along a dimension — split_on_dim • purrrays</title>
+<title>Split an array along a dimension � split_on_dim • purrrays</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -84,22 +84,23 @@
     </div>
 
     
-    <p><code>split_along_dim(X, .dim)</code> is equivalent to
-<code>split_on_dim(X, seq_along_dim(X, .dim))</code></p>
+    <p><code>split_along_dim(X, .dim)</code> is equivalent to <code>split_on_dim(X, seq_along_dim(X, .dim))</code></p>
     
 
     <pre class="usage"><span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>dimnames</span>(<span class='no'>X</span>)<span class='kw'>[[</span><span class='no'>.dim</span>]] <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_dim</a></span>(<span class='no'>X</span>, <span class='no'>.dim</span>),
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_on_rows</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>rownames</span>(<span class='no'>X</span>) <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>split_on_rows</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>rownames</span>(<span class='no'>X</span>) <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_on_cols</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>colnames</span>(<span class='no'>X</span>) <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_cols</a></span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>split_on_cols</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>colnames</span>(<span class='no'>X</span>) <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_cols</a></span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>split_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_along_rows</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>split_along_rows</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_along_cols</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>split_along_cols</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -115,11 +116,20 @@ attribute is treated as a 1 dimensions array. Names of list are preserved.</p></
     </tr>
     <tr>
       <th>f</th>
-      <td><p>a vector or list of vectors. Must be the same length as the dimension being split. Passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code> (also, <code><a href='http://www.rdocumentation.org/packages/base/topics/interaction'>base::interaction()</a></code> if a list).</p></td>
+      <td><p>a vector or list of vectors. Must be the same length as the
+dimension being split. Passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code> (also,
+<code><a href='http://www.rdocumentation.org/packages/base/topics/interaction'>base::interaction()</a></code> if a list).</p></td>
     </tr>
     <tr>
       <th>drop</th>
       <td><p>passed on to <code>[</code>.</p></td>
+    </tr>
+    <tr>
+      <th>depth</th>
+      <td><p>Scalar number, how many levels to recurse down. Set this if you
+want to explicit treat a list as a vector (that is, a one-dimentional
+array). (You can alternatively set dim attributes with <code>dim&lt;-</code> on the list
+to prevent recursion)</p></td>
     </tr>
     <tr>
       <th>.keep_names</th>
