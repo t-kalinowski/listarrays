@@ -11,6 +11,10 @@
 #' @param drop Passed on to `[`. If `NULL` (the default), then drop is omitted
 #'   from the argument, and the default is used (defaults to TRUE for most
 #'   objects, including arrays)
+#' @param depth Scalar number, how many levels to recurse down. Set this if you
+#'   want to explicit treat a list as a vector (that is, a one-dimentional
+#'   array). (You can alternatively set dim attributes with `dim<-` on the list
+#'   to prevent recursion)
 #'
 #' @export
 #'
@@ -29,11 +33,11 @@
 #' X2
 #' Y2
 #' y2
-extract_dim <- function(X, .dim, idx, drop = NULL) {
+extract_dim <- function(X, .dim, idx, drop = NULL, depth = Inf) {
   stopifnot(is.scalar.integerish(.dim))
 
-  if(is.list(X) && is.null(dim(X)))
-    return(lapply(X, function(x) extract_dim(x, .dim, idx, drop = drop)))
+  if(is.list(X) && is.null(dim(X)) && depth > 0L)
+    return(lapply(X, function(x) extract_dim(x, .dim, idx, drop = drop, depth = depth - 1L)))
 
   expr <- extract_dim_chr_expr(X, .dim,  drop = drop)
   eval(parse(text = expr)[[1]])
@@ -42,13 +46,13 @@ extract_dim <- function(X, .dim, idx, drop = NULL) {
 
 #' @rdname extract_dim
 #' @export
-extract_rows <- function(X, idx, drop = NULL)
-  extract_dim(X, 1L, idx, drop = drop)
+extract_rows <- function(X, idx, drop = NULL, depth = Inf)
+  extract_dim(X, 1L, idx, drop = drop, depth = depth)
 
 #' @rdname extract_dim
 #' @export
-extract_cols <- function(X, idx, drop = NULL)
-  extract_dim(X, 2L, idx, drop = drop)
+extract_cols <- function(X, idx, drop = NULL, depth = Inf)
+  extract_dim(X, 2L, idx, drop = drop, depth = depth)
 
 
 
