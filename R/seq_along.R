@@ -1,6 +1,3 @@
-
-
-
 #' Sequence along a dimension
 #'
 #' @param x a dataframe, array or vector. For `seq_along_rows`, and
@@ -23,10 +20,17 @@
 #' identical(seq_along_rows(x), seq_along(x))
 #'
 #' @export
-seq_along_dim <- function(x, .dim) {
-  d <- dim(x) %||% dim(as.array(x))
-  seq_len( d[[.dim]] )
+seq_along_dim <- function(x, .dim)
+  seq_len(get_dim(x)[[.dim]])
+
+
+get_dim <- function(x) {
+  d <- dim(x) %||% length(x)
+  names(d) <- names(dimnames(x))
+  d
 }
+
+
 
 #' @rdname seq_along_dim
 #' @export

@@ -1,18 +1,65 @@
 
 
-# a more flexible and pipe-friendly version of dimnames<-
-# Compared to dimnames<-
+# a more flexible and pipe-friendly version of dimnames<- Compared to dimnames<-
 #
 # +  if passed a single character vector and the character vector is of length
 # dim(x), and .dim = NULL, then the names are assigned to the dimensions
 #
-# + allows you to set a single or just a few dimensions only, by specifying ".dim".
-# if setting just one, then nm can be either a character vector (or something coercible to character) and must be the same length as the dim being set. Alternatively, it can be a list which can be named, and in turn contains a list of character vectors.
+# + allows you to set a single or just a few dimensions only, by specifying
+# ".dim". if setting just one, then nm can be either a character vector (or
+# something coercible to character) and must be the same length as the dim being
+# set. Alternatively, it can be a list which can be named, and in turn contains
+# a list of character vectors.
 
 
+#' Set dimnames
+#'
+#' A more flexible and pipe-friendly version of `dimnames<-`.
+#'
+#' @param x an array
+#' @param nm A list or character vector.
+#' @param .dim a character vector or numeric vector or `NULL`
+#'
+#' @details The word "dimnames" is overloaded, in that it can refer to either
+#'   the names of the array axes (e.g, metric, timestep, channels), or it can
+#'   refer to the names of entries along a particular axes (e.g., date1, date2,
+#'   date3, ...). This function can be used to set either one (by passing `nm` a character vector and specifying `.dim` accordingly), or both at the same time (by passing a named list to `nm`).
+#'
+#'
+#' @return
+#' x, with dimnames
 #' @export
+#'
+#' @examples
+#' x <- array(1:8, 2:4)
+#'
+#' # to set axis names, leave .dim=NULL and pass a character vector
+#' dimnames(set_dimnames(x, c("a", "b", "c")))
+#'
+#' # to set names along a single axis, specify .dim
+#' dimnames(set_dimnames(x, c("a", "b", "c"), 2))
+#'
+#' # to set an axis name and names along the axis, pass a named list
+#' dimnames(set_dimnames(x, list(axis2 = c("a", "b", "c")), 2))
+#' dimnames(set_dimnames(x, list(axis2 = c("a", "b", "c"),
+#'                               axis3 = 1:4), .dim = 2:3))
+#'
+#' # if the array already has axis names, those are used when possible
+#' nx <- set_dimnames(x, paste0("axis", 1:3))
+#' dimnames(nx)
+#' dimnames(set_dimnames(nx, list(axis2 = c("x", "y", "z"))))
+#' dimnames(set_dimnames(nx, c("x", "y", "z"), .dim = "axis2"))
+#'
+#'
+#' # pass NULL to drop all dimnames, or just names along a single dimension
+#' nx2 <- set_dimnames(nx, c("x", "y", "z"), .dim = "axis2")
+#' dimnames(nx2)
+#' dimnames(set_dimnames(nx2, NULL))
+#' dimnames(set_dimnames(nx2, NULL, 2L))
 set_dimnames <- function(x, nm, .dim = NULL) {
-  if (is.list(nm))
+  if (is.null(nm))
+    return(drop_dimnames(x, .dim))
+  else if (is.list(nm))
     nm <- lapply(nm, as.character)
   else
     nm <- as.character(nm)
@@ -36,7 +83,6 @@ set_dimnames <- function(x, nm, .dim = NULL) {
         return(x)
 
       } else {
-        b()
         stopifnot(length(nm) == dim(x))
         if (!is.null(names(nm)))
           warning("Names supplied to `nm` are ignored")
@@ -81,15 +127,27 @@ set_dimnames <- function(x, nm, .dim = NULL) {
 } # end function definition
 
 
-#' @export
-get_dimnames <- function(x, .dim = NULL) {
+drop_dimnames <- function(x, .dim = NULL) {
   if(is.null(.dim))
-    dimnames(x)
-  else if (length(.dim)  > 1L)
-    dimnames(x)[.dim]
+    dimnames(x) <- NULL
   else
-    dimnames(x)[[.dim]]
+    for(d in .dim)
+      dimnames(x)[[d]] <- NULL
+
+    x
 }
+
+
+
+# ' @export
+# get_dimnames <- function(x, .dim = NULL) {
+#   if(is.null(.dim))
+#     dimnames(x)
+#   else if (length(.dim)  > 1L)
+#     dimnames(x)[.dim]
+#   else
+#     dimnames(x)[[.dim]]
+# }
 
 
 #' @export

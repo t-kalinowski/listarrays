@@ -37,11 +37,11 @@ robust_ncol <- function(x) {
 
 ndims <- function(x) length(dim(x) %||% 1L)
 
-
-get_dim <- function(x, n){
-  dx <- dim(x)[[n]]
-  dx
-}
+#
+# get_dim <- function(x, n){
+#   dx <- dim(x)[[n]]
+#   dx
+# }
 
 
 

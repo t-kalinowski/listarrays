@@ -1,6 +1,3 @@
-
-
-
 #' Split an array along a dimension
 #'
 #' `split_along_dim(X, .dim)` is equivalent to `split_on_dim(X, seq_along_dim(X,

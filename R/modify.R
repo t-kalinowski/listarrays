@@ -34,6 +34,8 @@ modify_along_dim <- function(X, .dim, .f, ...) {
     .f <- match.fun(.f)
 
 
+  if(is.character(.dim))
+    .dim <- match(.dim, names(get_dim(X)))
 
   names(.dim) <- paste0("idx", seq_along(.dim))
 

@@ -34,13 +34,17 @@
 #' Y2
 #' y2
 extract_dim <- function(X, .dim, idx, drop = NULL, depth = Inf) {
-  stopifnot(is.scalar.integerish(.dim))
 
   if(is.list(X) && is.null(dim(X)) && depth > 0L)
     return(lapply(X, function(x) extract_dim(x, .dim, idx, drop = drop, depth = depth - 1L)))
 
+  if(is.character(.dim))
+    .dim <- match(.dim, names(get_dim(X)))
+
+  stopifnot(is.scalar.integerish(.dim))
+
   expr <- extract_dim_chr_expr(X, .dim,  drop = drop)
-  eval(parse(text = expr)[[1]])
+  eval(parse(text = expr, keep.source = FALSE)[[1]])
 }
 
 
@@ -59,7 +63,7 @@ extract_cols <- function(X, idx, drop = NULL, depth = Inf)
 
 extract_dim_chr_expr <- function(X, .dim, drop = NULL,
                                      .ndims = ndims(X),
-                                     .idx_var = names(.dim) %||% paste0("idx", if(length(.dim) > 1L) .dim),
+                                     .idx_var = names(.dim) %||% paste0("idx", if(length(.dim) > 1L) seq_along(.dim)),
                                      .var_to_subset = deparse(substitute(X))) {
   force(.var_to_subset)
 
