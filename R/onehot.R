@@ -117,8 +117,8 @@ onehot <- function(y, order = NULL, named = TRUE) {
 
 #' @export
 #' @rdname onehot
-decode_onehot <- function(Y, classes = colnames(Y)) {
-  decode <- onehot_decoder(classes, n_classes = ncol(Y))
+decode_onehot <- function(Y, classes = colnames(Y), n_classes = length(classes)) {
+  decode <- onehot_decoder(classes = classes, n_classes = n_classes)
   decode(Y)
 }
 

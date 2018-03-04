@@ -1,6 +1,4 @@
 
-
-
 #' Shuffle along the first dimension multiple arrays in sync
 #'
 #' @param ... arrays of various dimensions (vectors and data.frames OK too)
@@ -50,4 +48,3 @@ shuffle_rows <- function(..., in_sync = TRUE) {
 
   l
 }
-
