@@ -3,15 +3,15 @@
 purrrays
 ========
 
-purrays is designed to make working with R arrays easier, particularly multi-dimensional arrays. Purrays has no dependancies, but it is inspired by and designed to work well with the packages purrr, magrittr, and zeallot.
+Purrrays is designed to make working with R arrays easier, particularly arrays with more than two dimensions arrays. Purrrays has no dependancies, but it is inspired by and designed to work well with the packages purrr, magrittr, and zeallot.
 
 Installation
 ------------
 
-You can install the released version of purrrays from [CRAN](https://CRAN.R-project.org) with:
+purrrays is not on CRAN yet. You can install the development version from github with
 
 ``` r
-install.packages("purrrays")
+devtools::install_github("t-kalinowski/purrrays")
 ```
 
 The package provides:
@@ -30,7 +30,7 @@ The package provides:
 
 -   Many of the functions are agnostic about the number of dimensions in the array passed. In practice, this means that you can use the same code path for arrays of various sizes. For example, to extract `idx` on the 1st dimension, you can use `extract_rows(X, idx)`, and it will work for an array of any number of dimensions. Contrast this with the base alternative `X[idx,,]`, where you have to modify the number of commas `,` to match the number of dimensions in `X`.
 
--   Many of the functions work recursively if provided a list of arrays. This is particularly useful in combination with `` zeallot::`%<-%` `` multi-assignment operator, which allows for patterns like:
+-   Many of the functions work recursively if provided a list of arrays. This is particularly useful in combination with `` zeallot::`%<-%`() `` multi-assignment operator, which allows for patterns like:
 
     ``` r
     c(X, Y) %<-% shuffle_rows(X, Y, in_sync = TRUE)
