@@ -52,38 +52,38 @@ seq_along_cols <- function(x) seq_along_dim(x, 2L)
 
 
 
-#' reverse order along a dimension
+#' #' reverse order along a dimension
+#' #'
+# ' #' @param x a dataframe, array, or vector, or anything with a `[` method
+#' #'   defined. In the case of a vector, this is equivalent to `rev`
+# ' #' @param .dim a scalar integer. Which dimension to reverse.
+#' #'
+# ' #' @export
+#' reverse_dim <- function(x, .dim) {
+#'   if(dim_len <- robust_dim(x)[[.dim]])
+#'     extract_dim(x, .dim, dim_len:1L, drop = FALSE)
+#'   else
+#'     x
+#' }
 #'
-#' @param x a dataframe, array, or vector, or anything with a `[` method
-#'   defined. In the case of a vector, this is equivalent to `rev`
-#' @param .dim a scalar integer. Which dimension to reverse.
+# ' #' @rdname reverse_dim
+# ' #' @export
+#' reverse_rows <- function(x) {
+#'   if(nrows <- robust_nrow(x))
+#'     extract_rows(x, nrows:1L, drop = FALSE)
+#'   else
+#'     x
+#' }
 #'
-#' @export
-reverse_dim <- function(x, .dim) {
-  if(dim_len <- robust_dim(x)[[.dim]])
-    extract_dim(x, .dim, dim_len:1L, drop = FALSE)
-  else
-    x
-}
-
-#' @rdname reverse_dim
-#' @export
-reverse_rows <- function(x) {
-  if(nrows <- robust_nrow(x))
-    extract_rows(x, nrows:1L, drop = FALSE)
-  else
-    x
-}
-
-
-#' @export
-#' @rdname reverse_dim
-reverse_cols <- function(x) {
-  # not sure what the intended behavior should be for vectors or 1 dimensional arrays
-  if(ncols <- robust_ncol(x))
-    extract_cols(x, ncols:1L, drop = FALSE)
-  else
-    x
-}
+#'
+# ' #' @export
+# ' #' @rdname reverse_dim
+#' reverse_cols <- function(x) {
+#'   # not sure what the intended behavior should be for vectors or 1 dimensional arrays
+#'   if(ncols <- robust_ncol(x))
+#'     extract_cols(x, ncols:1L, drop = FALSE)
+#'   else
+#'     x
+#' }
 
 
