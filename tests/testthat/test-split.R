@@ -19,3 +19,19 @@ test_that("split_on_dim", {
   }
 
 })
+
+
+test_that("split* works recursively", {
+
+  x1 <- 1:4
+  x2 <- matrix(1:20, nrow = 4, ncol = 5)
+  x3 <- array(1:840, 4:7)
+
+  l <- split_along_rows(list(x1, x2, x3))
+
+  for (i in seq_along(l)) {
+    expect_length(l[[i]], 4)
+  }
+
+})
+
