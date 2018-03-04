@@ -50,3 +50,30 @@ test_that("setting dimnames works", {
 
 
 })
+
+
+
+test_that("specifying `.dim` by name works", {
+
+  x <- provideDimnames(array(1:8, 2:4))
+  x <- set_dimnames(x, paste0("axis", 1:3))
+
+  expect_identical(extract_dim(x, "axis2", 1),
+                   extract_dim(x, 2L, 1))
+
+  f <- c(TRUE, TRUE, FALSE)
+  expect_identical(split_on_dim(x, "axis2", f),
+                   split_on_dim(x, 2L, f))
+
+  expect_identical(split_along_dim(x, "axis2"),
+                   split_along_dim(x, 2L))
+
+  expect_identical(modify_along_dim(x, "axis2", function(x) x + 100),
+                   modify_along_dim(x, 2L,      function(x) x + 100))
+
+  xx <- rep_len(list(x), 5)
+  expect_identical(bind_on_dim(xx, "axis2"),
+                   bind_on_dim(xx, 2L))
+
+
+})

@@ -55,6 +55,11 @@
 bind_as_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
   check.is.integerish(.dim, 1L)
 
+  # TODO, .dim should accept a named vector, in which case it sets a new dimname
+  # e.g., .dim = c(channels = 3)
+  # if(!is.null(names(.dim)))
+  #   new_dimname <- names(.dim)
+
   stopifnot(is.list(list_of_arrays))
 
   for (i in seq_along(list_of_arrays))
@@ -97,13 +102,21 @@ bind_as_cols <- function(list_of_arrays, .keep_names = TRUE)
 #' @export
 bind_on_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
 
-  check.is.integerish(.dim, 1L)
   stopifnot(is.list(list_of_arrays))
 
-  all_dims <- lapply(list_of_arrays, robust_dim)
+  if(is.character(.dim)) {
+    all_axis_names <- lapply(list_of_arrays, function(x) names(dimnames(x)))
+    stopifnot(length(unique(all_axis_names)) == 1L)
+    axis_names <- all_axis_names[[1]]
+    .dim <- match(.dim, axis_names)
+  }
+  check.is.integerish(.dim, 1L)
+
+
+  all_dims <- lapply(list_of_arrays, function(x) dim(x) %||% length(x))
 
   base_dim <- unique(lapply(all_dims, function(d) d[-.dim]))
-  stopifnot(length(base_dim) == 1)
+  stopifnot(length(base_dim) == 1L)
   base_dim <- base_dim[[1]]
 
   n_entries_per_array <- vapply(all_dims, function(d) d[.dim], 1L)
@@ -124,7 +137,8 @@ bind_on_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
   }
 
   if(.keep_names && !is.null(names(list_of_arrays)))
-    dimnames(X)[[.dim]] <- rep(names(list_of_arrays), times =  n_entries_per_array)
+    dimnames(X)[[.dim]] <- rep(names(list_of_arrays),
+                               times = n_entries_per_array)
 
   X
 }

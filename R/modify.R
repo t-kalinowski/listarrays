@@ -37,6 +37,8 @@ modify_along_dim <- function(X, .dim, .f, ...) {
   if(is.character(.dim))
     .dim <- match(.dim, names(get_dim(X)))
 
+  stopifnot(is.integerish(.dim))
+
   names(.dim) <- paste0("idx", seq_along(.dim))
 
   Xe <- extract_dim_chr_expr( X, .dim,
