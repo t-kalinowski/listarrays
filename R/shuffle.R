@@ -36,7 +36,7 @@ shuffle_rows <- function(..., in_sync = TRUE) {
 
   n <- length(l)
 
-  n_cases <- unique(lapply(l, robust_nrow)) # nrow, or if 1d vec length
+  n_cases <- unique(lapply(l, function(x) nrow(x) %||% length(x)))
   stopifnot(length(n_cases) == 1L)
   n_cases <- n_cases[[1]]
 
@@ -50,3 +50,4 @@ shuffle_rows <- function(..., in_sync = TRUE) {
 
   l
 }
+

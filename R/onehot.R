@@ -118,7 +118,7 @@ onehot <- function(y, order = NULL, named = TRUE) {
 #' @export
 #' @rdname onehot
 decode_onehot <- function(Y, classes = colnames(Y)) {
-  decode <- onehot_decoder(classes, n_classes = robust_ncol(Y))
+  decode <- onehot_decoder(classes, n_classes = ncol(Y))
   decode(Y)
 }
 
@@ -149,3 +149,5 @@ onehot_decoder <- function(Y, classes = colnames(Y), n_classes = length(classes)
       classes[robust_max.col(Y)]
   }
 }
+
+

@@ -1,48 +1,5 @@
 
-
-
-
-
-
-# avoiding automatically calling as.array, since this is going to be used on
-# dataframes and thats expensive.
-robust_nrow <- function(x) {
-  if(is.null(d <- nrow(x)))
-    length(x)
-  else
-    d
-}
-
-
-robust_dim <- function(x) {
-  if(is.null(d <- dim(x)))
-    length(x)
-  else
-    d
-}
-
-
-
-robust_ncol <- function(x) {
-  # not sure what the behavior should be for vectors or 1 dimensional arrays
-  if (is.null(d <- ncol(x))) {
-    if (length(x))
-      1L
-    else
-      0L
-  } else
-    d
-}
-
-
 ndims <- function(x) length(dim(x) %||% 1L)
-
-#
-# get_dim <- function(x, n){
-#   dx <- dim(x)[[n]]
-#   dx
-# }
-
 
 
 `%||%` <- function (x, y) {
@@ -51,8 +8,6 @@ ndims <- function(x) length(dim(x) %||% 1L)
   else
     x
 }
-
-
 
 
 is.integerish <- function(x, n = NULL) {
