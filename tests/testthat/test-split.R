@@ -35,3 +35,27 @@ test_that("split* works recursively", {
 
 })
 
+test_that("split_on f inputs", {
+
+  x <- array(1:840, 4:7)
+
+  # test a scalar integer
+  l <- split_on_rows(x, 4)
+  expect_length(l, 4L)
+  for (i in seq_along(l))
+    expect_equal(dim(l[[i]]), 5:7)
+
+  l <- split_on_rows(x, 4, drop = FALSE)
+  expect_length(l, 4L)
+  for (i in seq_along(l))
+    expect_equal(dim(l[[i]]), c(1, 5:7))
+
+  # test a vector of proportions
+  x <- bind_as_rows(rep_len(list(array(1:8, 2:4)), 10))
+  l <- split_on_rows(x, c(0.2, 0.2, 0.6), drop = FALSE)
+  expect_length(l, 3L)
+  expect_equal(nrow(l[[1]]), 2L)
+  expect_equal(nrow(l[[2]]), 2L)
+  expect_equal(nrow(l[[3]]), 6L)
+
+})

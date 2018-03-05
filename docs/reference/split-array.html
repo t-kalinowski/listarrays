@@ -116,9 +116,21 @@ attribute is treated as a 1 dimensions array. Names of list are preserved.</p></
     </tr>
     <tr>
       <th>f</th>
-      <td><p>a vector or list of vectors. Must be the same length as the
-dimension being split. Passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code> (also,
-<code><a href='http://www.rdocumentation.org/packages/base/topics/interaction'>base::interaction()</a></code> if a list).</p></td>
+      <td><p>Specify how to split the dimension.</p><dl class='dl-horizontal'>
+
+<dt>character, integer or factor</dt><dd><p>passed on to
+<code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Must be the same length as the dimention being split.</p></dd>
+
+<dt>a list of vectors</dt><dd><p>Passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/interaction'>base::interaction()</a></code> then
+<code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Each vector in the list must be the same length as the
+dimention being split.</p></dd>
+
+<dt>a scalar integer</dt><dd><p>used to split into that many groups of equal size</p></dd>
+
+<dt>a numeric vector where <code>all( f &lt; 0 )</code> </dt><dd><p>used to determin the relative
+proportions of the group being split. <code>sum(f)</code> must be <code>1</code>. For example
+<code>c(0.2, 0.2, 0.6)</code> will result approximatly a 20%-20%-60% split.</p></dd>
+</dl></td>
     </tr>
     <tr>
       <th>drop</th>

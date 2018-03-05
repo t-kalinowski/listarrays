@@ -91,7 +91,7 @@
 
 <span class='fu'>onehot</span>(<span class='no'>y</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>named</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>decode_onehot</span>(<span class='no'>Y</span>, <span class='kw'>classes</span> <span class='kw'>=</span> <span class='fu'>colnames</span>(<span class='no'>Y</span>))
+<span class='fu'>decode_onehot</span>(<span class='no'>Y</span>, <span class='kw'>classes</span> <span class='kw'>=</span> <span class='fu'>colnames</span>(<span class='no'>Y</span>), <span class='kw'>n_classes</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='no'>classes</span>))
 
 <span class='fu'>onehot_decoder</span>(<span class='no'>Y</span>, <span class='kw'>classes</span> <span class='kw'>=</span> <span class='fu'>colnames</span>(<span class='no'>Y</span>), <span class='kw'>n_classes</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='no'>classes</span>))</pre>
     
@@ -156,12 +156,12 @@ dimensions if the passed in <code>Y</code> is missing <code>dim()</code> attribu
 
 <span class='co'># more peicemeal functions</span>
 <span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'>onehot</span>(<span class='no'>y</span>)
-<span class='fu'>decode_onehot</span>(<span class='no'>Y</span>)</div><div class='output co'>#&gt; [1] 1 2 3 4</div><div class='input'>
+<span class='fu'>decode_onehot</span>(<span class='no'>Y</span>)</div><div class='output co'>#&gt; [1] "a" "b" "c" "d"</div><div class='input'>
 <span class='co'># if you need to decode a matrix that lost colnames,</span>
 <span class='co'># make your own decoder that remembers classes</span>
 <span class='no'>my_decode</span> <span class='kw'>&lt;-</span> <span class='fu'>onehot_decoder</span>(<span class='no'>Y</span>)
 <span class='fu'>colnames</span>(<span class='no'>Y</span>) <span class='kw'>&lt;-</span> <span class='kw'>NULL</span>
-<span class='fu'>my_decode</span>(<span class='no'>Y</span>)</div><div class='output co'>#&gt; [1] "a" "b" "c" "d"</div><div class='input'><span class='fu'>decode_onehot</span>(<span class='no'>Y</span>)</div><div class='output co'>#&gt; [1] 1 2 3 4</div><div class='input'>
+<span class='fu'>my_decode</span>(<span class='no'>Y</span>)</div><div class='output co'>#&gt; [1] "a" "b" "c" "d"</div><div class='input'><span class='fu'>decode_onehot</span>(<span class='no'>Y</span>)</div><div class='output co'>#&gt; <span class='error'>Error: identical(ncol(m), n_classes) is not TRUE</span></div><div class='input'>
 <span class='co'># factor and numeric vectors also accepted</span>
 <span class='fu'>onehot</span>(<span class='fu'>factor</span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>4</span>]))</div><div class='output co'>#&gt;      a b c d
 #&gt; [1,] 1 0 0 0

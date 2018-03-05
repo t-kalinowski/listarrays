@@ -6,9 +6,21 @@
 #' @param X an array, or list of arrays. Atomic vectors without a dimension
 #'   attribute is treated as a 1 dimensions array. Names of list are preserved.
 #' @param .dim a scalar integer, specifying which dimension to split along
-#' @param f a vector or list of vectors. Must be the same length as the
-#'   dimension being split. Passed on to `base::split()` (also,
-#'   `base::interaction()` if a list).
+#' @param f Specify how to split the dimension. \describe{
+#'
+#'    \item{character, integer or factor}{passed on to
+#'   `base::split()`. Must be the same length as the dimention being split.}
+#'
+#'   \item{a list of vectors}{Passed on to `base::interaction()` then
+#'   `base::split()`. Each vector in the list must be the same length as the
+#'   dimention being split.}
+#'
+#'   \item{a scalar integer}{used to split into that many groups of equal size}
+#'
+#'   \item{a numeric vector where \code{all( f < 0 )} }{used to determin the relative
+#'   proportions of the group being split. \code{sum(f)} must be \code{1}. For example
+#'   \code{c(0.2, 0.2, 0.6)} will result approximatly a 20\%-20\%-60\% split.}
+#' }
 #' @param drop passed on to `[`.
 #' @param .keep_names Logical. If `TRUE` then if the dim being split along has
 #'   dimnames, then the returned list has those names.
@@ -40,6 +52,16 @@ split_on_dim <- function(X, .dim,
 
 
   id <- seq_along_dim(X, .dim)
+
+  if(is.scalar.integerish(f))
+    f <- cut(id, f, labels = paste0("grp", seq_len(f)))
+  else if (all(f < 1)) {
+    stopifnot(sum(f) == 1)
+    f <- cut(id, c(0, cumsum(f) * length(id)),
+          labels = paste0("grp", seq_along(f)))
+  }
+
+
   if (!identical(length(id), length(f)))
     stop("`f` must be the same length as the dimension being split on.")
 
