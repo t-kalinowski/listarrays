@@ -109,8 +109,52 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
 #' @rdname split-array
 #' @export
 split_along_rows <-
-  function(X, drop = NULL, .keep_names = TRUE, depth = Inf)
-    split_along_dim(X, 1L, drop = drop, .keep_names = .keep_names, depth = depth)
+  function(X, drop = NULL, .keep_names = TRUE, depth = Inf) {
+    out <- unlist(apply(X, 1, list), recursive = FALSE)
+    # lapply(out, drop_dimnames)
+  }
+
+# split_along_dim(X, 1L, drop = drop, .keep_names = .keep_names, depth = depth)
+
+# > dim(X)
+# [1] 368000    128      2
+# tl1 <- system.time(rl1 <- unlist(apply(X, 1, list), recursive = FALSE) %>% lapply(drop_dimnames))
+# tl2 <- system.time(rl2 <-  split_along_rows(X))
+# > identical(rl1, rl2)
+# [1] TRUE
+# > tl1
+# user  system elapsed
+# 3.027   0.297   3.301
+# > tl2
+# user  system elapsed
+# 55.272   0.297  55.194
+
+# it's because `[` is so slow for arrays
+# Xa <- test$X
+# Xm <- Xa
+# dim(Xm) <- c(dim(X)[1], prod(dim(X)[-1]))
+# tXm <- t(Xm)
+# tXa <- Xa
+# dim(tXa) <- rev(dim(Xa))
+#
+# library(microbenchmark)
+# autoplot(microbenchmark(
+#   Xa[6,,],
+#   Xm[6,],
+#   tXm[,6],
+#   tXa[,,6]
+# ))
+# Unit: microseconds
+# expr        min        lq    mean  median     uq    max neval cld
+# Xa[6, , ]   3.317 3.6125 4.10827 3.8530 4.0535 16.036   100   c
+# Xm[6, ]     1.460 1.5690 2.07374 1.8020 1.8850 16.223   100 a
+# tXm[, 6]    1.490 1.5720 1.67813 1.6185 1.6955  2.747   100 a
+# tXa[, , 6]  2.210 2.4320 2.62682 2.4965 2.6385  5.238   100  b
+#
+#
+#apply() forces things into a matrix, then restores dim (maybe) after looping
+#with f() on all elements
+
 
 #' @rdname split-array
 #' @export
