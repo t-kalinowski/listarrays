@@ -113,18 +113,20 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
     # due to F style (column major) ordering of arrays.
     # aperm() has a very fast strided slice in C
     X <- aperm(X, c(2:length(dim(X)), 1L))
-    # dim(X) <- c(prod(dim(X)[-length(dim(X))]), dim(X)[length(dim(X))])
     .dim <- length(dim(X))
   }
 
   expr <- extract_dim_chr_expr(X, .dim, .idx_var = "i",
                                drop = drop, .var_to_subset = "Xin")
 
-  # expr <- paste("array(", expr, ", c(256, 4))")
-
   expr <- parse(text = expr)[[1]]
 
   out <- lapply(seq_along_dim(X, .dim), function(i, Xin) eval(expr), Xin = X)
+
+  # out <- vector("list", dim(X)[.dim])
+  # for (i in seq_along_dim(X, .dim))
+  #   out[[i]] <- eval(expr)
+
 
   if (isTRUE(.keep_names) && !is.null(nms <- dimnames(X)[[.dim]]))
     names(out) <- nms

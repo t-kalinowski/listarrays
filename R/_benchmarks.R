@@ -191,6 +191,7 @@ library(purrrays)
 
 library(microbenchmark)
 library(ggplot2)
+
 library(purrrays)
 
 
@@ -200,8 +201,10 @@ d <- c(1e6, 256, 4)
 
 x <- array(1:prod(d), d)
 
-(t1 <- system.time(slp <- split_along_rows(x)))
-(t2 <- system.time(sla <- unlist(apply(x, 1L, list), recursive = FALSE)))
+gc()
+(t1 <- system.time(split_along_rows(x)))
+gc()
+(t2 <- system.time(unlist(apply(x, 1L, list), recursive = FALSE)))
 ### massive performance improvement, but still not faster than base::apply...
 # "
 # > (t1 <- system.time(slp <- split_along_rows(x)))
