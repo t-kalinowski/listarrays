@@ -51,6 +51,11 @@ split_on_dim <- function(X, .dim,
     return(lapply(X, function(x) split_on_dim(x, .dim, f = f, drop = drop, depth = depth - 1L)))
 
 
+  if(.dim == 1 && dim(X)[1L] > 500L) {
+    X <- aperm(X, c(2:length(dim(X)), 1L))
+    .dim <- length(dim(X))
+  }
+
   id <- seq_along_dim(X, .dim)
 
   if(is.scalar.integerish(f))
@@ -96,10 +101,33 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
       split_along_dim(x, .dim, drop = drop, .keep_names = .keep_names, depth = depth - 1L)))
 
 
-  out <- lapply(seq_along_dim(X, .dim),
-                function(i)
-                  extract_dim(X, .dim, i, drop = drop, depth = 0L))
+  if(.dim == 1 && length(dim(X)) >= 3L && dim(X)[1L] > 500L) {
+    # subsetting on first index is oom slower than last index for large arrays
+    # due to F style (column major) ordering of arrays.
+    # aperm has a very fast strided slice in C
+    X <- aperm(X, c(2:length(dim(X)), 1L))
+    .dim <- length(dim(X))
+  }
 
+  expr <- extract_dim_chr_expr(X, .dim, .idx_var = "i", drop = drop)
+  expr <- parse(text = expr)[[1]]
+
+  # out <- vector("list", dim(X)[.dim])
+  # # browser()
+  #
+  # for (i in seq_along_dim(X, .dim)) {
+  #   # out[[i]] <- X[,,i]
+  #   out[[i]] <- eval(expr)
+  # }
+
+  out <- lapply(seq_along_dim(X, .dim),
+                function(i) eval(expr))
+
+
+  # out <- lapply(seq_along_dim(X, .dim),
+  #               function(i)
+  #                 extract_dim(X, .dim, i, drop = drop, depth = 0L))
+  #
   if (isTRUE(.keep_names) && !is.null(nms <- dimnames(X)[[.dim]]))
     names(out) <- nms
 
@@ -110,11 +138,14 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
 #' @export
 split_along_rows <-
   function(X, drop = NULL, .keep_names = TRUE, depth = Inf) {
-    out <- unlist(apply(X, 1, list), recursive = FALSE)
+    split_along_dim(X, 1L, drop = drop, .keep_names = .keep_names, depth = depth)
+    # out <- unlist(apply(X, 1, list), recursive = FALSE)
     # lapply(out, drop_dimnames)
+    # out
   }
 
-# split_along_dim(X, 1L, drop = drop, .keep_names = .keep_names, depth = depth)
+
+
 
 # > dim(X)
 # [1] 368000    128      2
