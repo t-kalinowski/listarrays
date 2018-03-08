@@ -1,9 +1,5 @@
 #
 #
-# # named dim names, so that things like this work
-# seq_along_dim(X, "channels")
-# seq_along_dim(X, "timesteps")
-# seq_along_dim(X, "samples")
 #
 #
 # split_on_rows (f = )
