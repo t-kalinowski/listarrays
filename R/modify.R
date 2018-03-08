@@ -48,14 +48,21 @@ modify_along_dim <- function(X, .dim, .f, ...) {
   oXe <- paste0("o", Xe)
   oX <- X
 
+  X <- array(dim = dim(X), dimnames = dimnames(X))
+  # allow for different return types,
+  # e.g, double in -> integer out
+
   expr <- parse(text = paste0(Xe, " <- .f(", oXe, ", ...)"))[[1]]
 
   # consider replacing this with an iterator from package:arrangements
   # or a hand-crafted generator function
-  combs <- as.list(do.call(
+  dims <- dim(X)[.dim]
+  names(dims) <- names(.dim)
+
+  combs <- do.call(
     function(...) expand.grid(..., KEEP.OUT.ATTRS = FALSE),
-    lapply(.dim, seq_len)
-  ))
+    lapply(dims, seq_len)
+  )
 
   for (r in seq_along_rows(combs))
     eval(expr)
@@ -73,3 +80,27 @@ modify_along_rows <- function(X, .f, ...)
 #' @rdname modify_along_dim
 modify_along_cols <- function(X, .f, ...)
   modify_along_dim(X, 2L, .f, ...)
+
+
+
+## This is with new, apply-based version of split_along_rows
+# > dim(Y)
+# [1] 368000     23
+# > t1 <- system.time(r1 <- t(apply(Y, 1, sort.list, decreasing = TRUE)))
+# > t2 <- system.time(r2 <- modify_along_rows(Y, sort.list, decreasing = TRUE))
+# > t3 <- system.time(r3 <- split_along_rows(Y) %>% lapply(sort.list, decreasing = TRUE) %>% bind_as_rows)
+# > identical(r1, r2)
+# [1] TRUE
+# > identical(r1, r3)
+# [1] TRUE
+# > str(r1)
+# int [1:368000, 1:23] 7 5 15 20 8 16 12 20 18 14 ...
+# > t1
+# user  system elapsed
+# 7.269   0.035   7.255
+# > t2
+# user  system elapsed
+# 12.166   0.031  12.114
+# > t3
+# user  system elapsed
+# 10.236   0.058  10.227
