@@ -274,6 +274,13 @@ x <- array(seq_len(prod(d)), d)
 (tas <- system.time(sa <- split_along_dim(aperm(x, c(2:3, 1)), 3)))
 
 
+
+as_matrix_and_construct_array <- function()
+
+
+
+
+
 # "
 # > (ta_base <- system.time(xa <- aperm(x, c(2:3, 1))))
 #    user  system elapsed

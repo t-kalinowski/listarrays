@@ -75,7 +75,16 @@ split_on_dim <- function(X, .dim,
   expr <- parse(text = expr)[[1]]
 
   l <- split(id, f)
-  lapply(l, function(idx) eval(expr))
+  # lapply(l, function(idx) eval(expr))
+
+  out <- vector("list", length(l))
+  for(i in seq_along(l)) {
+    idx <- l[[i]]
+    out[[i]] <- eval(expr)
+  }
+
+  names(out) <- names(l)
+  out
 }
 
 #' @rdname split-array
@@ -117,15 +126,15 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
   }
 
   expr <- extract_dim_chr_expr(X, .dim, .idx_var = "i",
-                               drop = drop, .var_to_subset = "Xin")
+                               drop = drop, .var_to_subset = "X")
 
   expr <- parse(text = expr)[[1]]
 
-  out <- lapply(seq_along_dim(X, .dim), function(i, Xin) eval(expr), Xin = X)
+  # out <- lapply(seq_along_dim(X, .dim), function(i, Xin) eval(expr), Xin = X)
 
-  # out <- vector("list", dim(X)[.dim])
-  # for (i in seq_along_dim(X, .dim))
-  #   out[[i]] <- eval(expr)
+  out <- vector("list", get_dim(X)[.dim])
+  for (i in seq_along_dim(X, .dim))
+    out[[i]] <- eval(expr)
 
 
   if (isTRUE(.keep_names) && !is.null(nms <- dimnames(X)[[.dim]]))
