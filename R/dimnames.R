@@ -23,12 +23,15 @@
 #' @details The word "dimnames" is overloaded, in that it can refer to either
 #'   the names of the array axes (e.g, metric, timestep, channels), or it can
 #'   refer to the names of entries along a particular axes (e.g., date1, date2,
-#'   date3, ...). This function can be used to set either one (by passing `nm` a character vector and specifying `.dim` accordingly), or both at the same time (by passing a named list to `nm`).
+#'   date3, ...). This function can be used to set either one (by passing `nm` a
+#'   character vector and specifying `.dim` accordingly), or both at the same
+#'   time (by passing a named list to `nm`).
 #'
 #'
 #' @return
 #' x, with dimnames
 #' @export
+#' @importFrom utils modifyList
 #'
 #' @examples
 #' x <- array(1:8, 2:4)
@@ -127,6 +130,7 @@ set_dimnames <- function(x, nm, .dim = NULL) {
 } # end function definition
 
 
+
 drop_dimnames <- function(x, .dim = NULL) {
   if(is.null(.dim))
     dimnames(x) <- NULL
@@ -150,17 +154,28 @@ drop_dimnames <- function(x, .dim = NULL) {
 # }
 
 
+#' Pipe friendly `dim<-`, with option to pad to necessary length
+#'
+#' @param x A vector to set dimensions on
+#' @param .dim The desired dimensions
+#' @param pad The value to pad the vector with. `NULL` (the default) performs no padding.
+#' @param verbose Whether to emit a message if padding. By default, `TRUE`.
+#'
+#' @return Object with dimensions set
 #' @export
-set_dim <- function(x,
-                    .dim,
-                    pad = NA,
-                    verbose = TRUE) {
+#'
+#' @examples
+#' set_dim(1:10, c(2, 5))
+#' try( set_dim(1:7, c(2, 5)) ) # error by default, just like `dim<-`
+#'      set_dim(1:7, c(2, 5), pad = 99)
+set_dim <- function(x, .dim, pad = NULL, verbose = TRUE) {
   if (!is.null(pad) && !identical(length(x), needed_len <- prod(.dim))) {
+    stopifnot(length(pad) == 1)
     if (verbose)
     message("Padding vector with ", pad, "s",
             " from length ", length(x), " to length ", needed_len)
     # expanding length of vector to ")
-    length(x) <- needed_len
+    x <- c(x, rep_len(pad, needed_len - length(x)))
   }
 
   dim(x) <- .dim
