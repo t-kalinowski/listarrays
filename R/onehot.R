@@ -117,7 +117,8 @@ onehot <- function(y, order = NULL, named = TRUE) {
 
 #' @export
 #' @rdname onehot
-decode_onehot <- function(Y, classes = colnames(Y), n_classes = length(classes)) {
+decode_onehot <- function(Y, classes = colnames(Y), n_classes =  ncol(Y) %||% length(classes)) {
+  # browser()
   decode <- onehot_decoder(classes = classes, n_classes = n_classes)
   decode(Y)
 }
@@ -126,28 +127,28 @@ decode_onehot <- function(Y, classes = colnames(Y), n_classes = length(classes))
 #' @rdname onehot
 onehot_decoder <- function(Y, classes = colnames(Y), n_classes = length(classes)) {
   force(classes)
-  force(n_classes)
+  n_classes <- as.integer(n_classes)
   rm(Y)
 
-  robust_max.col <- function(m) {
-    if (is.matrix(m)) {
-      stopifnot(identical(ncol(m), n_classes))
-      max.col(m)
-    } else {
-      # dim was probably dropped by [, drop = TRUE]
-      stopifnot(identical(length(m), n_classes))
-      which.max(m)
-    }
-  }
+  if(n_classes <= 0L || is.na(n_classes))
+    stop("`n_classes` must be a scalar integer greater than 0")
 
+  robust_max.col <- function(m) {
+    if (is.matrix(m))
+      stopifnot(identical(ncol(m), n_classes))
+    else { # dim was probably dropped by [, drop = TRUE]
+      if (length(m) %% n_classes)
+        stop("length(Y) must be a multiple of n_classes, ", n_classes,
+             ", not", length(m))
+      dim(m) <- c(length(m) %/% n_classes, n_classes)
+    }
+
+    max.col(m)
+  }
 
   if (is.null(classes)) {
-    function(Y)
-      robust_max.col(Y)
+    function(Y) robust_max.col(Y)
   } else {
-    function(Y)
-      classes[robust_max.col(Y)]
+    function(Y) classes[robust_max.col(Y)]
   }
 }
-
-
