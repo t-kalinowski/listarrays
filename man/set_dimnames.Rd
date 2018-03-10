@@ -23,7 +23,9 @@ A more flexible and pipe-friendly version of \code{dimnames<-}.
 The word "dimnames" is overloaded, in that it can refer to either
 the names of the array axes (e.g, metric, timestep, channels), or it can
 refer to the names of entries along a particular axes (e.g., date1, date2,
-date3, ...). This function can be used to set either one (by passing \code{nm} a character vector and specifying \code{.dim} accordingly), or both at the same time (by passing a named list to \code{nm}).
+date3, ...). This function can be used to set either one (by passing \code{nm} a
+character vector and specifying \code{.dim} accordingly), or both at the same
+time (by passing a named list to \code{nm}).
 }
 \examples{
 x <- array(1:8, 2:4)

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sequence along a dimension — seq_along_dim • purrrays</title>
+<title>Pipe friendly <code>dim&lt;-</code>, with option to pad to necessary length — set_dim • purrrays</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Sequence along a dimension — seq_along_dim" />
+<meta property="og:title" content="Pipe friendly <code>dim&lt;-</code>, with option to pad to necessary length — set_dim" />
 
-<meta property="og:description" content="Sequence along a dimension" />
+<meta property="og:description" content="Pipe friendly dim&lt;-, with option to pad to necessary length" />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -86,56 +86,48 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sequence along a dimension</h1>
+    <h1>Pipe friendly <code>dim&lt;-</code>, with option to pad to necessary length</h1>
     </div>
 
     
-    <p>Sequence along a dimension</p>
+    <p>Pipe friendly <code>dim&lt;-</code>, with option to pad to necessary length</p>
     
 
-    <pre class="usage"><span class='fu'>seq_along_dim</span>(<span class='no'>x</span>, <span class='no'>.dim</span>)
-
-<span class='fu'>seq_along_rows</span>(<span class='no'>x</span>)
-
-<span class='fu'>seq_along_cols</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>set_dim</span>(<span class='no'>x</span>, <span class='no'>.dim</span>, <span class='kw'>pad</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a dataframe, array or vector. For <code>seq_along_rows</code>, and
-<code>seq_along_cols</code> sequence along the first and second dimensions,
-respectively. Objects supplied are coerced with <code>as.array</code> prior to
-determining dimensions, so atomic vectors are treated as 1 dimensional
-arrays (i.e., <code>seq_along_rows</code> is equivalent to <code>seq_along</code> when <code>x</code> is an
-atomic vector or list).</p></td>
+      <td><p>A vector to set dimensions on</p></td>
     </tr>
     <tr>
       <th>.dim</th>
-      <td><p>a scalar integer, specifying which dimension to generate a sequence for.</p></td>
+      <td><p>The desired dimensions</p></td>
+    </tr>
+    <tr>
+      <th>pad</th>
+      <td><p>The value to pad the vector with. <code>NULL</code> (the default) performs no padding.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Whether to emit a message if padding. By default, <code>TRUE</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a vector of integers 1:nrow(x), safe for use in <code>for</code> loops and
-vectorized equivalents.</p>
+    <p>Object with dimensions set</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>for</span> (<span class='no'>r</span> <span class='kw'>in</span> <span class='fu'>seq_along_rows</span>(<span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>4</span>,]))
-  <span class='fu'>print</span>(<span class='no'>mtcars</span>[<span class='no'>r</span>,])</div><div class='output co'>#&gt;           mpg cyl disp  hp drat   wt  qsec vs am gear carb
-#&gt; Mazda RX4  21   6  160 110  3.9 2.62 16.46  0  1    4    4
-#&gt;               mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
-#&gt;             mpg cyl disp hp drat   wt  qsec vs am gear carb
-#&gt; Datsun 710 22.8   4  108 93 3.85 2.32 18.61  1  1    4    1
-#&gt;                 mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>3</span>
-<span class='fu'>identical</span>(<span class='fu'>seq_along_rows</span>(<span class='no'>x</span>), <span class='fu'>seq_along</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>set_dim</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>5</span>))</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5]
+#&gt; [1,]    1    3    5    7    9
+#&gt; [2,]    2    4    6    8   10</div><div class='input'><span class='fu'>try</span>( <span class='fu'>set_dim</span>(<span class='fl'>1</span>:<span class='fl'>7</span>, <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>5</span>)) ) <span class='co'># error by default, just like `dim&lt;-`</span>
+     <span class='fu'>set_dim</span>(<span class='fl'>1</span>:<span class='fl'>7</span>, <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fl'>99</span>)</div><div class='output co'>#&gt; <span class='message'>Padding vector with 99s from length 7 to length 10</span></div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5]
+#&gt; [1,]    1    3    5    7   99
+#&gt; [2,]    2    4    6   99   99</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
