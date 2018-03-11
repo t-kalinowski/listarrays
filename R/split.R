@@ -72,7 +72,7 @@ split_on_dim <- function(X, .dim,
     stop("`f` must be the same length as the dimension being split on.")
 
   expr <- extract_dim_chr_expr(X, .dim, .idx_var = "idx", drop = drop)
-  expr <- parse(text = expr)[[1]]
+  expr <- parse(text = expr, keep.source = FALSE)[[1]]
 
   l <- split(id, f)
   # lapply(l, function(idx) eval(expr))
@@ -128,7 +128,7 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
   expr <- extract_dim_chr_expr(X, .dim, .idx_var = "i",
                                drop = drop, .var_to_subset = "X")
 
-  expr <- parse(text = expr)[[1]]
+  expr <- parse(text = expr, keep.source = FALSE)[[1]]
 
   # out <- lapply(seq_along_dim(X, .dim), function(i, Xin) eval(expr), Xin = X)
 

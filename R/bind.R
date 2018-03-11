@@ -75,7 +75,8 @@ bind_as_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
   X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
 
   Xi <- extract_dim_chr_expr(X, .dim, .idx_var = "i")
-  expr <- parse(text = p0(Xi, " <- list_of_arrays[[i]]"))
+  expr <- parse(text = p0(Xi, " <- list_of_arrays[[i]]"),
+                keep.source = FALSE)[[1]]
   for(i in seq_along(list_of_arrays))
     eval(expr)
 
@@ -127,7 +128,7 @@ bind_on_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
   X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
 
   Xi <- extract_dim_chr_expr(X, .dim, .idx_var = "start:end")
-  expr <- parse(text = p0(Xi, " <- list_of_arrays[[i]]"))
+  expr <- just_parse(p0(Xi, " <- list_of_arrays[[i]]"))
 
   start <- 1L
   for(i in seq_along(list_of_arrays)) {

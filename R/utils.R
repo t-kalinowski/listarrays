@@ -9,6 +9,8 @@ ndims <- function(x) length(dim(x) %||% 1L)
     x
 }
 
+just_parse <- function(chr)
+  parse(text = chr, keep.source = FALSE)[[1]]
 
 is.integerish <- function(x, n = NULL) {
   if (!is.null(n) && n != length(x))
