@@ -3,14 +3,11 @@
 \name{seq_along_dim}
 \alias{seq_along_dim}
 \alias{seq_along_rows}
-\alias{seq_along_cols}
 \title{Sequence along a dimension}
 \usage{
 seq_along_dim(x, .dim)
 
 seq_along_rows(x)
-
-seq_along_cols(x)
 }
 \arguments{
 \item{x}{a dataframe, array or vector. For \code{seq_along_rows}, and

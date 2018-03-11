@@ -1,7 +1,6 @@
 
 ndims <- function(x) length(dim(x) %||% 1L)
 
-
 `%||%` <- function (x, y) {
   if (is.null(x))
     y
@@ -9,8 +8,7 @@ ndims <- function(x) length(dim(x) %||% 1L)
     x
 }
 
-just_parse <- function(chr)
-  parse(text = chr, keep.source = FALSE)[[1]]
+parse1 <- function(chr) parse(text = chr, keep.source = FALSE)[[1]]
 
 is.integerish <- function(x, n = NULL) {
   if (!is.null(n) && n != length(x))
@@ -29,7 +27,10 @@ is.scalar.integerish <- function(x)
   is.integerish(x, n = 1L)
 
 
-check.is.integerish <- function(x, n) {
+`%not_in%` <- function(x, y) match(x, y, nomatch = 0L) == 0L
+
+
+check.is.integerish <- function(x, n = NULL) {
   nm <- deparse(substitute(x))
   if(!(is.integerish(x, n))) {
     msg <- paste(nm, "must be an integer")

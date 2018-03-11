@@ -95,9 +95,7 @@
 
     <pre class="usage"><span class='fu'>extract_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='no'>idx</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>extract_rows</span>(<span class='no'>X</span>, <span class='no'>idx</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
-
-<span class='fu'>extract_cols</span>(<span class='no'>X</span>, <span class='no'>idx</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
+<span class='fu'>extract_rows</span>(<span class='no'>X</span>, <span class='no'>idx</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -109,11 +107,11 @@
     </tr>
     <tr>
       <th>.dim</th>
-      <td><p>A scalar integer, specifying the dimensions to extract from</p></td>
+      <td><p>A scalar integer or character, specifying the dimension to extract from</p></td>
     </tr>
     <tr>
       <th>idx</th>
-      <td><p>A numeric, boolean, or character vector to perform subsetting with</p></td>
+      <td><p>A numeric, boolean, or character vector to perform subsetting with.</p></td>
     </tr>
     <tr>
       <th>drop</th>

@@ -99,14 +99,9 @@
 <span class='fu'>split_on_rows</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>rownames</span>(<span class='no'>X</span>) <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_on_cols</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>colnames</span>(<span class='no'>X</span>) <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_cols</a></span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
-
 <span class='fu'>split_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_along_rows</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
-
-<span class='fu'>split_along_cols</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
+<span class='fu'>split_along_rows</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -114,7 +109,10 @@
     <tr>
       <th>X</th>
       <td><p>an array, or list of arrays. Atomic vectors without a dimension
-attribute is treated as a 1 dimensions array. Names of list are preserved.</p></td>
+attribute is treated as a 1 dimensions array (Meaning, atomic vectors
+without a dim attribute are only accepted if <code>.dim</code> is <code>1</code>. Names of list
+are preserved. If a list of arrays, all the arrays must have the same
+length of the dimension being split.</p></td>
     </tr>
     <tr>
       <th>.dim</th>
@@ -124,8 +122,8 @@ attribute is treated as a 1 dimensions array. Names of list are preserved.</p></
       <th>f</th>
       <td><p>Specify how to split the dimension.</p><dl class='dl-horizontal'>
 
-<dt>character, integer or factor</dt><dd><p>passed on to
-<code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Must be the same length as the dimention being split.</p></dd>
+<dt>character, integer or factor</dt><dd><p>passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Must be
+the same length as the dimention being split.</p></dd>
 
 <dt>a list of vectors</dt><dd><p>Passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/interaction'>base::interaction()</a></code> then
 <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Each vector in the list must be the same length as the
@@ -133,10 +131,10 @@ dimention being split.</p></dd>
 
 <dt>a scalar integer</dt><dd><p>used to split into that many groups of equal size</p></dd>
 
-<dt>a numeric vector where <code>all( f &lt; 0 )</code> </dt><dd><p>used to determin the relative
-proportions of the group being split. <code>sum(f)</code> must be <code>1</code>. For example
-<code>c(0.2, 0.2, 0.6)</code> will result approximatly a 20%-20%-60% split.</p></dd>
-</dl></td>
+<dt>a numeric vector where <code>all( f &lt; 0 )</code> </dt><dd><p>used to determin the
+relative proportions of the group being split. <code>sum(f)</code> must be
+<code>1</code>. For example <code>c(0.2, 0.2, 0.6)</code> will return approximatly a
+20%-20%-60% split.</p></dd> </dl></td>
     </tr>
     <tr>
       <th>drop</th>

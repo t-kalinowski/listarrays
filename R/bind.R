@@ -9,8 +9,6 @@
 #'
 #' `bind_*_rows()` is a wrapper for the common case of `bind_*_dim(X, 1)`.
 #'
-#' `bind_*_cols()` is a wrapper for the common case of `bind_*_dim(X, 2)`.
-#'
 #' @param list_of_arrays a list of arrays. All arrays must be of the same
 #'   dimension.
 #' @param .dim Scalar integer, specifying the index position of where to
@@ -91,10 +89,10 @@ bind_as_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
 bind_as_rows <- function(list_of_arrays, .keep_names = TRUE)
   bind_as_dim(list_of_arrays, .dim = 1L, .keep_names = .keep_names)
 
-#' @rdname bind-arrays
-#' @export
-bind_as_cols <- function(list_of_arrays, .keep_names = TRUE)
-  bind_as_dim(list_of_arrays, .dim = 2L, .keep_names = .keep_names)
+# ' @rdname bind-arrays
+# ' @export
+# bind_as_cols <- function(list_of_arrays, .keep_names = TRUE)
+#   bind_as_dim(list_of_arrays, .dim = 2L, .keep_names = .keep_names)
 
 
 
@@ -128,7 +126,7 @@ bind_on_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
   X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
 
   Xi <- extract_dim_chr_expr(X, .dim, .idx_var = "start:end")
-  expr <- just_parse(p0(Xi, " <- list_of_arrays[[i]]"))
+  expr <- parse1(p0(Xi, " <- list_of_arrays[[i]]"))
 
   start <- 1L
   for(i in seq_along(list_of_arrays)) {
@@ -149,10 +147,10 @@ bind_on_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
 bind_on_rows <- function(list_of_arrays, .keep_names = TRUE)
   bind_on_dim(list_of_arrays, .dim = 1L, .keep_names = .keep_names)
 
-#' @rdname bind-arrays
-#' @export
-bind_on_cols <- function(list_of_arrays, .keep_names = TRUE)
-  bind_on_dim(list_of_arrays, .dim = 1L, .keep_names = .keep_names)
+# ' @rdname bind-arrays
+# ' @export
+# bind_on_cols <- function(list_of_arrays, .keep_names = TRUE)
+#   bind_on_dim(list_of_arrays, .dim = 1L, .keep_names = .keep_names)
 
 
 

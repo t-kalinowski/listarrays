@@ -3,23 +3,17 @@
 \name{bind_as_dim}
 \alias{bind_as_dim}
 \alias{bind_as_rows}
-\alias{bind_as_cols}
 \alias{bind_on_dim}
 \alias{bind_on_rows}
-\alias{bind_on_cols}
 \title{Bind arrays along a specified dimension}
 \usage{
 bind_as_dim(list_of_arrays, .dim, .keep_names = TRUE)
 
 bind_as_rows(list_of_arrays, .keep_names = TRUE)
 
-bind_as_cols(list_of_arrays, .keep_names = TRUE)
-
 bind_on_dim(list_of_arrays, .dim, .keep_names = TRUE)
 
 bind_on_rows(list_of_arrays, .keep_names = TRUE)
-
-bind_on_cols(list_of_arrays, .keep_names = TRUE)
 }
 \arguments{
 \item{list_of_arrays}{a list of arrays. All arrays must be of the same
@@ -42,8 +36,6 @@ dimension.
 }
 \details{
 \code{bind_*_rows()} is a wrapper for the common case of \code{bind_*_dim(X, 1)}.
-
-\code{bind_*_cols()} is a wrapper for the common case of \code{bind_*_dim(X, 2)}.
 }
 \examples{
 list_of_arrays <- replicate(10, array(1:8, dim = c(2,3,4)), FALSE)

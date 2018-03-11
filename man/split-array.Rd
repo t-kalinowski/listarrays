@@ -3,10 +3,8 @@
 \name{split_on_dim}
 \alias{split_on_dim}
 \alias{split_on_rows}
-\alias{split_on_cols}
 \alias{split_along_dim}
 \alias{split_along_rows}
-\alias{split_along_cols}
 \title{Split an array along a dimension}
 \usage{
 split_on_dim(X, .dim, f = dimnames(X)[[.dim]] \%||\% seq_along_dim(X, .dim),
@@ -15,25 +13,23 @@ split_on_dim(X, .dim, f = dimnames(X)[[.dim]] \%||\% seq_along_dim(X, .dim),
 split_on_rows(X, f = rownames(X) \%||\% seq_along_rows(X), drop = NULL,
   depth = Inf)
 
-split_on_cols(X, f = colnames(X) \%||\% seq_along_cols(X), drop = NULL,
-  depth = Inf)
-
 split_along_dim(X, .dim, drop = NULL, .keep_names = TRUE, depth = Inf)
 
 split_along_rows(X, drop = NULL, .keep_names = TRUE, depth = Inf)
-
-split_along_cols(X, drop = NULL, .keep_names = TRUE, depth = Inf)
 }
 \arguments{
 \item{X}{an array, or list of arrays. Atomic vectors without a dimension
-attribute is treated as a 1 dimensions array. Names of list are preserved.}
+attribute is treated as a 1 dimensions array (Meaning, atomic vectors
+without a dim attribute are only accepted if \code{.dim} is \code{1}. Names of list
+are preserved. If a list of arrays, all the arrays must have the same
+length of the dimension being split.}
 
 \item{.dim}{a scalar integer, specifying which dimension to split along}
 
 \item{f}{Specify how to split the dimension. \describe{
 
-\item{character, integer or factor}{passed on to
-\code{base::split()}. Must be the same length as the dimention being split.}
+\item{character, integer or factor}{passed on to \code{base::split()}. Must be
+the same length as the dimention being split.}
 
 \item{a list of vectors}{Passed on to \code{base::interaction()} then
 \code{base::split()}. Each vector in the list must be the same length as the
@@ -41,10 +37,10 @@ dimention being split.}
 
 \item{a scalar integer}{used to split into that many groups of equal size}
 
-\item{a numeric vector where \code{all( f < 0 )} }{used to determin the relative
-proportions of the group being split. \code{sum(f)} must be \code{1}. For example
-\code{c(0.2, 0.2, 0.6)} will result approximatly a 20\%-20\%-60\% split.}
-}}
+\item{a numeric vector where \code{all( f < 0 )} }{used to determin the
+relative proportions of the group being split. \code{sum(f)} must be
+\code{1}. For example \code{c(0.2, 0.2, 0.6)} will return approximatly a
+20\%-20\%-60\% split.} }}
 
 \item{drop}{passed on to \code{[}.}
 

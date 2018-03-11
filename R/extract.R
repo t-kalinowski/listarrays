@@ -6,8 +6,8 @@
 #'
 #' @param X Typically, an array, but any object with a `[` method is accepted
 #'   (e.g., dataframe, vectors)
-#' @param .dim A scalar integer, specifying the dimensions to extract from
-#' @param idx A numeric, boolean, or character vector to perform subsetting with
+#' @param .dim A scalar integer or character, specifying the dimension to extract from
+#' @param idx A numeric, boolean, or character vector to perform subsetting with.
 #' @param drop Passed on to `[`. If `NULL` (the default), then drop is omitted
 #'   from the argument, and the default is used (defaults to TRUE for most
 #'   objects, including arrays)
@@ -43,7 +43,7 @@ extract_dim <- function(X, .dim, idx, drop = NULL, depth = Inf) {
 
   stopifnot(is.scalar.integerish(.dim))
 
-  expr <- extract_dim_chr_expr(X, .dim,  drop = drop)
+  expr <- extract_dim_chr_expr(X, .dim, .idx_var = "idx", drop = drop)
   eval(parse(text = expr, keep.source = FALSE)[[1]])
 }
 
@@ -53,10 +53,10 @@ extract_dim <- function(X, .dim, idx, drop = NULL, depth = Inf) {
 extract_rows <- function(X, idx, drop = NULL, depth = Inf)
   extract_dim(X, 1L, idx, drop = drop, depth = depth)
 
-#' @rdname extract_dim
-#' @export
-extract_cols <- function(X, idx, drop = NULL, depth = Inf)
-  extract_dim(X, 2L, idx, drop = drop, depth = depth)
+# ' @rdname extract_dim
+# ' @export
+# extract_cols <- function(X, idx, drop = NULL, depth = Inf)
+#   extract_dim(X, 2L, idx, drop = drop, depth = depth)
 
 
 

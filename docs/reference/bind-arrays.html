@@ -103,13 +103,9 @@ dimension.</p>
 
 <span class='fu'>bind_as_rows</span>(<span class='no'>list_of_arrays</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>bind_as_cols</span>(<span class='no'>list_of_arrays</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
 <span class='fu'>bind_on_dim</span>(<span class='no'>list_of_arrays</span>, <span class='no'>.dim</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>bind_on_rows</span>(<span class='no'>list_of_arrays</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>bind_on_cols</span>(<span class='no'>list_of_arrays</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>bind_on_rows</span>(<span class='no'>list_of_arrays</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -137,8 +133,7 @@ construct dimnames.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>bind_*_rows()</code> is a wrapper for the common case of <code>bind_*_dim(X, 1)</code>.
-    <code>bind_*_cols()</code> is a wrapper for the common case of <code>bind_*_dim(X, 2)</code>.</p>
+    <p><code>bind_*_rows()</code> is a wrapper for the common case of <code>bind_*_dim(X, 1)</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

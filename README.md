@@ -3,7 +3,7 @@
 purrrays
 ========
 
-Purrrays is designed to make working with R arrays easier, particularly arrays with more than two dimensions arrays. Purrrays has no dependancies, but it is inspired by and designed to work well with the packages purrr, magrittr, and zeallot.
+Purrrays is designed to make working with R arrays easier, particularly arrays with more than two dimensions. Purrrays has no dependancies, but it is inspired by and designed to work well with the packages purrr, magrittr, and zeallot.
 
 Installation
 ------------
@@ -18,13 +18,15 @@ The package provides:
 
 -   A family of functions for spliting, binding, and modifying multi-dimensional arrays.
 
-    -   `split_on_dim()` takes an array and returns a list.
+    -   `split_on_dim()` and `split_along_dim()` take an array and returns a list.
 
     -   `bind_on_dim()` and `bind_as_dim()` take a list and return a single array.
 
     -   `modify_along_dim()` takes an array, calls the passed function `.f()` on each subset of the specified dimension, and returns an array of the same shape.
 
-    -   All the functions have two varients `*_rows()` and `*_cols()` for the two most common cases of the 1st and 2nd dimension. For example `split_on_rows()` and `split_on_cols()`, which are equivalent to `split_on_dim(X, 1)` and `split_on_dim(X, 2)`
+    -   Many of the functions have a varient `*_rows()` for the most common case of the 1st dimension. For example `split_on_rows()` which is equivalent to `split_on_dim(X, 1)`
+
+-   `set_dim()` and `set_dimnames()`, pipe-friendly and more flexible versions of `dim<-` and `dimnames<-`
 
 -   A family of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example `seq_along_rows()` (a combination of `seq_along()` and `nrow()`, with some error checks for common pitfalls).
 

@@ -3,14 +3,11 @@
 \name{modify_along_dim}
 \alias{modify_along_dim}
 \alias{modify_along_rows}
-\alias{modify_along_cols}
 \title{Modify an array by mapping over 1 or more dimensions}
 \usage{
 modify_along_dim(X, .dim, .f, ...)
 
 modify_along_rows(X, .f, ...)
-
-modify_along_cols(X, .f, ...)
 }
 \arguments{
 \item{X}{An array, or a list of arrays}

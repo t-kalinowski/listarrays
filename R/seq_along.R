@@ -36,16 +36,12 @@ get_dim <- function(x) {
 #' @export
 seq_along_rows <- function(x) seq_along_dim(x, 1L)
 
-#' @rdname seq_along_dim
-#' @export
-seq_along_cols <- function(x) seq_along_dim(x, 2L)
+# ' @rdname seq_along_dim
+# ' @export
+# seq_along_cols <- function(x) seq_along_dim(x, 2L)
 
 # seq_len(robust_nrow(x))
 
-# ' @rdname seq_along_dim
-# ' @export
-# '  `row_along` is an alias for `seq_along_rows`.
-# row_along <- seq_along_rows
 
 
 
