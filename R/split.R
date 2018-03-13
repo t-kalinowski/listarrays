@@ -44,7 +44,7 @@
 #' split_on_dim(X, 2, c("a", "a", "b"), drop = FALSE)
 split_on_dim <- function(X, .dim,
                          f = dimnames(X)[[.dim]] %||% seq_along_dim(X, .dim),
-                         drop = NULL, depth = Inf) {
+                         drop = FALSE, depth = Inf) {
 
   if(is.list(f))
     f <- interaction(f, drop = TRUE)
@@ -99,7 +99,7 @@ split_on_dim <- function(X, .dim,
 #' @export
 split_on_rows <- function(X,
                           f = rownames(X) %||% seq_along_rows(X),
-                          drop = NULL, depth = Inf)
+                          drop = FALSE, depth = Inf)
   split_on_dim(X, 1L, f = f, drop = drop, depth = depth)
 
 
