@@ -8,9 +8,9 @@
 \title{Split an array along a dimension}
 \usage{
 split_on_dim(X, .dim, f = dimnames(X)[[.dim]] \%||\% seq_along_dim(X, .dim),
-  drop = NULL, depth = Inf)
+  drop = FALSE, depth = Inf)
 
-split_on_rows(X, f = rownames(X) \%||\% seq_along_rows(X), drop = NULL,
+split_on_rows(X, f = rownames(X) \%||\% seq_along_rows(X), drop = FALSE,
   depth = Inf)
 
 split_along_dim(X, .dim, drop = NULL, .keep_names = TRUE, depth = Inf)

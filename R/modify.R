@@ -64,8 +64,9 @@ modify_along_dim <- function(X, .dim, .f, ...) {
     lapply(dims, seq_len)
   )
 
+  e <- environment()
   for (r in seq_along_rows(combs))
-    eval(expr)
+    eval(expr, envir = e)
 
   X
 }

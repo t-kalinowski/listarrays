@@ -30,10 +30,10 @@
 shuffle_rows <- function(..., in_sync = TRUE) {
   l <- list(...)
   if(is.list(l[[1]]) && identical(length(l), 1L)) {
-    listin <- TRUE
+    single_list_in <- TRUE
     l <- l[[1]]
   } else
-    listin <- FALSE
+    single_list_in <- FALSE
 
   n <- length(l)
 
@@ -49,7 +49,7 @@ shuffle_rows <- function(..., in_sync = TRUE) {
   for (i in seq_along(l))
     l[[i]] <- extract_rows(l[[i]], idx, drop = FALSE)
 
-  if (identical(length(l), 1L) && !listin)
+  if (!single_list_in && identical(length(l), 1L))
      l[[1]]
   else
     l
