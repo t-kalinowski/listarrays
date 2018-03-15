@@ -77,39 +77,36 @@ onehot <- function(y, order = NULL, named = TRUE) {
 
   if (is.factor(y)) {
 
+    if (!missing(order))
+      warning("value supplied to `order` is ignored since y is a factor")
+
     order <- levels(y)
     ncols <- length(order)
     idx_col <- unclass(y)
 
-  } else if (is.numeric(y)) {
-
-    ncols <- as.integer(max(y, na.rm = TRUE))
-    idx_col <- y
-    if(is.character(order))
-      stopifnot(identical(length(order), ncols))
-
-  } else if (is.character(y)) {
+  } else if (is.character(y) || is.numeric(y)) {
 
     if (is.null(order))
       order <- sort(unique(y))
     else if (identical(order, FALSE))
       order <- unique(y)
-    else if (is.character(order))
-      stopifnot(unique(y) %in% order)
+    else if (is.character(order) || is.numeric(order))
+      stopifnot(typeof(y) == typeof(order), unique(y) %in% order)
     else
       stop("`order` must be NULL, FALSE, or a character vector")
 
     idx_col <- match(y, order)
     ncols <- length(order)
 
-  } else stop("`y` must be a character, numeric, or factor")
+  } else
+    stop("`y` must be a character, numeric, or factor")
 
   Y <- matrix(0, ncol = ncols, nrow = length(y))
   idx <- cbind(seq_along(y), idx_col, deparse.level = 0L)
   Y[idx] <- 1
 
-  if(is.character(order) && named)
-    colnames(Y) <- order
+  if(named)
+    colnames(Y) <- as.character(order)
 
   Y
 }
@@ -117,8 +114,8 @@ onehot <- function(y, order = NULL, named = TRUE) {
 
 #' @export
 #' @rdname onehot
-decode_onehot <- function(Y, classes = colnames(Y), n_classes =  ncol(Y) %||% length(classes)) {
-  # browser()
+decode_onehot <- function(Y, classes = colnames(Y),
+                          n_classes =  ncol(Y) %||% length(classes)) {
   decode <- onehot_decoder(classes = classes, n_classes = n_classes)
   decode(Y)
 }
