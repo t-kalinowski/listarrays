@@ -43,12 +43,12 @@ test_that("split_on f inputs", {
   l <- split_on_rows(x, 4)
   expect_length(l, 4L)
   for (i in seq_along(l))
-    expect_equal(dim(l[[i]]), 5:7)
+    expect_equal(dim(l[[i]]), c(1, 5:7))
 
-  l <- split_on_rows(x, 4, drop = FALSE)
+  l <- split_on_rows(x, 4, drop = TRUE)
   expect_length(l, 4L)
   for (i in seq_along(l))
-    expect_equal(dim(l[[i]]), c(1, 5:7))
+    expect_equal(dim(l[[i]]), 5:7)
 
   # test a vector of proportions
   x <- bind_as_rows(rep_len(list(array(1:8, 2:4)), 10))
