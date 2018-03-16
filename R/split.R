@@ -55,21 +55,22 @@ split_on_dim <- function(X, .dim,
   if (is.character(.dim))
     .dim <- match(.dim, names(dimnames(X)))
 
-  if (.dim == 1L && length(dim(X)) >= 3L &&
-      dim(X)[1L] >= 1e5L && any(dim(X)[-1L] != 1L)) {
-    # subsetting on first index is OOM slower than on last index for large arrays
-    # due to F style (column major) ordering of arrays. aperm() has a very fast
-    # strided slice written in C, and for large arrays it makes sense to do this
-    # upfront.
-    X <- aperm(X, c(2:length(dim(X)), 1L))
-    .dim <- length(dim(X))
-  }
+  ## Commented out because it returns the permuted object when drop = FALSE, which is not desired
+  # if (.dim == 1L && length(dim(X)) >= 3L &&
+  #     dim(X)[1L] >= 1e5L && any(dim(X)[-1L] != 1L)) {
+  #   # subsetting on first index is OOM slower than on last index for large arrays
+  #   # due to F style (column major) ordering of arrays. aperm() has a very fast
+  #   # strided slice written in C, and for large arrays it makes sense to do this
+  #   # upfront.
+  #   X <- aperm(X, c(2:length(dim(X)), 1L))
+  #   .dim <- length(dim(X))
+  # }
 
   id <- seq_along_dim(X, .dim)
 
   if(is.scalar.integerish(f))
     f <- cut(id, f, labels = paste0("grp", seq_len(f)))
-  else if (all(f < 1)) {
+  else if (is.numeric(f) && all(f < 1)) {
     stopifnot(sum(f) == 1)
     f <- cut(id, c(0, cumsum(f) * length(id)),
           labels = paste0("grp", seq_along(f)))
@@ -125,15 +126,16 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
     .dim <- match(.dim, names(dimnames(X)))
 
 
-  if (.dim == 1L && length(dim(X)) >= 3L &&
-      dim(X)[1L] >= 1e5L && any(dim(X)[-1L] != 1L)) {
-    # subsetting on first index is OOM slower than on last index for large arrays
-    # due to F style (column major) ordering of arrays. aperm() has a very fast
-    # strided slice written in C, and for large arrays it makes sense to do this
-    # upfront.
-    X <- aperm(X, c(2:length(dim(X)), 1L))
-    .dim <- length(dim(X))
-  }
+  ## Commented out because it returns the permuted object when drop = FALSE, which is not desired
+  # if (.dim == 1L && length(dim(X)) >= 3L &&
+  #     dim(X)[1L] >= 1e5L && any(dim(X)[-1L] != 1L)) {
+  #   # subsetting on first index is OOM slower than on last index for large arrays
+  #   # due to F style (column major) ordering of arrays. aperm() has a very fast
+  #   # strided slice written in C, and for large arrays it makes sense to do this
+  #   # upfront.
+  #   X <- aperm(X, c(2:length(dim(X)), 1L))
+  #   .dim <- length(dim(X))
+  # }
 
   expr <- extract_dim_chr_expr(X, .dim, .idx_var = "i",
                                drop = drop, .var_to_subset = "X")
