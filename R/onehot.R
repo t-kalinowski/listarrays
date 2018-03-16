@@ -77,7 +77,7 @@ onehot <- function(y, order = NULL, named = TRUE) {
 
   if (is.factor(y)) {
 
-    if (!missing(order))
+    if (!missing(order) && !is.null(order))
       warning("value supplied to `order` is ignored since y is a factor")
 
     order <- levels(y)
