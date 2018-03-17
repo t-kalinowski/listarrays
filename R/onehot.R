@@ -1,7 +1,4 @@
 
-
-
-
 #' Convert vector to a onehot representation (binary class matrix)
 #'
 #' @param y character, factor, or numeric vector
@@ -50,14 +47,8 @@
 #'
 #' # factor and numeric vectors also accepted
 #' onehot(factor(letters[1:4]))
-#' onehot(1:4)
-#'
-#' # for numerics, all numbers between 1:max(y) are assumed to
-#' # be part of the set
 #' onehot(4:8)
 #'
-#' # pass as a character vector to override, also sorted class names
-#' onehot(paste(4:8), paste(4:8))
 onehot_with_decoder <- function(y, order = NULL, named = TRUE) {
 
   Y <- onehot(y, order = order, named = TRUE)
