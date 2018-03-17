@@ -126,23 +126,22 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
     .dim <- match(.dim, names(dimnames(X)))
 
 
-  ## Commented out because it returns the permuted object when drop = FALSE, which is not desired
-  # if (.dim == 1L && length(dim(X)) >= 3L &&
-  #     dim(X)[1L] >= 1e5L && any(dim(X)[-1L] != 1L)) {
-  #   # subsetting on first index is OOM slower than on last index for large arrays
-  #   # due to F style (column major) ordering of arrays. aperm() has a very fast
-  #   # strided slice written in C, and for large arrays it makes sense to do this
-  #   # upfront.
-  #   X <- aperm(X, c(2:length(dim(X)), 1L))
-  #   .dim <- length(dim(X))
-  # }
+  if (.dim == 1L && length(dim(X)) >= 3L && dim(X)[1L] >= 1e5L &&
+      any(dim(X)[-1L] != 1L) && is.array(X) && (is.null(drop)) || isTRUE(drop)) {
+    # subsetting on first index is OOM slower than on last index for large
+    # arrays due to F style (column major) ordering of arrays. aperm() has a
+    # very fast strided slice written in C, and for large arrays it makes sense
+    # to do this upfront. maybe this whole function will be rewritten in C and
+    # this workaround won't be necessary in the future
+    X <- aperm(X, c(2:length(dim(X)), 1L))
+    .dim <- length(dim(X))
+  }
 
   expr <- extract_dim_chr_expr(X, .dim, .idx_var = "i",
                                drop = drop, .var_to_subset = "X")
 
   expr <- parse(text = expr, keep.source = FALSE)[[1]]
 
-  # out <- lapply(seq_along_dim(X, .dim), function(i, Xin) eval(expr), Xin = X)
   e <- environment()
   out <- vector("list", get_dim(X)[.dim])
   for (i in seq_along_dim(X, .dim))
