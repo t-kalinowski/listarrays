@@ -44,7 +44,7 @@ check.is.integerish <- function(x, n = NULL) {
 p0 <- function(...) paste0(...)
 
 maybe_eval_bare <- function() {
-  if(requireNamespace("rlang"))
+  if(requireNamespace("rlang", quietly = TRUE))
     rlang::eval_bare
   else
     eval

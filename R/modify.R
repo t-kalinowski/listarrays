@@ -26,7 +26,7 @@ modify_along_dim <- function(X, .dim, .f, ...) {
 
 
   if(inherits(.f, "formula")) {
-    if( !requireNamespace("rlang") )
+    if( !requireNamespace("rlang", quietly = TRUE))
       stop("Specifing functions via forumla syntax requires package rlang to be available")
 
     .f <- rlang::as_function(.f)
