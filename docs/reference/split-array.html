@@ -25,6 +25,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
 <meta property="og:title" content="Split an array along a dimension — split_on_dim" />
 
 <meta property="og:description" content="split_along_dim(X, .dim) is equivalent to split_on_dim(X, seq_along_dim(X, .dim))" />
@@ -91,10 +93,10 @@
     <p><code>split_along_dim(X, .dim)</code> is equivalent to <code>split_on_dim(X, seq_along_dim(X, .dim))</code></p>
     
 
-    <pre class="usage"><span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>dimnames</span>(<span class='no'>X</span>)<span class='kw'>[[</span><span class='no'>.dim</span>]] <span class='kw'>%||%</span> <span class='fu'>seq_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>),
+    <pre class="usage"><span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>dimnames</span>(<span class='no'>X</span>)<span class='kw'>[[</span><span class='no'>.dim</span>]] <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_dim</a></span>(<span class='no'>X</span>, <span class='no'>.dim</span>),
   <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_on_rows</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>rownames</span>(<span class='no'>X</span>) <span class='kw'>%||%</span> <span class='fu'>seq_along_rows</span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='fu'>split_on_rows</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>rownames</span>(<span class='no'>X</span>) <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
 <span class='fu'>split_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)

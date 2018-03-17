@@ -32,7 +32,8 @@ An array, with one additional dimension.
 \code{bind_as_*} introduces a new dimension, such that each element in
 \code{list_of_arrays} corresponds to one index position along the new dimension in
 the returned array. \code{bind_on_*} binds all elements along an existing
-dimension.
+dimension, (meaning, the returned array has the same number of dimensions as
+each of the arrays in the list).
 }
 \details{
 \code{bind_*_rows()} is a wrapper for the common case of \code{bind_*_dim(X, 1)}.

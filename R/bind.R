@@ -5,7 +5,8 @@
 #' `bind_as_*` introduces a new dimension, such that each element in
 #' `list_of_arrays` corresponds to one index position along the new dimension in
 #' the returned array. `bind_on_*` binds all elements along an existing
-#' dimension.
+#' dimension, (meaning, the returned array has the same number of dimensions as
+#' each of the arrays in the list).
 #'
 #' `bind_*_rows()` is a wrapper for the common case of `bind_*_dim(X, 1)`.
 #'

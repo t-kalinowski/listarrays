@@ -25,6 +25,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
 <meta property="og:title" content="Extract with <code>[</code> on a specified dimension — extract_dim" />
 
 <meta property="og:description" content="Extract with [ on a specified dimension" />
@@ -131,7 +133,7 @@ to prevent recursion)</p></td>
     <pre class="examples"><div class='input'><span class='co'># extract_rows is useful to keep the same code path for arrays of various sizes</span>
 <span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='fu'>array</span>(<span class='fl'>1</span>:<span class='fl'>8</span>, <span class='fu'>c</span>(<span class='fl'>4</span>, <span class='fl'>3</span>, <span class='fl'>2</span>))
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>, <span class='st'>"d"</span>)
-(<span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'>onehot</span>(<span class='no'>y</span>))</div><div class='output co'>#&gt;      a b c d
+(<span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='onehot.html'>onehot</a></span>(<span class='no'>y</span>))</div><div class='output co'>#&gt;      a b c d
 #&gt; [1,] 1 0 0 0
 #&gt; [2,] 0 1 0 0
 #&gt; [3,] 0 0 1 0

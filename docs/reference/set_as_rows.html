@@ -25,6 +25,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
 <meta property="og:title" content="Reshape an array to bring a dim forward — set_as_rows" />
 
 <meta property="og:description" content="Reshape an array to bring a dim forward" />
@@ -115,7 +117,7 @@
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>array</span>(<span class='fl'>1</span>:<span class='fl'>24</span>, <span class='fl'>2</span>:<span class='fl'>4</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>set_as_rows</span>(<span class='no'>x</span>, <span class='fl'>3</span>)
 
-<span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'>seq_along_dim</span>(<span class='no'>x</span>, <span class='fl'>3</span>))
+<span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_dim</a></span>(<span class='no'>x</span>, <span class='fl'>3</span>))
   <span class='fu'>stopifnot</span>( <span class='fu'>identical</span>(<span class='no'>x</span>[,,<span class='no'>i</span>], <span class='no'>y</span>[<span class='no'>i</span>,,]) )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

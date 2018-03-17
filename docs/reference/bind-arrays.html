@@ -25,12 +25,15 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
 <meta property="og:title" content="Bind arrays along a specified dimension — bind_as_dim" />
 
 <meta property="og:description" content="bind_as_* introduces a new dimension, such that each element in
 list_of_arrays corresponds to one index position along the new dimension in
 the returned array. bind_on_* binds all elements along an existing
-dimension." />
+dimension, (meaning, the returned array has the same number of dimensions as
+each of the arrays in the list)." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -94,7 +97,8 @@ dimension." />
     <p><code>bind_as_*</code> introduces a new dimension, such that each element in
 <code>list_of_arrays</code> corresponds to one index position along the new dimension in
 the returned array. <code>bind_on_*</code> binds all elements along an existing
-dimension.</p>
+dimension, (meaning, the returned array has the same number of dimensions as
+each of the arrays in the list).</p>
     
 
     <pre class="usage"><span class='fu'>bind_as_dim</span>(<span class='no'>list_of_arrays</span>, <span class='no'>.dim</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
