@@ -43,6 +43,13 @@ check.is.integerish <- function(x, n = NULL) {
 
 p0 <- function(...) paste0(...)
 
+maybe_eval_bare <- function() {
+  if(requireNamespace("rlang"))
+    rlang::eval_bare
+  else
+    eval
+}
+
 # if(requireNamespace("rlang")) {
 #   eval <- rlang::eval_bare
 #   formals(eval) <- c(formals(eval)[1], alist(env = envir, envir = parent.frame))

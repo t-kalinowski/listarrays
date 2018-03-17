@@ -65,8 +65,10 @@ modify_along_dim <- function(X, .dim, .f, ...) {
   )
 
   e <- environment()
+  eval <- maybe_eval_bare()
+
   for (r in seq_along_rows(combs))
-    eval(expr, envir = e)
+    eval(expr, e)
 
   X
 }

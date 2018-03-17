@@ -84,12 +84,14 @@ split_on_dim <- function(X, .dim,
   expr <- parse(text = expr, keep.source = FALSE)[[1]]
 
   l <- split(id, f)
-  # lapply(l, function(idx) eval(expr))
+
+  eval <- maybe_eval_bare()
   e <- environment()
   out <- vector("list", length(l))
+
   for(i in seq_along(l)) {
     idx <- l[[i]]
-    out[[i]] <- eval(expr, envir = e)
+    out[[i]] <- eval(expr, e)
   }
 
   names(out) <- names(l)
@@ -143,9 +145,10 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
   expr <- parse(text = expr, keep.source = FALSE)[[1]]
 
   e <- environment()
+  eval <- maybe_eval_bare()
   out <- vector("list", get_dim(X)[.dim])
   for (i in seq_along_dim(X, .dim))
-    out[[i]] <- eval(expr, envir = e)
+    out[[i]] <- eval(expr, e)
 
 
   if (isTRUE(.keep_names) && !is.null(nms <- dimnames(X)[[.dim]]))
