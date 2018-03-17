@@ -3,7 +3,7 @@
 listarrays
 ==========
 
-A toolbox for working with R arrays in a functional programming style. The core feature is a family of functions for flexibly splitting an array into lists of smaller arrays and combining a list of arrays into a single array. It also provides a set of lower-level helpers that abstract out patterns commonly encountered while working with arrays, as well as pipe-friendly and more flexible versions of `dim<-`() and `dimnames<-`(). The majority of the functions are agnostic about the number of dimmensions in the provided array and work recursively, enabling operations on multiple arrays to be performd synchronysly. Listarrays has not dependancies, but it is designed to work well with the packages purrr and magrittr.
+A toolbox for working with R arrays in a functional programming style. The core feature is a family of functions for flexibly splitting an array into lists of smaller arrays and combining a list of arrays into a single array. It also provides a set of lower-level helpers that abstract out patterns commonly encountered while working with arrays, as well as pipe-friendly and more flexible versions of `dim<-`() and `dimnames<-`(). The majority of the functions are agnostic about the number of dimmensions in the provided array and work recursively, enabling operations on multiple arrays to be performd synchronysly. Listarrays has no dependancies, but it is designed to work well with the packages purrr and magrittr.
 
 Installation
 ------------

@@ -12,7 +12,7 @@ Description: A toolbox for working with R arrays in a functional programming sty
     flexible versions of `dim<-`() and `dimnames<-`(). The majority of the functions
     are agnostic about the number of dimmensions in the provided array and work
     recursively, enabling operations on multiple arrays to be performd synchronysly.
-    Listarrays has not dependancies, but it is designed to work well with the
+    Listarrays has no dependancies, but it is designed to work well with the
     packages purrr and magrittr.
 URL: https://github.com/t-kalinowski/listarrays, https://t-kalinowski.github.io/listarrays/
 License: GPL-3
