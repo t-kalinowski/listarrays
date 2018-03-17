@@ -4,11 +4,16 @@ Title: Functional Arrays, purrr-style
 Version: 0.1.0
 Authors@R: person("Tomasz", "Kalinowski", email = "kalinowskit@gmail.com", 
     role = c("aut", "cre"))
-Description: A toolbox for working with R arrays in a functional programming style. 
-    Contains a family of functions for flexibly splitting, modifying and binding arrays 
-    along arbitrary dimensions. Designed to work well with packages purrr, 
-    magrittr, and zeallot.
-URL: https://github.com/t-kalinowski/purrrays, https://t-kalinowski.github.io/purrrays/
+Description: A toolbox for working with R arrays in a functional programming style. The core
+    feature is a family of functions for flexibly splitting an array into lists of
+    smaller arrays and combining a list of arrays into a single array. It also
+    provides a set of lower-level helpers that abstract out patterns commonly
+    encountered while working with arrays. The majority of the functions are
+    agnostic about the number of dimmensions in the provided array and work
+    recursively, enabling operations on multiple arrays to be performd synchronysly.
+    listarrays has not dependancies, but it is designed to work well with the
+    packages purrr and magrittr.
+URL: https://github.com/t-kalinowski/listarrays, https://t-kalinowski.github.io/listarrays/
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
