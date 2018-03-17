@@ -69,14 +69,8 @@ decode_onehot(Y)
 
 # factor and numeric vectors also accepted
 onehot(factor(letters[1:4]))
-onehot(1:4)
-
-# for numerics, all numbers between 1:max(y) are assumed to
-# be part of the set
 onehot(4:8)
 
-# pass as a character vector to override, also sorted class names
-onehot(paste(4:8), paste(4:8))
 }
 \seealso{
 \link[keras:to_categorical]{keras::to_categorical}

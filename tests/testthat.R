@@ -1,4 +1,4 @@
 library(testthat)
-library(purrrays)
+library(listarrays)
 
-test_check("purrrays")
+test_check("listarrays")
