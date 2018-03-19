@@ -11,7 +11,7 @@
 #' `bind_*_rows()` is a wrapper for the common case of `bind_*_dim(X, 1)`.
 #'
 #' @param list_of_arrays a list of arrays. All arrays must be of the same
-#'   dimension.
+#'   dimension. NULL's in place of arrays are automatically dropped.
 #' @param .dim Scalar integer, specifying the index position of where to
 #'   introduce the new dimension to introduce.
 #' @param .keep_names Whether `names(list_of_arrays)` should be used to
@@ -60,6 +60,7 @@ bind_as_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
   #   new_dimname <- names(.dim)
 
   stopifnot(is.list(list_of_arrays))
+  list_of_arrays <- dropNULLs(list_of_arrays)
 
   for (i in seq_along(list_of_arrays))
     list_of_arrays[[i]] <- as.array(list_of_arrays[[i]])
@@ -107,6 +108,7 @@ bind_as_rows <- function(list_of_arrays, .keep_names = TRUE)
 bind_on_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
 
   stopifnot(is.list(list_of_arrays))
+  list_of_arrays <- dropNULLs(list_of_arrays)
 
   if(is.character(.dim)) {
     all_axis_names <- lapply(list_of_arrays, function(x) names(dimnames(x)))

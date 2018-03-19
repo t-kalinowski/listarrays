@@ -43,6 +43,9 @@ check.is.integerish <- function(x, n = NULL) {
 
 p0 <- function(...) paste0(...)
 
+dropNULLs <- function(x) x[!vapply(x, is.null, logical(1))]
+
+
 maybe_eval_bare <- function() {
   if(requireNamespace("rlang", quietly = TRUE))
     rlang::eval_bare

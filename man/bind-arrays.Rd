@@ -17,7 +17,7 @@ bind_on_rows(list_of_arrays, .keep_names = TRUE)
 }
 \arguments{
 \item{list_of_arrays}{a list of arrays. All arrays must be of the same
-dimension.}
+dimension. NULL's in place of arrays are automatically dropped.}
 
 \item{.dim}{Scalar integer, specifying the index position of where to
 introduce the new dimension to introduce.}
