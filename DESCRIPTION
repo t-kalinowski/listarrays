@@ -15,6 +15,7 @@ Description: A toolbox for working with R arrays in a functional programming sty
     Listarrays has no dependancies, but it is designed to work well with the
     packages keras, purrr and magrittr.
 URL: https://github.com/t-kalinowski/listarrays, https://t-kalinowski.github.io/listarrays/
+BugReports: https://github.com/t-kalinowski/listarrays/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

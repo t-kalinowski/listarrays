@@ -25,12 +25,12 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Split an array along a dimension — split_on_dim" />
 
 <meta property="og:description" content="split_along_dim(X, .dim) is equivalent to split_on_dim(X, seq_along_dim(X, .dim))" />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +53,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">listarrays</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">listarrays</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -87,6 +91,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Split an array along a dimension</h1>
+    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/split.R'><code>R/split.R</code></a></small>
     </div>
 
     
@@ -103,7 +108,7 @@
 
 <span class='fu'>split_along_rows</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -199,7 +204,9 @@ of lists of arrays.</p>
 #&gt;      [,1] [,2] [,3] [,4]
 #&gt; [1,]    5    3    1    7
 #&gt; [2,]    6    4    2    8
-#&gt; </div><div class='input'><span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='fl'>2</span>, <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; $a
+#&gt; </div><div class='input'>
+<span class='co'># specify f as a factor, akin to base::split()</span>
+<span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='fl'>2</span>, <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; $a
 #&gt; , , 1
 #&gt; 
 #&gt;      [,1] [,2]
@@ -250,7 +257,44 @@ of lists of arrays.</p>
 #&gt; [1,]    7
 #&gt; [2,]    8
 #&gt; 
-#&gt; </div></pre>
+#&gt; </div><div class='input'>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>3</span>, <span class='fl'>3</span>)
+<span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='fu'>array</span>(<span class='fl'>1</span>:<span class='fu'>prod</span>(<span class='no'>d</span>), <span class='no'>d</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>10</span>]
+<span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='onehot.html'>onehot</a></span>(<span class='no'>y</span>)
+
+<span class='co'># specify `f`` as relative partition sizes</span>
+<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>zeallot</span>)) {
+
+<span class='fu'>c</span>(<span class='no'>train</span>, <span class='no'>validate</span>, <span class='no'>test</span>) <span class='kw'>%&lt;-%</span> {
+  <span class='fu'>list</span>(<span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>X</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Y</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='shuffle_rows.html'>shuffle_rows</a></span>() <span class='kw'>%&gt;%</span>
+    <span class='fu'>split_on_rows</span>(<span class='fu'>c</span>(<span class='fl'>0.6</span>, <span class='fl'>0.2</span>, <span class='fl'>0.2</span>)) <span class='kw'>%&gt;%</span>
+    <span class='fu'>transpose</span>()
+}
+
+<span class='fu'>str</span>(<span class='no'>test</span>)
+<span class='fu'>str</span>(<span class='no'>train</span>)
+<span class='fu'>str</span>(<span class='no'>validate</span>)
+
+}</div><div class='output co'>#&gt; <span class='error'>Error in transpose(.): could not find function "transpose"</span></div><div class='input'>
+
+<span class='co'># with with array data in a data frame by splitting row-wise</span>
+<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>tibble</span>))
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='no'>y</span>, <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'>split_along_rows</span>(<span class='no'>X</span>))</div><div class='output co'>#&gt; # A tibble: 10 x 2
+#&gt;    y     X            
+#&gt;    &lt;chr&gt; &lt;list&gt;       
+#&gt;  1 a     &lt;int [3 × 3]&gt;
+#&gt;  2 b     &lt;int [3 × 3]&gt;
+#&gt;  3 c     &lt;int [3 × 3]&gt;
+#&gt;  4 d     &lt;int [3 × 3]&gt;
+#&gt;  5 e     &lt;int [3 × 3]&gt;
+#&gt;  6 f     &lt;int [3 × 3]&gt;
+#&gt;  7 g     &lt;int [3 × 3]&gt;
+#&gt;  8 h     &lt;int [3 × 3]&gt;
+#&gt;  9 i     &lt;int [3 × 3]&gt;
+#&gt; 10 j     &lt;int [3 × 3]&gt;</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
