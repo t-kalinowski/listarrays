@@ -3,6 +3,10 @@
 
 #' Modify an array by mapping over 1 or more dimensions
 #'
+#' This function can be thought of as a version of `base::apply()` that is
+#' guaranteed to return a object of the same dimensions as it was input. It also
+#' generally preserves attributes, as it's built on `[<-` and `[`.
+#'
 #' @param X An array, or a list of arrays
 #' @param .dim integer vector of dimensions to modify at
 #' @param .f a function or formula defining a function(same semantics as

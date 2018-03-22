@@ -62,10 +62,10 @@ bind_as_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
   stopifnot(is.list(list_of_arrays))
   list_of_arrays <- dropNULLs(list_of_arrays)
 
-  for (i in seq_along(list_of_arrays))
-    list_of_arrays[[i]] <- as.array(list_of_arrays[[i]])
+  # for (i in seq_along(list_of_arrays))
+  #   list_of_arrays[[i]] <- as.array(list_of_arrays[[i]])
 
-  base_dim <- unique(lapply(list_of_arrays, dim))
+  base_dim <- unique(lapply(list_of_arrays, function(x) dim(x) %||% length(x)))
 
   stopifnot(length(base_dim) == 1)
   base_dim <- base_dim[[1]]
@@ -75,8 +75,7 @@ bind_as_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
   X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
 
   Xi <- extract_dim_chr_expr(X, .dim, .idx_var = "i")
-  expr <- parse(text = p0(Xi, " <- list_of_arrays[[i]]"),
-                keep.source = FALSE)[[1]]
+  expr <- parse1(paste0(Xi, " <- list_of_arrays[[i]]"))
 
   e <- environment()
   eval <- maybe_eval_bare()
@@ -133,7 +132,7 @@ bind_on_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
   X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
 
   Xi <- extract_dim_chr_expr(X, .dim, .idx_var = "start:end")
-  expr <- parse1(p0(Xi, " <- list_of_arrays[[i]]"))
+  expr <- parse1(paste0(Xi, " <- list_of_arrays[[i]]"))
 
   eval <- maybe_eval_bare()
   e <- environment()

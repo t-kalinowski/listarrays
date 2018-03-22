@@ -26,7 +26,9 @@ An array, or if \code{X} was a list, a list of arrays of the same shape as
 was passed in.
 }
 \description{
-Modify an array by mapping over 1 or more dimensions
+This function can be thought of as a version of \code{base::apply()} that is
+guaranteed to return a object of the same dimensions as it was input. It also
+generally preserves attributes, as it's built on \code{[<-} and \code{[}.
 }
 \examples{
 x <- array(1:6, 1:3)
