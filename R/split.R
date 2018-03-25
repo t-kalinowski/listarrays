@@ -1,8 +1,5 @@
 #' Split an array along a dimension
 #'
-#' `split_along_dim(X, .dim)` is equivalent to `split_on_dim(X, seq_along_dim(X,
-#' .dim))`
-#'
 #' @param X an array, or list of arrays. Atomic vectors without a dimension
 #'   attribute is treated as a 1 dimensions array (Meaning, atomic vectors
 #'   without a dim attribute are only accepted if `.dim` is `1`. Names of list
@@ -11,26 +8,29 @@
 #' @param .dim a scalar integer, specifying which dimension to split along
 #' @param f Specify how to split the dimension. \describe{
 #'
-#'   \item{character, integer or factor}{passed on to `base::split()`. Must be
-#'   the same length as the dimention being split.}
+#'   \item{character, integer, factor}{passed on to `base::split()`. Must be
+#'   the same length as the dimension being split.}
 #'
 #'   \item{a list of vectors}{Passed on to `base::interaction()` then
 #'   `base::split()`. Each vector in the list must be the same length as the
-#'   dimention being split.}
+#'   dimension being split.}
 #'
 #'   \item{a scalar integer}{used to split into that many groups of equal size}
 #'
-#'   \item{a numeric vector where \code{all( f < 0 )} }{used to determin the
-#'   relative proportions of the group being split. \code{sum(f)} must be
-#'   \code{1}. For example \code{c(0.2, 0.2, 0.6)} will return approximatly a
+#'   \item{a numeric vector where \code{all( f < 0 )}}{specifies the
+#'   relative size proportions of the groups being split. \code{sum(f)} must be
+#'   \code{1}. For example \code{c(0.2, 0.2, 0.6)} will return approximately a
 #'   20\%-20\%-60\% split.} }
 #' @param drop passed on to `[`.
 #' @param .keep_names Logical. If `TRUE` then if the dim being split along has
 #'   dimnames, then the returned list has those names.
 #' @param depth Scalar number, how many levels to recurse down. Set this if you
-#'   want to explicit treat a list as a vector (that is, a one-dimentional
+#'   want to explicit treat a list as a vector (that is, a one-dimensional
 #'   array). (You can alternatively set dim attributes with `dim<-` on the list
 #'   to prevent recursion)
+#'
+#' `split_along_dim(X, .dim)` is equivalent to
+#' `split_on_dim(X, .dim, seq_along_dim(X, .dim))`.
 #'
 #' @return A list of arrays, or if a list of arrays was passed in, then a list
 #'   of lists of arrays.
@@ -51,7 +51,7 @@
 #' Y <- onehot(y)
 #'
 #' # specify `f`` as relative partition sizes
-#' if(require(zeallot)) {
+#' if(require(zeallot) && require(magrittr) && require(purrr)) {
 #'
 #' c(train, validate, test) %<-% {
 #'   list(X = X, Y = Y, y = y) %>%
@@ -72,8 +72,10 @@
 #'   tibble(y, X = split_along_rows(X))
 #'
 split_on_dim <- function(X, .dim,
-                         f = dimnames(X)[[.dim]] %||% seq_along_dim(X, .dim),
+                         f = dimnames(X)[[.dim]], # %||% seq_along_dim(X, .dim),
                          drop = FALSE, depth = Inf) {
+
+  stopifnot(!is.null(f))
 
   if(is.list(f))
     f <- interaction(f, drop = TRUE)
@@ -130,7 +132,7 @@ split_on_dim <- function(X, .dim,
 #' @rdname split-array
 #' @export
 split_on_rows <- function(X,
-                          f = rownames(X) %||% seq_along_rows(X),
+                          f = rownames(X), #%||% seq_along_rows(X),
                           drop = FALSE, depth = Inf)
   split_on_dim(X, 1L, f = f, drop = drop, depth = depth)
 
