@@ -56,15 +56,26 @@
 #'
 #' # pass NULL to drop all dimnames, or just names along a single dimension
 #' nx2 <- set_dimnames(nx, c("x", "y", "z"), .dim = "axis2")
+#' nx2 <- set_dimnames(nx2, LETTERS[1:4], .dim = "axis3")
 #' dimnames(nx2)
 #' dimnames(set_dimnames(nx2, NULL))
-#' dimnames(set_dimnames(nx2, NULL, 2L))
+#' dimnames(set_dimnames(nx2, NULL, 2))
+#' dimnames(set_dimnames(nx2, NULL, c(2, 3)))
+#' # to preserve an axis name and only drop the dimnames, wrap the NULL in a list()
+#' dimnames(set_dimnames(nx2, list(NULL)))
+#' dimnames(set_dimnames(nx2, list(NULL), 2))
+#' dimnames(set_dimnames(nx2, list(axis2 = NULL)))
+#' dimnames(set_dimnames(nx2, list(axis2 = NULL, axis3 = NULL)))
+#' dimnames(set_dimnames(nx2, list(NULL), 2:3))
 set_dimnames <- function(x, nm, .dim = NULL) {
   if (is.null(nm))
     return(drop_dimnames(x, .dim))
-  else if (is.list(nm))
+
+  else if (is.list(nm)) {
     nm <- lapply(nm, as.character)
-  else
+    if (identical(nm, list(character())))
+      return(drop_dimnames(x, .dim, keep_axis_names = TRUE))
+  } else
     nm <- as.character(nm)
 
   dim_nms <- dimnames(x) %||% vector("list", ndims(x))
@@ -131,17 +142,28 @@ set_dimnames <- function(x, nm, .dim = NULL) {
 
 
 
-drop_dimnames <- function(x, .dim = NULL) {
-  if(is.null(.dim))
-    dimnames(x) <- NULL
-  else
-    for(d in .dim)
-      dimnames(x)[[d]] <- NULL
-
-    x
+drop_dimnames <- function(x, .dim = NULL, keep_axis_names = FALSE) {
+    .dim <-
+  if(is.null(.dim)) {
+    if(keep_axis_names)
+      dimnames(x) <- lapply(dimnames(x), function(...) NULL)
+    else
+      dimnames(x) <- NULL
+  } else {
+    dimnames(x)[.dim] <- list(NULL)
+    if(!keep_axis_names)
+      names(dimnames(x))[.dim] <- ""
+  }
+  x
 }
-
-
+#
+# .dim <- c(2, 3)
+# x <- nx2
+# # x <- set_dimnames(x, LETTERS[1:4], 3)
+# dimnames(x)
+# dimnames(x)[.dim] <- list(NULL)
+# names(dimnames(x))[.dim] <- ""
+# dimnames(x)
 
 # ' @export
 # get_dimnames <- function(x, .dim = NULL) {

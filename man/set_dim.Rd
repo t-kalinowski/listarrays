@@ -4,7 +4,7 @@
 \alias{set_dim}
 \title{Pipe friendly \code{dim<-}, with option to pad to necessary length}
 \usage{
-set_dim(x, .dim, pad = NULL, verbose = TRUE)
+set_dim(x, .dim, pad = NULL, verbose = getOption("verbose"))
 }
 \arguments{
 \item{x}{A vector to set dimensions on}
@@ -13,7 +13,7 @@ set_dim(x, .dim, pad = NULL, verbose = TRUE)
 
 \item{pad}{The value to pad the vector with. \code{NULL} (the default) performs no padding.}
 
-\item{verbose}{Whether to emit a message if padding. By default, \code{TRUE}.}
+\item{verbose}{Whether to emit a message if padding. By default, \code{FALSE}.}
 }
 \value{
 Object with dimensions set
@@ -23,6 +23,6 @@ Pipe friendly \code{dim<-}, with option to pad to necessary length
 }
 \examples{
 set_dim(1:10, c(2, 5))
-try( set_dim(1:7, c(2, 5)) ) # error by default, just like `dim<-`
+try( set_dim(1:7, c(2, 5)) ) # error by default, just like `dim<-`()
      set_dim(1:7, c(2, 5), pad = 99)
 }

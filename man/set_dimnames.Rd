@@ -50,7 +50,15 @@ dimnames(set_dimnames(nx, c("x", "y", "z"), .dim = "axis2"))
 
 # pass NULL to drop all dimnames, or just names along a single dimension
 nx2 <- set_dimnames(nx, c("x", "y", "z"), .dim = "axis2")
+nx2 <- set_dimnames(nx2, LETTERS[1:4], .dim = "axis3")
 dimnames(nx2)
 dimnames(set_dimnames(nx2, NULL))
-dimnames(set_dimnames(nx2, NULL, 2L))
+dimnames(set_dimnames(nx2, NULL, 2))
+dimnames(set_dimnames(nx2, NULL, c(2, 3)))
+# to preserve an axis name and only drop the dimnames, wrap the NULL in a list()
+dimnames(set_dimnames(nx2, list(NULL)))
+dimnames(set_dimnames(nx2, list(NULL), 2))
+dimnames(set_dimnames(nx2, list(axis2 = NULL)))
+dimnames(set_dimnames(nx2, list(axis2 = NULL, axis3 = NULL)))
+dimnames(set_dimnames(nx2, list(NULL), 2:3))
 }
