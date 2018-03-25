@@ -21,10 +21,10 @@ extract_rows(X, idx, drop = NULL, depth = Inf)
 from the argument, and the default is used (defaults to TRUE for most
 objects, including arrays)}
 
-\item{depth}{Scalar number, how many levels to recurse down. Set this if you
-want to explicit treat a list as a vector (that is, a one-dimentional
-array). (You can alternatively set dim attributes with \code{dim<-} on the list
-to prevent recursion)}
+\item{depth}{Scalar number, how many levels to recurse down if \code{X} is a list
+of arrays. Set this if you want to explicit treat a list as a vector (that
+is, a one-dimensional array). (You can alternatively set a dim attribute
+with \code{dim<-} on the list to prevent recursion)}
 }
 \description{
 Extract with \code{[} on a specified dimension

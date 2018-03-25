@@ -10,16 +10,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="A toolbox for working with R arrays in a functional programming style">
-<meta property="og:description" content="A toolbox for working with R arrays in a functional programming style. The core
-    feature is a family of functions for flexibly splitting an array into lists of
-    smaller arrays and combining a list of arrays into a single array. It also
-    provides a set of lower-level helpers that abstract out patterns commonly
-    encountered while working with arrays, as well as pipe-friendly and more
-    flexible versions of `dim&lt;-`() and `dimnames&lt;-`(). The majority of the functions
-    are agnostic about the number of dimmensions in the provided array and work
-    recursively, enabling operations on multiple arrays to be performd synchronysly.
-    Listarrays has no dependancies, but it is designed to work well with the
-    packages keras, purrr and magrittr.">
+<meta property="og:description" content="A toolbox for working with R arrays in a functional programming style. It offers
+    a family of functions for flexibly splitting, binding, modifying, and subsetting
+    arrays, as well as a handful of lower-level helpers that abstract out patterns
+    commonly encountered while working with arrays. The majority of the
+    functions are agnostic about the number of dimensions in the provided array and
+    work recursively, enabling operations on multiple arrays to be performed
+    synchronously. Listarrays has no dependencies, but it is designed to work well
+    with the packages purrr and magrittr.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -81,32 +79,27 @@
 <div id="listarrays" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#listarrays" class="anchor"></a>listarrays</h1></div>
-<p>A toolbox for working with R arrays in a functional programming style. The core feature is a family of functions for flexibly splitting an array into lists of smaller arrays and combining a list of arrays into a single array. It also provides a set of lower-level helpers that abstract out patterns commonly encountered while working with arrays, as well as pipe-friendly and more flexible versions of <code>dim&lt;-</code>() and <code>dimnames&lt;-</code>(). The majority of the functions are agnostic about the number of dimmensions in the provided array and work recursively, enabling operations on multiple arrays to be performd synchronysly. Listarrays has no dependancies, but it is designed to work well with the packages purrr and magrittr.</p>
+<p>A toolbox for working with R arrays in a functional programming style. It offers a family of functions for flexibly splitting, binding, modifying, and subsetting arrays, as well as a handful of lower-level helpers that abstract out patterns commonly encountered while working with arrays.</p>
+<p>The package provides:</p>
+<ul>
+<li><p><code><a href="reference/split-array.html">split_on_dim()</a></code> and <code><a href="reference/split-array.html">split_along_dim()</a></code> take an array and returns a list.</p></li>
+<li><p><code><a href="reference/bind-arrays.html">bind_on_dim()</a></code> and <code><a href="reference/bind-arrays.html">bind_as_dim()</a></code> take a list and return a single array.</p></li>
+<li><p><code><a href="reference/modify_along_dim.html">modify_along_dim()</a></code> takes an array, calls the passed function <code>.f()</code> on each subset of the specified dimension, and returns an array of the same shape. (think of this as a safe alternative to <code><a href="http://www.rdocumentation.org/packages/base/topics/apply">base::apply()</a></code> that is guaranteed to return an array of the same shape as it received)</p></li>
+<li><p><code><a href="reference/extract_dim.html">extract_dim()</a></code> a wrapper around <code>[</code> that allows you to specify the dimension being subset as an additional argument. For example, <code><a href="reference/extract_dim.html">extract_dim(X, 1, idx)</a></code> will extract on the first dimension, regardless how many dimensions are in the array <code>X</code>. Contrast this with the base alternative <code>X[idx,,]</code>, where you have to match the number of commas <code>,</code> to the number of dimensions in <code>X</code>.</p></li>
+<li><p>Many of the functions have a varient <code>*_rows()</code> for the most common case of the 1st dimension. For example <code><a href="reference/split-array.html">split_on_rows()</a></code> which is equivalent to <code><a href="reference/split-array.html">split_on_dim(X, 1)</a></code></p></li>
+<li><p><code><a href="reference/set_dim.html">set_dim()</a></code> and <code><a href="reference/set_dimnames.html">set_dimnames()</a></code>, pipe-friendly and more flexible versions of <code>dim&lt;-</code> and <code>dimnames&lt;-</code></p></li>
+<li><p>A handful of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example <code><a href="reference/seq_along_dim.html">seq_along_rows()</a></code> (a combination of <code>seq_along()</code> and <code>nrow()</code>).</p></li>
+<li><p>A set of functions that help encode atomic vectors as <code><a href="reference/onehot.html">onehot()</a></code> binary matrix’s and <code><a href="reference/onehot.html">decode_onehot()</a></code> back into atomic vectors. (for example if training a neural network with keras)</p></li>
+<li>
+<p>Many of the functions work recursively if provided a list of arrays. This is particularly useful in combination with <code>zeallot::`%&lt;-%`()</code> multi-assignment operator, which allows for patterns like:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(X, Y) <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw"><a href="reference/shuffle_rows.html">shuffle_rows</a></span>(X, Y, <span class="dt">in_sync =</span> <span class="ot">TRUE</span>)</code></pre></div>
+</li>
+</ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>listarrays is not on CRAN yet. You can install the development version from github with</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"t-kalinowski/listarrays"</span>)</code></pre></div>
-<p>The package provides:</p>
-<ul>
-<li>
-<p>A family of functions for spliting, binding, and modifying multi-dimensional arrays.</p>
-<ul>
-<li><p><code><a href="reference/split-array.html">split_on_dim()</a></code> and <code><a href="reference/split-array.html">split_along_dim()</a></code> take an array and returns a list.</p></li>
-<li><p><code><a href="reference/bind-arrays.html">bind_on_dim()</a></code> and <code><a href="reference/bind-arrays.html">bind_as_dim()</a></code> take a list and return a single array.</p></li>
-<li><p><code><a href="reference/modify_along_dim.html">modify_along_dim()</a></code> takes an array, calls the passed function <code>.f()</code> on each subset of the specified dimension, and returns an array of the same shape.</p></li>
-<li><p>Many of the functions have a varient <code>*_rows()</code> for the most common case of the 1st dimension. For example <code><a href="reference/split-array.html">split_on_rows()</a></code> which is equivalent to <code><a href="reference/split-array.html">split_on_dim(X, 1)</a></code></p></li>
-</ul>
-</li>
-<li><p><code><a href="reference/set_dim.html">set_dim()</a></code> and <code><a href="reference/set_dimnames.html">set_dimnames()</a></code>, pipe-friendly and more flexible versions of <code>dim&lt;-</code> and <code>dimnames&lt;-</code></p></li>
-<li><p>A family of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example <code><a href="reference/seq_along_dim.html">seq_along_rows()</a></code> (a combination of <code>seq_along()</code> and <code>nrow()</code>, with some error checks for common pitfalls).</p></li>
-<li><p>Many of the functions are agnostic about the number of dimensions in the array passed. In practice, this means that you can use the same code path for arrays of various sizes. For example, to extract <code>idx</code> on the 1st dimension, you can use <code><a href="reference/extract_dim.html">extract_rows(X, idx)</a></code>, and it will work for an array of any number of dimensions. Contrast this with the base alternative <code>X[idx,,]</code>, where you have to modify the number of commas <code>,</code> to match the number of dimensions in <code>X</code>.</p></li>
-<li>
-<p>Many of the functions work recursively if provided a list of arrays. This is particularly useful in combination with <code>zeallot::`%&lt;-%`()</code> multi-assignment operator, which allows for patterns like:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(X, Y) <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw"><a href="reference/shuffle_rows.html">shuffle_rows</a></span>(X, Y, <span class="dt">in_sync =</span> <span class="ot">TRUE</span>)</code></pre></div>
-</li>
-<li><p>A set of functions that help encode atomic vectors as <code><a href="reference/onehot.html">onehot()</a></code> binary matrix’s and <code><a href="reference/onehot.html">decode_onehot()</a></code> back into atomic vectors.</p></li>
-</ul>
 </div>
 </div>
 </div>

@@ -7,11 +7,9 @@
 \alias{split_along_rows}
 \title{Split an array along a dimension}
 \usage{
-split_on_dim(X, .dim, f = dimnames(X)[[.dim]] \%||\% seq_along_dim(X, .dim),
-  drop = FALSE, depth = Inf)
+split_on_dim(X, .dim, f = dimnames(X)[[.dim]], drop = FALSE, depth = Inf)
 
-split_on_rows(X, f = rownames(X) \%||\% seq_along_rows(X), drop = FALSE,
-  depth = Inf)
+split_on_rows(X, f = rownames(X), drop = FALSE, depth = Inf)
 
 split_along_dim(X, .dim, drop = NULL, .keep_names = TRUE, depth = Inf)
 
@@ -28,26 +26,29 @@ length of the dimension being split.}
 
 \item{f}{Specify how to split the dimension. \describe{
 
-\item{character, integer or factor}{passed on to \code{base::split()}. Must be
-the same length as the dimention being split.}
+\item{character, integer, factor}{passed on to \code{base::split()}. Must be
+the same length as the dimension being split.}
 
 \item{a list of vectors}{Passed on to \code{base::interaction()} then
 \code{base::split()}. Each vector in the list must be the same length as the
-dimention being split.}
+dimension being split.}
 
 \item{a scalar integer}{used to split into that many groups of equal size}
 
-\item{a numeric vector where \code{all( f < 0 )} }{used to determin the
-relative proportions of the group being split. \code{sum(f)} must be
-\code{1}. For example \code{c(0.2, 0.2, 0.6)} will return approximatly a
+\item{a numeric vector where \code{all( f < 0 )}}{specifies the
+relative size proportions of the groups being split. \code{sum(f)} must be
+\code{1}. For example \code{c(0.2, 0.2, 0.6)} will return approximately a
 20\%-20\%-60\% split.} }}
 
 \item{drop}{passed on to \code{[}.}
 
 \item{depth}{Scalar number, how many levels to recurse down. Set this if you
-want to explicit treat a list as a vector (that is, a one-dimentional
+want to explicit treat a list as a vector (that is, a one-dimensional
 array). (You can alternatively set dim attributes with \code{dim<-} on the list
-to prevent recursion)}
+to prevent recursion)
+
+\code{split_along_dim(X, .dim)} is equivalent to
+\code{split_on_dim(X, .dim, seq_along_dim(X, .dim))}.}
 
 \item{.keep_names}{Logical. If \code{TRUE} then if the dim being split along has
 dimnames, then the returned list has those names.}
@@ -57,7 +58,7 @@ A list of arrays, or if a list of arrays was passed in, then a list
 of lists of arrays.
 }
 \description{
-\code{split_along_dim(X, .dim)} is equivalent to \code{split_on_dim(X, seq_along_dim(X, .dim))}
+Split an array along a dimension
 }
 \examples{
 X <- array(1:8, c(2,3,4))
@@ -73,7 +74,7 @@ y <- letters[1:10]
 Y <- onehot(y)
 
 # specify `f`` as relative partition sizes
-if(require(zeallot)) {
+if(require(zeallot) && require(magrittr) && require(purrr)) {
 
 c(train, validate, test) \%<-\% {
   list(X = X, Y = Y, y = y) \%>\%

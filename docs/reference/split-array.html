@@ -27,7 +27,7 @@
 <script src="../pkgdown.js"></script>
 <meta property="og:title" content="Split an array along a dimension — split_on_dim" />
 
-<meta property="og:description" content="split_along_dim(X, .dim) is equivalent to split_on_dim(X, seq_along_dim(X, .dim))" />
+<meta property="og:description" content="Split an array along a dimension" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -95,14 +95,12 @@
     </div>
 
     
-    <p><code>split_along_dim(X, .dim)</code> is equivalent to <code>split_on_dim(X, seq_along_dim(X, .dim))</code></p>
+    <p>Split an array along a dimension</p>
     
 
-    <pre class="usage"><span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>dimnames</span>(<span class='no'>X</span>)<span class='kw'>[[</span><span class='no'>.dim</span>]] <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_dim</a></span>(<span class='no'>X</span>, <span class='no'>.dim</span>),
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+    <pre class="usage"><span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>dimnames</span>(<span class='no'>X</span>)<span class='kw'>[[</span><span class='no'>.dim</span>]], <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_on_rows</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>rownames</span>(<span class='no'>X</span>) <span class='kw'>%||%</span> <span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+<span class='fu'>split_on_rows</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>rownames</span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
 <span class='fu'>split_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.keep_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
@@ -127,18 +125,18 @@ length of the dimension being split.</p></td>
       <th>f</th>
       <td><p>Specify how to split the dimension.</p><dl class='dl-horizontal'>
 
-<dt>character, integer or factor</dt><dd><p>passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Must be
-the same length as the dimention being split.</p></dd>
+<dt>character, integer, factor</dt><dd><p>passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Must be
+the same length as the dimension being split.</p></dd>
 
 <dt>a list of vectors</dt><dd><p>Passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/interaction'>base::interaction()</a></code> then
 <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Each vector in the list must be the same length as the
-dimention being split.</p></dd>
+dimension being split.</p></dd>
 
 <dt>a scalar integer</dt><dd><p>used to split into that many groups of equal size</p></dd>
 
-<dt>a numeric vector where <code>all( f &lt; 0 )</code> </dt><dd><p>used to determin the
-relative proportions of the group being split. <code>sum(f)</code> must be
-<code>1</code>. For example <code>c(0.2, 0.2, 0.6)</code> will return approximatly a
+<dt>a numeric vector where <code>all( f &lt; 0 )</code></dt><dd><p>specifies the
+relative size proportions of the groups being split. <code>sum(f)</code> must be
+<code>1</code>. For example <code>c(0.2, 0.2, 0.6)</code> will return approximately a
 20%-20%-60% split.</p></dd> </dl></td>
     </tr>
     <tr>
@@ -148,9 +146,11 @@ relative proportions of the group being split. <code>sum(f)</code> must be
     <tr>
       <th>depth</th>
       <td><p>Scalar number, how many levels to recurse down. Set this if you
-want to explicit treat a list as a vector (that is, a one-dimentional
+want to explicit treat a list as a vector (that is, a one-dimensional
 array). (You can alternatively set dim attributes with <code>dim&lt;-</code> on the list
-to prevent recursion)</p></td>
+to prevent recursion)</p>
+<p><code>split_along_dim(X, .dim)</code> is equivalent to
+<code>split_on_dim(X, .dim, seq_along_dim(X, .dim))</code>.</p></td>
     </tr>
     <tr>
       <th>.keep_names</th>
@@ -264,20 +264,40 @@ of lists of arrays.</p>
 <span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='onehot.html'>onehot</a></span>(<span class='no'>y</span>)
 
 <span class='co'># specify `f`` as relative partition sizes</span>
-<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>zeallot</span>)) {
+<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>zeallot</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'>require</span>(<span class='no'>magrittr</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'>require</span>(<span class='no'>purrr</span>)) {
 
 <span class='fu'>c</span>(<span class='no'>train</span>, <span class='no'>validate</span>, <span class='no'>test</span>) <span class='kw'>%&lt;-%</span> {
   <span class='fu'>list</span>(<span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>X</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Y</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='shuffle_rows.html'>shuffle_rows</a></span>() <span class='kw'>%&gt;%</span>
     <span class='fu'>split_on_rows</span>(<span class='fu'>c</span>(<span class='fl'>0.6</span>, <span class='fl'>0.2</span>, <span class='fl'>0.2</span>)) <span class='kw'>%&gt;%</span>
-    <span class='fu'>transpose</span>()
+    <span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/transpose'>transpose</a></span>()
 }
 
 <span class='fu'>str</span>(<span class='no'>test</span>)
 <span class='fu'>str</span>(<span class='no'>train</span>)
 <span class='fu'>str</span>(<span class='no'>validate</span>)
 
-}</div><div class='output co'>#&gt; <span class='error'>Error in transpose(.): could not find function "transpose"</span></div><div class='input'>
+}</div><div class='output co'>#&gt; List of 3
+#&gt;  $ X: int [1:2, 1:3, 1:3] 7 4 17 14 27 24 37 34 47 44 ...
+#&gt;  $ Y: num [1:2, 1:10] 0 0 0 0 0 0 0 1 0 0 ...
+#&gt;   ..- attr(*, "dimnames")=List of 2
+#&gt;   .. ..$ : NULL
+#&gt;   .. ..$ : chr [1:10] "a" "b" "c" "d" ...
+#&gt;  $ y: chr [1:2] "g" "d"
+#&gt; List of 3
+#&gt;  $ X: int [1:6, 1:3, 1:3] 10 3 6 8 2 5 20 13 16 18 ...
+#&gt;  $ Y: num [1:6, 1:10] 0 0 0 0 0 0 0 0 0 0 ...
+#&gt;   ..- attr(*, "dimnames")=List of 2
+#&gt;   .. ..$ : NULL
+#&gt;   .. ..$ : chr [1:10] "a" "b" "c" "d" ...
+#&gt;  $ y: chr [1:6] "j" "c" "f" "h" ...
+#&gt; List of 3
+#&gt;  $ X: int [1:2, 1:3, 1:3] 9 1 19 11 29 21 39 31 49 41 ...
+#&gt;  $ Y: num [1:2, 1:10] 0 1 0 0 0 0 0 0 0 0 ...
+#&gt;   ..- attr(*, "dimnames")=List of 2
+#&gt;   .. ..$ : NULL
+#&gt;   .. ..$ : chr [1:10] "a" "b" "c" "d" ...
+#&gt;  $ y: chr [1:2] "i" "a"</div><div class='input'>
 
 <span class='co'># with with array data in a data frame by splitting row-wise</span>
 <span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>tibble</span>))

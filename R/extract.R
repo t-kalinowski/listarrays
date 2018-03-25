@@ -11,10 +11,10 @@
 #' @param drop Passed on to `[`. If `NULL` (the default), then drop is omitted
 #'   from the argument, and the default is used (defaults to TRUE for most
 #'   objects, including arrays)
-#' @param depth Scalar number, how many levels to recurse down. Set this if you
-#'   want to explicit treat a list as a vector (that is, a one-dimentional
-#'   array). (You can alternatively set dim attributes with `dim<-` on the list
-#'   to prevent recursion)
+#' @param depth Scalar number, how many levels to recurse down if `X` is a list
+#'   of arrays. Set this if you want to explicit treat a list as a vector (that
+#'   is, a one-dimensional array). (You can alternatively set a dim attribute
+#'   with `dim<-` on the list to prevent recursion)
 #'
 #' @export
 #'
@@ -44,7 +44,9 @@ extract_dim <- function(X, .dim, idx, drop = NULL, depth = Inf) {
   stopifnot(is.scalar.integerish(.dim))
 
   expr <- extract_dim_chr_expr(X, .dim, .idx_var = "idx", drop = drop)
-  eval(parse(text = expr, keep.source = FALSE)[[1]])
+  expr <- parse(text = expr, keep.source = FALSE)[[1]]
+  eval <- maybe_eval_bare()
+  eval(expr)
 }
 
 
@@ -61,10 +63,11 @@ extract_rows <- function(X, idx, drop = NULL, depth = Inf)
 
 
 
-extract_dim_chr_expr <- function(X, .dim, drop = NULL,
-                                     .ndims = ndims(X),
-                                     .idx_var = names(.dim) %||% paste0("idx", if(length(.dim) > 1L) seq_along(.dim)),
-                                     .var_to_subset = deparse(substitute(X))) {
+extract_dim_chr_expr <-
+  function(X, .dim, drop = NULL, .ndims = ndims(X),
+           .idx_var = names(.dim) %||% paste0("idx", if(length(.dim) > 1L) seq_along(.dim)),
+           .var_to_subset = deparse(substitute(X))) {
+
   force(.var_to_subset)
 
   .dim <- as.integer(.dim)
