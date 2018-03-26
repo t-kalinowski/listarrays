@@ -35,7 +35,7 @@ dimension being split.}
 
 \item{a scalar integer}{used to split into that many groups of equal size}
 
-\item{a numeric vector where \code{all( f < 0 )}}{specifies the
+\item{a numeric vector where \code{all(f<0)}}{specifies the
 relative size proportions of the groups being split. \code{sum(f)} must be
 \code{1}. For example \code{c(0.2, 0.2, 0.6)} will return approximately a
 20\%-20\%-60\% split.} }}
