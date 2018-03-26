@@ -45,15 +45,3 @@ p0 <- function(...) paste0(...)
 
 dropNULLs <- function(x) x[!vapply(x, is.null, logical(1))]
 
-
-maybe_eval_bare <- function() {
-  if(requireNamespace("rlang", quietly = TRUE))
-    rlang::eval_bare
-  else
-    eval
-}
-
-# if(requireNamespace("rlang")) {
-#   eval <- rlang::eval_bare
-#   formals(eval) <- c(formals(eval)[1], alist(env = envir, envir = parent.frame))
-# }

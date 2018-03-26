@@ -45,7 +45,6 @@ extract_dim <- function(X, .dim, idx, drop = NULL, depth = Inf) {
 
   expr <- extract_dim_chr_expr(X, .dim, .idx_var = "idx", drop = drop)
   expr <- parse(text = expr, keep.source = FALSE)[[1]]
-  eval <- maybe_eval_bare()
   eval(expr)
 }
 
