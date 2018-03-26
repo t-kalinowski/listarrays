@@ -13,14 +13,12 @@ knitr::opts_chunk$set(
 )
 ```
 # listarrays
-A toolbox for working with R arrays in a functional programming style. It offers
-a family of functions for flexibly splitting, binding, modifying, and subsetting
-arrays, as well as a handful of lower-level helpers that abstract out patterns
-commonly encountered while working with arrays. 
+A toolbox for working with R arrays in a functional programming style. Flexibly
+split, bind, modify, subset, and name arrays.
 
 The package provides:
 
-+  `split_on_dim()` and `split_along_dim()` take an array and returns a list.
++  `split_on_dim()` and `split_along_dim()`, which take an array and returns a list.
     
 +  `bind_on_dim()` and `bind_as_dim()` take a list and return a single array.
     
@@ -30,8 +28,8 @@ The package provides:
     to return an array of the same shape as it received)
     
 +  `extract_dim()` a wrapper around `[` that allows you to specify the dimension 
-   being subset as an additional argument. For example, `extract_dim(X, 1, idx)`
-   will extract on the first dimension, regardless how many dimensions are in 
+   being subset as a function argument. For example, `extract_dim(X, 1, idx)`
+   will extract `idx` on the first dimension, regardless how many dimensions are in 
    the array `X`.  Contrast this with the base alternative `X[idx,,]`, where you
    have to match the number of commas `,` to the number of dimensions in `X`.
     
