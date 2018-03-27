@@ -7,13 +7,13 @@
 \alias{bind_on_rows}
 \title{Bind arrays along a specified dimension}
 \usage{
-bind_as_dim(list_of_arrays, .dim, .keep_names = TRUE)
+bind_as_dim(list_of_arrays, .dim)
 
-bind_as_rows(list_of_arrays, .keep_names = TRUE)
+bind_as_rows(list_of_arrays)
 
-bind_on_dim(list_of_arrays, .dim, .keep_names = TRUE)
+bind_on_dim(list_of_arrays, .dim)
 
-bind_on_rows(list_of_arrays, .keep_names = TRUE)
+bind_on_rows(list_of_arrays)
 }
 \arguments{
 \item{list_of_arrays}{a list of arrays. All arrays must be of the same
@@ -21,9 +21,6 @@ dimension. NULL's in place of arrays are automatically dropped.}
 
 \item{.dim}{Scalar integer, specifying the index position of where to
 introduce the new dimension to introduce.}
-
-\item{.keep_names}{Whether \code{names(list_of_arrays)} should be used to
-construct dimnames.}
 }
 \value{
 An array, with one additional dimension.

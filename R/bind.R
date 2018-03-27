@@ -14,8 +14,6 @@
 #'   dimension. NULL's in place of arrays are automatically dropped.
 #' @param .dim Scalar integer, specifying the index position of where to
 #'   introduce the new dimension to introduce.
-#' @param .keep_names Whether `names(list_of_arrays)` should be used to
-#'   construct dimnames.
 #'
 #' @return An array, with one additional dimension.
 #' @rdname bind-arrays
@@ -51,7 +49,7 @@
 #' dim(combined)
 #' for(i in seq_along(list_of_arrays))
 #'    stopifnot(identical(combined[,,i,], list_of_arrays[[i]]))
-bind_as_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
+bind_as_dim <- function(list_of_arrays, .dim) {
   check.is.integerish(.dim, 1L)
 
   # TODO, .dim should accept a named vector, in which case it sets a new dimname
@@ -61,9 +59,6 @@ bind_as_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
 
   stopifnot(is.list(list_of_arrays))
   list_of_arrays <- dropNULLs(list_of_arrays)
-
-  # for (i in seq_along(list_of_arrays))
-  #   list_of_arrays[[i]] <- as.array(list_of_arrays[[i]])
 
   base_dim <- unique(lapply(list_of_arrays, function(x) dim(x) %||% length(x)))
 
@@ -83,7 +78,7 @@ bind_as_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
   for(i in seq_along(list_of_arrays))
     eval(expr, e)
 
-  if(.keep_names && !is.null(names(list_of_arrays)))
+  if(!is.null(names(list_of_arrays)))
     dimnames(X)[[.dim]] <- names(list_of_arrays)
 
   X
@@ -91,20 +86,14 @@ bind_as_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
 
 #' @rdname bind-arrays
 #' @export
-bind_as_rows <- function(list_of_arrays, .keep_names = TRUE)
-  bind_as_dim(list_of_arrays, .dim = 1L, .keep_names = .keep_names)
-
-# ' @rdname bind-arrays
-# ' @export
-# bind_as_cols <- function(list_of_arrays, .keep_names = TRUE)
-#   bind_as_dim(list_of_arrays, .dim = 2L, .keep_names = .keep_names)
-
+bind_as_rows <- function(list_of_arrays)
+  bind_as_dim(list_of_arrays, .dim = 1L)
 
 
 
 #' @rdname bind-arrays
 #' @export
-bind_on_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
+bind_on_dim <- function(list_of_arrays, .dim) {
 
   stopifnot(is.list(list_of_arrays))
   list_of_arrays <- dropNULLs(list_of_arrays)
@@ -144,7 +133,7 @@ bind_on_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
     start <- end + 1L
   }
 
-  if(.keep_names && !is.null(names(list_of_arrays)))
+  if(!is.null(names(list_of_arrays)))
     dimnames(X)[[.dim]] <- rep(names(list_of_arrays),
                                times = n_entries_per_array)
 
@@ -153,14 +142,8 @@ bind_on_dim <- function(list_of_arrays, .dim, .keep_names = TRUE) {
 
 #' @rdname bind-arrays
 #' @export
-bind_on_rows <- function(list_of_arrays, .keep_names = TRUE)
-  bind_on_dim(list_of_arrays, .dim = 1L, .keep_names = .keep_names)
-
-# ' @rdname bind-arrays
-# ' @export
-# bind_on_cols <- function(list_of_arrays, .keep_names = TRUE)
-#   bind_on_dim(list_of_arrays, .dim = 1L, .keep_names = .keep_names)
-
+bind_on_rows <- function(list_of_arrays)
+  bind_on_dim(list_of_arrays, .dim = 1L)
 
 
 

@@ -125,12 +125,18 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The word "dimnames" is overloaded, in that it can refer to either
-the names of the array axes (e.g, metric, timestep, channels), or it can
-refer to the names of entries along a particular axes (e.g., date1, date2,
-date3, ...). This function can be used to set either one (by passing <code>nm</code> a
-character vector and specifying <code>.dim</code> accordingly), or both at the same
-time (by passing a named list to <code>nm</code>).</p>
+    <p>This function is quite flexible. See examples for the complete
+picture.</p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>The word "dimnames" is slightly overloaded. Most commonly it refers to
+the names of entries along a particular axis (e.g., date1, date2, date3,
+...), but occausionally it is also used to refer to the names of the array
+axes themselves (e.g, dates, temperature, pressure, ...). To disambiguate,
+in the examples 'dimnames' always refers to the first case, while 'axis
+names' refers to the second. This function can be used either or both both
+axis names and dimnames.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -281,6 +287,8 @@ time (by passing a named list to <code>nm</code>).</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#note">Note</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
