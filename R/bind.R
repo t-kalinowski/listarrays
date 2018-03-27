@@ -12,6 +12,7 @@
 #'
 #' @param list_of_arrays a list of arrays. All arrays must be of the same
 #'   dimension. NULL's in place of arrays are automatically dropped.
+#' @param ... Arrays to be bound, specified individually or supplied as a single list
 #' @param .dim Scalar integer, specifying the index position of where to
 #'   introduce the new dimension to introduce.
 #'
@@ -89,8 +90,12 @@ bind_as_dim <- function(list_of_arrays, .dim) {
 
 #' @rdname bind-arrays
 #' @export
-bind_as_rows <- function(list_of_arrays)
+bind_as_rows <- function(...) {
+  list_of_arrays <- list(...)
+  if (identical(nargs(), 1L))
+    list_of_arrays <- list_of_arrays[[1]]
   bind_as_dim(list_of_arrays, .dim = 1L)
+}
 
 
 
@@ -145,8 +150,13 @@ bind_on_dim <- function(list_of_arrays, .dim) {
 
 #' @rdname bind-arrays
 #' @export
-bind_on_rows <- function(list_of_arrays)
+bind_on_rows <- function(...) {
+  list_of_arrays <- list(...)
+  if (identical(nargs(), 1L))
+    list_of_arrays <- list_of_arrays[[1]]
+
   bind_on_dim(list_of_arrays, .dim = 1L)
+}
 
 
 

@@ -7,11 +7,11 @@ A toolbox for working with R arrays in a functional programming style. Flexibly 
 
 The package provides:
 
--   `split_on_dim()` and `split_along_dim()`, which take an array and returns a list.
+-   `split_on_dim()` and `split_along_dim()`, which take an array and return a list.
 
--   `bind_on_dim()` and `bind_as_dim()` take a list and return a single array.
+-   `bind_on_dim()` and `bind_as_dim()` take a list and return an array.
 
--   `modify_along_dim()` takes an array, calls the passed function `.f()` on each subset of the specified dimension, and returns an array of the same shape. (think of this as a safe alternative to `base::apply()` that is guaranteed to return an array of the same shape as it received)
+-   `modify_along_dim()` takes an array, calls the passed function `.f()` on each subset of the specified dimension, and returns an array of the same shape. (think of this as a safer alternative to `base::apply()` that is guaranteed to return an array of the same shape as it received)
 
 -   `extract_dim()` a wrapper around `[` that allows you to specify the dimension being subset as a function argument. For example, `extract_dim(X, 1, idx)` will extract `idx` on the first dimension, regardless how many dimensions are in the array `X`. Contrast this with the base alternative `X[idx,,]`, where you have to match the number of commas `,` to the number of dimensions in `X`.
 

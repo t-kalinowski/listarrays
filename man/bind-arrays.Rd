@@ -9,11 +9,11 @@
 \usage{
 bind_as_dim(list_of_arrays, .dim)
 
-bind_as_rows(list_of_arrays)
+bind_as_rows(...)
 
 bind_on_dim(list_of_arrays, .dim)
 
-bind_on_rows(list_of_arrays)
+bind_on_rows(...)
 }
 \arguments{
 \item{list_of_arrays}{a list of arrays. All arrays must be of the same
@@ -21,6 +21,8 @@ dimension. NULL's in place of arrays are automatically dropped.}
 
 \item{.dim}{Scalar integer, specifying the index position of where to
 introduce the new dimension to introduce.}
+
+\item{...}{Arrays to be bound, specified individually or supplied as a single list}
 }
 \value{
 An array, with one additional dimension.
