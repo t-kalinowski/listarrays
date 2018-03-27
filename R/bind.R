@@ -57,6 +57,9 @@ bind_as_dim <- function(list_of_arrays, .dim) {
   # if(!is.null(names(.dim)))
   #   new_dimname <- names(.dim)
 
+  # TODO, think if `list_of_arrays` should instead be ..., downside there is
+  # .dim then must be named
+
   stopifnot(is.list(list_of_arrays))
   list_of_arrays <- dropNULLs(list_of_arrays)
 

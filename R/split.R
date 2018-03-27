@@ -22,8 +22,6 @@
 #'   \code{1}. For example \code{c(0.2, 0.2, 0.6)} will return approximately a
 #'   20\%-20\%-60\% split.} }
 #' @param drop passed on to `[`.
-#' @param .keep_names Logical. If `TRUE` then if the dim being split along has
-#'   dimnames, then the returned list has those names.
 #' @param depth Scalar number, how many levels to recurse down. Set this if you
 #'   want to explicit treat a list as a vector (that is, a one-dimensional
 #'   array). (You can alternatively set dim attributes with `dim<-` on the list
@@ -72,7 +70,7 @@
 #'   tibble(y, X = split_along_rows(X))
 #'
 split_on_dim <- function(X, .dim,
-                         f = dimnames(X)[[.dim]], # %||% seq_along_dim(X, .dim),
+                         f = dimnames(X)[[.dim]],
                          drop = FALSE, depth = Inf) {
 
   stopifnot(!is.null(f))
@@ -121,32 +119,23 @@ split_on_dim <- function(X, .dim,
 #' @rdname split-array
 #' @export
 split_on_rows <- function(X,
-                          f = rownames(X), #%||% seq_along_rows(X),
+                          f = rownames(X),
                           drop = FALSE, depth = Inf)
   split_on_dim(X, 1L, f = f, drop = drop, depth = depth)
-
-
-# ' @rdname split-array
-# ' @export
-# split_on_cols <- function(X,
-#                           f = colnames(X) %||% seq_along_cols(X),
-#                           drop = NULL, depth = Inf)
-#   split_on_dim(X, 2L, f = f, drop = drop, depth = depth)
-
 
 
 
 #' @rdname split-array
 #' @export
-split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = Inf) {
-  if (is.list(X) && is.null(dim(X)) && depth > 0L) # don't recurse on data.frame or other overloaded array-type classes
-    return(lapply(X, function(x)
-      split_along_dim(x, .dim, drop = drop, .keep_names = .keep_names, depth = depth - 1L)))
+split_along_dim <- function(X, .dim, drop = NULL, depth = Inf) {
 
+  # don't recurse on data.frame or other overloaded array-type classes
+  if (is.list(X) && is.null(dim(X)) && depth > 0L)
+    return(lapply(X, function(x)
+      split_along_dim(x, .dim, drop = drop, depth = depth - 1L)))
 
   if (is.character(.dim))
     .dim <- match(.dim, names(dimnames(X)))
-
 
   if (.dim == 1L && length(dim(X)) >= 3L && dim(X)[1L] >= 1e5L &&
       any(dim(X)[-1L] != 1L) && is.array(X) && (is.null(drop)) || isTRUE(drop)) {
@@ -162,16 +151,15 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
   expr <- extract_dim_chr_expr(X, .dim, .idx_var = "i",
                                drop = drop, .var_to_subset = "X")
 
-  expr <- parse(text = expr, keep.source = FALSE)[[1]]
-
+  expr <- parse1(expr)
   e <- environment()
   eval <- maybe_eval_bare()
+
   out <- vector("list", get_dim(X)[.dim])
   for (i in seq_along_dim(X, .dim))
     out[[i]] <- eval(expr, e)
 
-
-  if (isTRUE(.keep_names) && !is.null(nms <- dimnames(X)[[.dim]]))
+  if (!is.null(nms <- dimnames(X)[[.dim]]))
     names(out) <- nms
 
   out
@@ -180,17 +168,6 @@ split_along_dim <- function(X, .dim, drop = NULL, .keep_names = TRUE, depth = In
 
 #' @rdname split-array
 #' @export
-split_along_rows <-
-  function(X, drop = NULL, .keep_names = TRUE, depth = Inf)
-    split_along_dim(X, 1L, drop = drop, .keep_names = .keep_names, depth = depth)
-
-
-
-# ' @rdname split-array
-# ' @export
-# split_along_cols <-
-#   function(X, drop = NULL, .keep_names = TRUE, depth = Inf)
-#     split_along_dim(X, 2L, drop = drop, .keep_names = .keep_names, depth = depth)
-
-
+split_along_rows <- function(X, drop = NULL, depth = Inf)
+  split_along_dim(X, 1L, drop = drop, depth = depth)
 

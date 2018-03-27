@@ -11,9 +11,9 @@ split_on_dim(X, .dim, f = dimnames(X)[[.dim]], drop = FALSE, depth = Inf)
 
 split_on_rows(X, f = rownames(X), drop = FALSE, depth = Inf)
 
-split_along_dim(X, .dim, drop = NULL, .keep_names = TRUE, depth = Inf)
+split_along_dim(X, .dim, drop = NULL, depth = Inf)
 
-split_along_rows(X, drop = NULL, .keep_names = TRUE, depth = Inf)
+split_along_rows(X, drop = NULL, depth = Inf)
 }
 \arguments{
 \item{X}{an array, or list of arrays. Atomic vectors without a dimension
@@ -49,9 +49,6 @@ to prevent recursion)
 
 \code{split_along_dim(X, .dim)} is equivalent to
 \code{split_on_dim(X, .dim, seq_along_dim(X, .dim))}.}
-
-\item{.keep_names}{Logical. If \code{TRUE} then if the dim being split along has
-dimnames, then the returned list has those names.}
 }
 \value{
 A list of arrays, or if a list of arrays was passed in, then a list
