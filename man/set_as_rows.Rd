@@ -9,7 +9,9 @@ set_as_rows(X, .dim)
 \arguments{
 \item{X}{an array}
 
-\item{.dim}{scalar integer, which dim to bring forward}
+\item{.dim}{scalar integer or string, which dim to bring forward
+
+This is a powered by \code{base::aperm()}.}
 }
 \value{
 a reshaped array
@@ -23,4 +25,7 @@ y <- set_as_rows(x, 3)
 
 for (i in seq_along_dim(x, 3))
   stopifnot( identical(x[,,i], y[i,,]) )
+}
+\seealso{
+\code{base::aperm()} \code{set_dim()} \code{keras::array_reshape()}
 }

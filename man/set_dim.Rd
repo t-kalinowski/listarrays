@@ -2,7 +2,7 @@
 % Please edit documentation in R/dimnames.R
 \name{set_dim}
 \alias{set_dim}
-\title{Pipe friendly \code{dim<-}, with option to pad to necessary length}
+\title{Pipe friendly \code{dim<-()}, with option to pad to necessary length}
 \usage{
 set_dim(x, .dim, pad = NULL, verbose = getOption("verbose"))
 }
@@ -19,7 +19,7 @@ set_dim(x, .dim, pad = NULL, verbose = getOption("verbose"))
 Object with dimensions set
 }
 \description{
-Pipe friendly \code{dim<-}, with option to pad to necessary length
+Pipe friendly \code{dim<-()}, with option to pad to necessary length
 }
 \examples{
 set_dim(1:10, c(2, 5))

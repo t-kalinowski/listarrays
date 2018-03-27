@@ -20,12 +20,17 @@ x, with dimnames
 A more flexible and pipe-friendly version of \code{dimnames<-}.
 }
 \details{
-The word "dimnames" is overloaded, in that it can refer to either
-the names of the array axes (e.g, metric, timestep, channels), or it can
-refer to the names of entries along a particular axes (e.g., date1, date2,
-date3, ...). This function can be used to set either one (by passing \code{nm} a
-character vector and specifying \code{.dim} accordingly), or both at the same
-time (by passing a named list to \code{nm}).
+This function is quite flexible. See examples for the complete
+picture.
+}
+\note{
+The word "dimnames" is slightly overloaded. Most commonly it refers to
+the names of entries along a particular axis (e.g., date1, date2, date3,
+...), but occausionally it is also used to refer to the names of the array
+axes themselves (e.g, dates, temperature, pressure, ...). To disambiguate,
+in the examples 'dimnames' always refers to the first case, while 'axis
+names' refers to the second. This function can be used either or both both
+axis names and dimnames.
 }
 \examples{
 x <- array(1:8, 2:4)
