@@ -2,8 +2,9 @@
 #' Pipe friendly `dim<-()`, with option to pad to necessary length. Also allows
 #' for filling the array using C style row-major semantics.
 #'
-#' `dim2<-()` reshapes with row-major semantics, and is equivelant to
-#' `set_dim(order = 'C')` and `reticulate::array_reshape()`
+#' `dim2<-()` and reshapes with row-major semantics, and is equivelant to
+#' `set_dim(order = 'C')` and `reticulate::array_reshape()`. `set_dim2()` is a
+#' wrapper around `dim2<-`, and equivelant to `set_dim(..., order = "C")`.
 #'
 #' @param x A vector or array to set dimensions on
 #' @param .dim,value The desired dimensions (an integer(ish) vector)
@@ -46,14 +47,15 @@
 #' # if needed, see listarrays:::array_reshape2() for
 #' # a drop-in pure R replacement for reticulate::array_reshape()
 #' }
-set_dim <- function(x, .dim, pad = NULL,  order = c("F", "C"),
+set_dim <- function(x, .dim,
+                    pad = getOption("listarrays.autopad_arrays_with", NULL),
+                    order = c("F", "C"),
                     verbose = getOption("verbose")) {
   if (!is.null(pad) && !identical(length(x), needed_len <- prod(.dim))) {
-    stopifnot(length(pad) == 1)
+    stopifnot(identical(length(pad), 1L))
     if (verbose)
       message("Padding vector with ", pad, "s",
               " from length ", length(x), " to length ", needed_len)
-    # expanding length of vector to ")
     x <- c(x, rep_len(pad, needed_len - length(x)))
   }
 
@@ -66,36 +68,51 @@ set_dim <- function(x, .dim, pad = NULL,  order = c("F", "C"),
   x
 }
 
+# pad_to_length <- function(x, needed_len, pad, verbose) {
+#
+# }
+
+#' @export
+#' @rdname set_dim
+set_dim2 <- function(...) {
+  set_dim(..., order = "C")
+}
+
 
 #' @export
 #' @rdname set_dim
 `dim2<-` <- function(x, value) {
-  if (!is.null(dx <- dim(x)))
-    x <- aperm(x, length(dx):1)
+  dx <- dim(x)
+  if(identical(dx, as.integer(value)))
+    return(x)
+
+  if (!is.null(dx))
+    x <- t(x)
+
   dim(x) <- rev(value)
-  aperm(x, length(value):1)
+  t(x)
 }
+
+
+# transpose
+#' @export
+t.array <- function(x) aperm(x, length(dim(x)):1)
+
 # other candidate names
 # dim_c()
 # dim_rows()
 # dim_r
 
-# equivelant to reticulate::array_reshape(),
-# but a pure R solution (and therefore usually faster)
-array_reshape2 <- function(x, dim, order = c("C", "F")) {
-  order <- match.arg(order)
 
-  # rename to avoid possible recursive loop when calling dim()
-  # arg is named `dim` for compatability with reticulate::array_reshape()
-  .dim <- dim; rm(dim)
+# import::from(reticulate, array_reshape)
+# 1:8 %>% array_reshape(c(4, 2))
+# 1:8 %>% array_reshape(c(4, 2)) %>% array_reshape(c(4, 2))
+# 1:8 %>% array_reshape(c(4, 2)) %>% array_reshape(c(2, 4))
+# 1:8 %>% set_dim(c(4, 2)) %>% array_reshape(c(4, 2))
+# 1:8 %>% array_reshape2(c(4, 2))
+# 1:8 %>% array_reshape2(c(4, 2)) %>% array_reshape2(c(4, 2))
+# 1:8 %>% array_reshape2(c(4, 2)) %>% array_reshape2(c(2, 4))
 
-  if (identical(order, "C"))
-    dim2(x) <- .dim
-  else
-    dim(x) <- .dim
-
-  x
-}
 
 
 
@@ -146,3 +163,22 @@ array_reshape2 <- function(x, dim, order = c("C", "F")) {
 #   array_reshape(x, nd),
 #   reshape2(x, nd)
 # )
+
+
+
+# equivelant to reticulate::array_reshape(),
+# but a pure R solution (and therefore usually faster)
+array_reshape2 <- function(x, dim, order = c("C", "F")) {
+
+  # rename to avoid possible recursive loop when calling dim()
+  # arg is named `dim` for compatability with reticulate::array_reshape()
+  .dim <- dim; rm(dim)
+
+  order <- match.arg(order)
+  if (identical(order, "C"))
+    dim2(x) <- .dim
+  else
+    dim(x) <- .dim
+
+  x
+}
