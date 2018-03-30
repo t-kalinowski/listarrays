@@ -2,12 +2,15 @@
 % Please edit documentation in R/dim.R
 \name{set_dim}
 \alias{set_dim}
+\alias{set_dim2}
 \alias{dim2<-}
 \title{Pipe friendly \code{dim<-()}, with option to pad to necessary length. Also allows
 for filling the array using C style row-major semantics.}
 \usage{
-set_dim(x, .dim, pad = NULL, order = c("F", "C"),
-  verbose = getOption("verbose"))
+set_dim(x, .dim, pad = getOption("listarrays.autopad_arrays_with", NULL),
+  order = c("F", "C"), verbose = getOption("verbose"))
+
+set_dim2(...)
 
 dim2(x) <- value
 }
