@@ -112,6 +112,32 @@ t.array <- function(x) aperm(x, length(dim(x)):1)
 # 1:8 %>% array_reshape2(c(4, 2))
 # 1:8 %>% array_reshape2(c(4, 2)) %>% array_reshape2(c(4, 2))
 # 1:8 %>% array_reshape2(c(4, 2)) %>% array_reshape2(c(2, 4))
+# equivelant to reticulate::array_reshape(),
+# but a pure R solution (and therefore usually faster)
+array_reshape2 <- function(x, dim, order = c("C", "F")) {
+
+  # rename to avoid possible recursive loop when calling dim()
+  # arg is named `dim` for compatability with reticulate::array_reshape()
+  .dim <- dim; rm(dim)
+
+  order <- match.arg(order)
+  if (identical(order, "C"))
+    dim2(x) <- .dim
+  else
+    dim(x) <- .dim
+
+  x
+}
+
+
+# import::from(reticulate, array_reshape)
+# 1:8 %>% array_reshape(c(4, 2))
+# 1:8 %>% array_reshape(c(4, 2)) %>% array_reshape(c(4, 2))
+# 1:8 %>% array_reshape(c(4, 2)) %>% array_reshape(c(2, 4))
+# 1:8 %>% set_dim(c(4, 2)) %>% array_reshape(c(4, 2))
+# 1:8 %>% array_reshape2(c(4, 2))
+# 1:8 %>% array_reshape2(c(4, 2)) %>% array_reshape2(c(4, 2))
+# 1:8 %>% array_reshape2(c(4, 2)) %>% array_reshape2(c(2, 4))
 
 
 
