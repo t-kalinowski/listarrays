@@ -34,8 +34,9 @@ encountered in the python world.}
 Object with dimensions set
 }
 \description{
-\code{dim2<-()} reshapes with row-major semantics, and is equivelant to
-\code{set_dim(order = 'C')} and \code{reticulate::array_reshape()}
+\code{dim2<-()} and reshapes with row-major semantics, and is equivelant to
+\code{set_dim(order = 'C')} and \code{reticulate::array_reshape()}. \code{set_dim2()} is a
+wrapper around \code{dim2<-}, and equivelant to \code{set_dim(..., order = "C")}.
 }
 \examples{
 set_dim(1:10, c(2, 5))

@@ -114,7 +114,7 @@ t.array <- function(x) aperm(x, length(dim(x)):1)
 # 1:8 %>% array_reshape2(c(4, 2)) %>% array_reshape2(c(2, 4))
 # equivelant to reticulate::array_reshape(),
 # but a pure R solution (and therefore usually faster)
-array_reshape2 <- function(x, dim, order = c("C", "F")) {
+array_reshape <- function(x, dim, order = c("C", "F")) {
 
   # rename to avoid possible recursive loop when calling dim()
   # arg is named `dim` for compatability with reticulate::array_reshape()
