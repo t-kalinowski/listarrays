@@ -152,7 +152,7 @@ bind_on_dim <- function(list_of_arrays, .dim) {
 #' @export
 bind_on_rows <- function(...) {
   list_of_arrays <- list(...)
-  if (identical(nargs(), 1L))
+  if (identical(length(list_of_arrays), 1L))
     list_of_arrays <- list_of_arrays[[1]]
 
   bind_on_dim(list_of_arrays, .dim = 1L)

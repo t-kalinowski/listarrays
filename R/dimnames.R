@@ -177,31 +177,3 @@ drop_dimnames <- function(x, .dim = NULL, keep_axis_names = FALSE) {
 #     dimnames(x)[[.dim]]
 # }
 
-
-#' Pipe friendly `dim<-()`, with option to pad to necessary length
-#'
-#' @param x A vector to set dimensions on
-#' @param .dim The desired dimensions
-#' @param pad The value to pad the vector with. `NULL` (the default) performs no padding.
-#' @param verbose Whether to emit a message if padding. By default, `FALSE`.
-#'
-#' @return Object with dimensions set
-#' @export
-#'
-#' @examples
-#' set_dim(1:10, c(2, 5))
-#' try( set_dim(1:7, c(2, 5)) ) # error by default, just like `dim<-`()
-#'      set_dim(1:7, c(2, 5), pad = 99)
-set_dim <- function(x, .dim, pad = NULL, verbose = getOption("verbose")) {
-  if (!is.null(pad) && !identical(length(x), needed_len <- prod(.dim))) {
-    stopifnot(length(pad) == 1)
-    if (verbose)
-    message("Padding vector with ", pad, "s",
-            " from length ", length(x), " to length ", needed_len)
-    # expanding length of vector to ")
-    x <- c(x, rep_len(pad, needed_len - length(x)))
-  }
-
-  dim(x) <- .dim
-  x
-}

@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length — set_dim • listarrays</title>
+<title>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length. Also allows
+for filling the array using C style row-major semantics. — set_dim • listarrays</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +28,11 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length — set_dim" />
+<meta property="og:title" content="Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length. Also allows
+for filling the array using C style row-major semantics. — set_dim" />
 
-<meta property="og:description" content="Pipe friendly dim&lt;-(), with option to pad to necessary length" />
+<meta property="og:description" content="dim2&lt;-() reshapes with row-major semantics, and is equivelant to
+set_dim(order = 'C') and reticulate::array_reshape()" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -92,30 +95,44 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length</h1>
-    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dimnames.R'><code>R/dimnames.R</code></a></small>
+    <h1>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length. Also allows
+for filling the array using C style row-major semantics.</h1>
+    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dim.R'><code>R/dim.R</code></a></small>
     </div>
 
     
-    <p>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length</p>
+    <p><code>dim2&lt;-()</code> reshapes with row-major semantics, and is equivelant to
+<code>set_dim(order = 'C')</code> and <code><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>reticulate::array_reshape()</a></code></p>
     
 
-    <pre class="usage"><span class='fu'>set_dim</span>(<span class='no'>x</span>, <span class='no'>.dim</span>, <span class='kw'>pad</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"verbose"</span>))</pre>
+    <pre class="usage"><span class='fu'>set_dim</span>(<span class='no'>x</span>, <span class='no'>.dim</span>, <span class='kw'>pad</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"F"</span>, <span class='st'>"C"</span>),
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"verbose"</span>))
+
+<span class='fu'>dim2</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A vector to set dimensions on</p></td>
+      <td><p>A vector or array to set dimensions on</p></td>
     </tr>
     <tr>
-      <th>.dim</th>
-      <td><p>The desired dimensions</p></td>
+      <th>.dim, value</th>
+      <td><p>The desired dimensions (an integer(ish) vector)</p></td>
     </tr>
     <tr>
       <th>pad</th>
-      <td><p>The value to pad the vector with. <code>NULL</code> (the default) performs no padding.</p></td>
+      <td><p>The value to pad the vector with. <code>NULL</code> (the default) performs no
+padding.</p></td>
+    </tr>
+    <tr>
+      <th>order</th>
+      <td><p>whether to use row-major (C) or column major (F) style
+semantics. The default, "F", corresponds to the default behavior of R's
+<code>dim&lt;-()</code>, while "C" corresponds to the default behavior of
+<code><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>reticulate::array_reshape()</a></code>, numpy, reshaping semantics commonly
+encountered in the python world.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -127,6 +144,10 @@
 
     <p>Object with dimensions set</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>reticulate::array_reshape()</a></code></p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>set_dim</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>5</span>))</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5]
@@ -134,7 +155,29 @@
 #&gt; [2,]    2    4    6    8   10</div><div class='input'><span class='fu'>try</span>( <span class='fu'>set_dim</span>(<span class='fl'>1</span>:<span class='fl'>7</span>, <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>5</span>)) ) <span class='co'># error by default, just like `dim&lt;-`()</span>
      <span class='fu'>set_dim</span>(<span class='fl'>1</span>:<span class='fl'>7</span>, <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fl'>99</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5]
 #&gt; [1,]    1    3    5    7   99
-#&gt; [2,]    2    4    6   99   99</div></pre>
+#&gt; [2,]    2    4    6   99   99</div><div class='input'>     <span class='fu'>set_dim</span>(<span class='fl'>1</span>:<span class='fl'>7</span>, <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fl'>99</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='st'>"C"</span>) <span class='co'># fills row-wise</span></div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5]
+#&gt; [1,]    1    2    3    4    5
+#&gt; [2,]    6    7   99   99   99</div><div class='input'>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>
+<span class='co'># base::dim&lt;- fills the array column wise</span>
+<span class='fu'>dim</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>2</span>)
+<span class='no'>x</span></div><div class='output co'>#&gt;      [,1] [,2]
+#&gt; [1,]    1    3
+#&gt; [2,]    2    4</div><div class='input'>
+<span class='co'># dim2 will fill the array row-wise</span>
+<span class='fu'>dim2</span>(<span class='no'>y</span>) <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>2</span>)
+<span class='no'>y</span></div><div class='output co'>#&gt;      [,1] [,2]
+#&gt; [1,]    1    2
+#&gt; [2,]    3    4</div><div class='input'>
+<span class='fu'>identical</span>(<span class='no'>x</span>, <span class='fu'>set_dim</span>(<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>2</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>identical</span>(<span class='no'>y</span>, <span class='fu'>set_dim</span>(<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>2</span>), <span class='kw'>order</span> <span class='kw'>=</span> <span class='st'>"C"</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+</div># NOT RUN {
+# py_reshaped <- reticulate::array_reshape(1:4, c(2,2))
+# storage.mode(py_reshaped) <- "integer" # reticulate coerces to double
+# identical(y, py_reshaped)
+# # if needed, see listarrays:::array_reshape2() for
+# # a drop-in replacement for reticulate::array_reshape()
+# }
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -142,6 +185,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
