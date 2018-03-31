@@ -10,6 +10,15 @@ ndims <- function(x) length(dim(x) %||% 1L)
 
 parse1 <- function(chr) parse(text = chr, keep.source = FALSE)[[1]]
 
+#' @importFrom compiler compile
+parse_and_compile <- function(chr, env = parent.frame())
+  compile(parse(text = chr, keep.source = FALSE), env = env)
+
+
+eval_text <- function(text, env = parent.frame())
+  eval(compile(parse(text = chr, keep.source = FALSE), env), env)
+
+
 is.integerish <- function(x, n = NULL) {
   if (!is.null(n) && n != length(x))
     return(FALSE)

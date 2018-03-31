@@ -47,11 +47,11 @@
 #' # if needed, see listarrays:::array_reshape2() for
 #' # a drop-in pure R replacement for reticulate::array_reshape()
 #' }
-set_dim <- function(x, .dim,
+set_dim <- function(x, new_dim,
                     pad = getOption("listarrays.autopad_arrays_with", NULL),
                     order = c("F", "C"),
                     verbose = getOption("verbose")) {
-  if (!is.null(pad) && !identical(length(x), needed_len <- prod(.dim))) {
+  if (!is.null(pad) && !identical(length(x), needed_len <- prod(new_dim))) {
     stopifnot(identical(length(pad), 1L))
     if (verbose)
       message("Padding vector with ", pad, "s",
@@ -61,9 +61,9 @@ set_dim <- function(x, .dim,
 
   order <- match.arg(order)
   if (identical(order, "C"))
-    dim2(x) <- .dim
+    dim2(x) <- new_dim
   else
-    dim(x) <- .dim
+    dim(x) <- new_dim
 
   x
 }
@@ -104,14 +104,22 @@ t.array <- function(x) aperm(x, length(dim(x)):1)
 # dim_r
 
 
-# import::from(reticulate, array_reshape)
+# import::from(reticulate, retic_reshape = array_reshape)
+# library(magrittr)
 # 1:8 %>% array_reshape(c(4, 2))
+# 1:8 %>% retic_reshape(c(4, 2))
+#
 # 1:8 %>% array_reshape(c(4, 2)) %>% array_reshape(c(4, 2))
+# 1:8 %>% retic_reshape(c(4, 2)) %>% retic_reshape(c(4, 2))
+#
 # 1:8 %>% array_reshape(c(4, 2)) %>% array_reshape(c(2, 4))
+# 1:8 %>% retic_reshape(c(4, 2)) %>% retic_reshape(c(2, 4))
+#
 # 1:8 %>% set_dim(c(4, 2)) %>% array_reshape(c(4, 2))
-# 1:8 %>% array_reshape2(c(4, 2))
-# 1:8 %>% array_reshape2(c(4, 2)) %>% array_reshape2(c(4, 2))
-# 1:8 %>% array_reshape2(c(4, 2)) %>% array_reshape2(c(2, 4))
+# 1:8 %>% set_dim(c(4, 2)) %>% retic_reshape(c(4, 2))
+
+
+
 # equivelant to reticulate::array_reshape(),
 # but a pure R solution (and therefore usually faster)
 array_reshape <- function(x, dim, order = c("C", "F")) {
@@ -128,6 +136,40 @@ array_reshape <- function(x, dim, order = c("C", "F")) {
 
   x
 }
+
+
+# TODO:
+#
+# 1. make bind_as_dim, seq_along_dim, et.al accept negative integers for
+# .dim, equivelant to counting from the back.
+#
+# 2. bring back *_cols(), this time as seq_along_dim(x, -1L) (ditto for others
+# where this makes sense)
+#
+# 3. factor out the pad_to_length() function
+#
+# 4. factor out the standardize_which_dim(x, .dim) function
+#
+# 5. accept a single NA in supplied new_dim in set_dim() (which is then infered
+# from the length)
+#
+# 6. document t.array()
+#
+# 7. bring in ncol<- ncol2<- and friends
+#
+# 8. respect options(listarrays.autopad_with)
+#
+# 9. now with dim2<-(), it seems like listarrays is not the best name. consider
+# renaming. candidates: rrays, purrrays, arrays, array
+#
+# 10. remove the dot "." prefixes for arguments throughout. .dim -> which_dim or new_dim
+#
+# 11. port updated drop_dim over to TKutils
+#
+# 12. add drop_dim2(), to transpose and flatten.
+#
+# 13. see if there is any benefit to adding the "for" loop into the eval, and then call eval only once...?
+#
 
 
 # import::from(reticulate, array_reshape)
