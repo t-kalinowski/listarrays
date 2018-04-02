@@ -47,3 +47,5 @@ set_as_rows <- function(X, .dim) {
 
 # other name ideas:
 # bring_dim_forward()
+
+# set_as_cols <- ... # move column to back

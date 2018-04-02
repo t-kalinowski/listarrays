@@ -7,7 +7,7 @@
 \title{Pipe friendly \code{dim<-()}, with option to pad to necessary length. Also allows
 for filling the array using C style row-major semantics.}
 \usage{
-set_dim(x, .dim, pad = getOption("listarrays.autopad_arrays_with", NULL),
+set_dim(x, new_dim, pad = getOption("listarrays.autopad_arrays_with", NULL),
   order = c("F", "C"), verbose = getOption("verbose"))
 
 set_dim2(...)
@@ -16,8 +16,6 @@ dim2(x) <- value
 }
 \arguments{
 \item{x}{A vector or array to set dimensions on}
-
-\item{.dim, value}{The desired dimensions (an integer(ish) vector)}
 
 \item{pad}{The value to pad the vector with. \code{NULL} (the default) performs no
 padding.}
@@ -29,6 +27,8 @@ semantics. The default, "F", corresponds to the default behavior of R's
 encountered in the python world.}
 
 \item{verbose}{Whether to emit a message if padding. By default, \code{FALSE}.}
+
+\item{.dim, value}{The desired dimensions (an integer(ish) vector)}
 }
 \value{
 Object with dimensions set
