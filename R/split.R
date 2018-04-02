@@ -98,19 +98,27 @@ split_on_dim <- function(X, .dim,
   if (!identical(length(id), length(f)))
     stop("`f` must be the same length as the dimension being split on.")
 
-  expr <- extract_dim_chr_expr(X, .dim, .idx_var = "idx", drop = drop)
-  expr <- parse(text = expr, keep.source = FALSE)[[1]]
-
   l <- split(id, f)
 
-  eval <- maybe_eval_bare()
-  e <- environment()
-  out <- vector("list", length(l))
 
-  for(i in seq_along(l)) {
-    idx <- l[[i]]
-    out[[i]] <- eval(expr, e)
-  }
+  extract_expr <- extract_dim_chr_expr(X, .dim, .idx_var = "l[[i]]", drop = drop)
+
+  args <-  as.pairlist(alist(X = , l = ))
+  body <-  parse1(paste0(
+    "{
+      out <- vector('list', length(l))
+      for (i in seq_along(l))
+        out[[i]] <- ",extract_expr,"
+      out
+    }"
+  ))
+
+  split_it <- eval(call("function", args, body))
+
+  if(length(l) > 5000)
+    split_it <- cmpfun(split_it)
+
+  out <- split_it(X, l)
 
   names(out) <- names(l)
   out
@@ -127,6 +135,7 @@ split_on_rows <- function(X,
 
 #' @rdname split-array
 #' @export
+#' @importFrom compiler cmpfun
 split_along_dim <- function(X, .dim, drop = NULL, depth = Inf) {
 
   # don't recurse on data.frame or other overloaded array-type classes
@@ -148,16 +157,27 @@ split_along_dim <- function(X, .dim, drop = NULL, depth = Inf) {
     .dim <- length(dim(X))
   }
 
-  expr <- extract_dim_chr_expr(X, .dim, .idx_var = "i",
+  extract <- extract_dim_chr_expr(X, .dim, .idx_var = "i",
                                drop = drop, .var_to_subset = "X")
 
-  expr <- parse1(expr)
-  e <- environment()
-  eval <- maybe_eval_bare()
+  length_out <-  get_dim(X)[.dim]
 
-  out <- vector("list", get_dim(X)[.dim])
-  for (i in seq_along_dim(X, .dim))
-    out[[i]] <- eval(expr, e)
+  args <-  as.pairlist(alist(X = , length_out = ))
+  body <- parse1( paste0(
+   "{
+      out <- vector('list', length_out)
+      for (i in seq_len(length_out))
+        out[[i]] <- ", extract,"
+      out
+   }"
+  ))
+
+  split_it <- eval(call("function", args, body))
+
+  if(length_out > 5000)
+    split_it <- cmpfun(split_it)
+
+  out <- split_it(X, length_out)
 
   if (!is.null(nms <- dimnames(X)[[.dim]]))
     names(out) <- nms
@@ -171,3 +191,55 @@ split_along_dim <- function(X, .dim, drop = NULL, depth = Inf) {
 split_along_rows <- function(X, drop = NULL, depth = Inf)
   split_along_dim(X, 1L, drop = drop, depth = depth)
 
+
+
+
+
+#
+# fun <- rlang::eval_bare(call("function", args, body) )
+#
+# if(compile)
+#   fun <- compiler::cmpfun(fun)
+#
+# out <- fun(X, l)
+
+# "
+#
+# "
+# # out <- vector("list", length(l))
+# expr <-  c(
+# 'out <- vector("list", length(l))',
+#   "for(i in seq_along(l))",
+#     p0("out[[i]] <- ", extract_expr),
+# "out"
+#   )
+# expr <- yasp::pcnl(expr)
+# expr <- yasp::brace(expr)
+
+
+# body <- parse1(expr)
+# body <- parse(text = expr, keep.source = FALSE)
+
+# browser()
+# expr <- parse(text = expr, keep.source = F)
+
+# expr <- compile(expr, environment())
+
+# z <- rlang::eval_bare(expr)
+
+# z <- eval_text(expr, compile = TRUE)
+
+# , keep.source = FALSE)
+
+
+# expr <- compile(expr, env = environment())
+
+# browser()
+
+# eval(expr)
+
+# eval_text(c(
+#   "for(i in seq_along(l)) {",
+#      "idx <- l[[i]]",
+#   p0("out[[i]] <- ", expr),
+#   "}"), environment())
