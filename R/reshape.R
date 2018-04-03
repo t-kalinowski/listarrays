@@ -17,35 +17,28 @@
 #'
 #' for (i in seq_along_dim(x, 3))
 #'   stopifnot( identical(x[,,i], y[i,,]) )
-set_as_rows <- function(X, .dim) {
-  stopifnot(is.array(X),
-            identical(length(.dim), 1L))
+set_as_rows <- function(X, which_dim) {
+  stopifnot(is.array(X))
 
-  if(is.character(.dim)) {
-    dnn <- names(dimnames(X))
+  which_dim <- standardize_which_dim(X, which_dim)
 
-    if(is.null(dnn) || any(dnn == ""))
-      stop("X must have axis names set if .dim is a character")
+  cur_dim_order <- seq_along(dim(X))
+  new_dim_order <- c(which_dim, cur_dim_order[-which_dim])
 
-    if(.dim %not_in% dnn)
-      stop(".dim must match to an axis name of .dim")
-
-    new_d <- unique(c(.dim, dnn))
-
-  } else {
-
-    check.is.integerish(.dim, n = 1L)
-    if(.dim > length(dim(X)))
-      stop(".dim must be less than or equal to length(dim(X))")
-    cur_d <- seq_along(dim(X))
-    new_d <- c(.dim, cur_d[-.dim])
-
-  }
-
-  aperm(X, new_d)
+  aperm(X, new_dim_order)
 }
 
 # other name ideas:
 # bring_dim_forward()
 
-# set_as_cols <- ... # move column to back
+#' @export
+#' @rdname set_as_rows
+set_as_cols <- function(X, which_dim) {
+  stopifnot(is.array(X))
+  which_dim <- standardize_which_dim(X, which_dim)
+
+  cur_dim_order <- seq_along(dim(X))
+  new_dim_order <- c(cur_dim_order[-which_dim], which_dim)
+
+  aperm(X, new_dim_order)
+}

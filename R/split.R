@@ -2,10 +2,10 @@
 #'
 #' @param X an array, or list of arrays. Atomic vectors without a dimension
 #'   attribute is treated as a 1 dimensions array (Meaning, atomic vectors
-#'   without a dim attribute are only accepted if `.dim` is `1`. Names of list
+#'   without a dim attribute are only accepted if `which_dim` is `1`. Names of list
 #'   are preserved. If a list of arrays, all the arrays must have the same
 #'   length of the dimension being split.
-#' @param .dim a scalar integer, specifying which dimension to split along
+#' @param which_dim a scalar integer, specifying which dimension to split along
 #' @param f Specify how to split the dimension. \describe{
 #'
 #'   \item{character, integer, factor}{passed on to `base::split()`. Must be
@@ -27,8 +27,8 @@
 #'   array). (You can alternatively set dim attributes with `dim<-` on the list
 #'   to prevent recursion)
 #'
-#' `split_along_dim(X, .dim)` is equivalent to
-#' `split_on_dim(X, .dim, seq_along_dim(X, .dim))`.
+#' `split_along_dim(X, which_dim)` is equivalent to
+#' `split_on_dim(X, which_dim, seq_along_dim(X, which_dim))`.
 #'
 #' @return A list of arrays, or if a list of arrays was passed in, then a list
 #'   of lists of arrays.
@@ -69,8 +69,8 @@
 #' if(require(tibble))
 #'   tibble(y, X = split_along_rows(X))
 #'
-split_on_dim <- function(X, .dim,
-                         f = dimnames(X)[[.dim]],
+split_on_dim <- function(X, which_dim,
+                         f = dimnames(X)[[which_dim]],
                          drop = FALSE, depth = Inf) {
 
   stopifnot(!is.null(f))
@@ -79,12 +79,11 @@ split_on_dim <- function(X, .dim,
     f <- interaction(f, drop = TRUE)
 
   if (is.list(X) && is.null(dim(X)) && depth > 0L)
-    return(lapply(X, function(x) split_on_dim(x, .dim, f = f, drop = drop, depth = depth - 1L)))
+    return(lapply(X, function(x) split_on_dim(x, which_dim, f = f, drop = drop, depth = depth - 1L)))
 
-  if (is.character(.dim))
-    .dim <- match(.dim, names(dimnames(X)))
+  which_dim <- standardize_which_dim(X, which_dim)
 
-  id <- seq_along_dim(X, .dim)
+  id <- .seq_along_dim(X, which_dim)
 
   if(is.scalar.integerish(f))
     f <- cut(id, f, labels = paste0("grp", seq_len(f)))
@@ -100,8 +99,7 @@ split_on_dim <- function(X, .dim,
 
   l <- split(id, f)
 
-
-  extract_expr <- extract_dim_chr_expr(X, .dim, .idx_var = "l[[i]]", drop = drop)
+  extract_expr <- extract_dim_chr_expr(X, which_dim, .idx_var = "l[[i]]", drop = drop)
 
   args <-  as.pairlist(alist(X = , l = ))
   body <-  parse1(paste0(
@@ -131,22 +129,28 @@ split_on_rows <- function(X,
                           drop = FALSE, depth = Inf)
   split_on_dim(X, 1L, f = f, drop = drop, depth = depth)
 
+#' @rdname split-array
+#' @export
+split_on_cols <- function(X,
+                          f = rownames(X),
+                          drop = FALSE, depth = Inf)
+  split_on_dim(X, -1L, f = f, drop = drop, depth = depth)
+
 
 
 #' @rdname split-array
 #' @export
 #' @importFrom compiler cmpfun
-split_along_dim <- function(X, .dim, drop = NULL, depth = Inf) {
+split_along_dim <- function(X, which_dim, drop = NULL, depth = Inf) {
 
   # don't recurse on data.frame or other overloaded array-type classes
   if (is.list(X) && is.null(dim(X)) && depth > 0L)
     return(lapply(X, function(x)
-      split_along_dim(x, .dim, drop = drop, depth = depth - 1L)))
+      split_along_dim(x, which_dim, drop = drop, depth = depth - 1L)))
 
-  if (is.character(.dim))
-    .dim <- match(.dim, names(dimnames(X)))
+  which_dim <- standardize_which_dim(X, which_dim)
 
-  if (.dim == 1L && length(dim(X)) >= 3L && dim(X)[1L] >= 1e5L &&
+  if (identical(which_dim, 1L) && ndim(X) >= 3L && dim(X)[1L] >= 1e5L &&
       any(dim(X)[-1L] != 1L) && is.array(X) && (is.null(drop)) || isTRUE(drop)) {
     # subsetting on first index is OOM slower than on last index for large
     # arrays due to F style (column major) ordering of arrays. aperm() has a
@@ -154,13 +158,13 @@ split_along_dim <- function(X, .dim, drop = NULL, depth = Inf) {
     # to do this upfront. maybe this whole function will be rewritten in C and
     # this workaround won't be necessary in the future
     X <- aperm(X, c(2:length(dim(X)), 1L))
-    .dim <- length(dim(X))
+    which_dim <- length(dim(X))
   }
 
-  extract <- extract_dim_chr_expr(X, .dim, .idx_var = "i",
+  extract <- extract_dim_chr_expr(X, which_dim, .idx_var = "i",
                                drop = drop, .var_to_subset = "X")
 
-  length_out <-  get_dim(X)[.dim]
+  length_out <-  get_dim(X)[[which_dim]]
 
   args <-  as.pairlist(alist(X = , length_out = ))
   body <- parse1( paste0(
@@ -179,7 +183,7 @@ split_along_dim <- function(X, .dim, drop = NULL, depth = Inf) {
 
   out <- split_it(X, length_out)
 
-  if (!is.null(nms <- dimnames(X)[[.dim]]))
+  if (!is.null(nms <- dimnames(X)[[which_dim]]))
     names(out) <- nms
 
   out
@@ -190,6 +194,11 @@ split_along_dim <- function(X, .dim, drop = NULL, depth = Inf) {
 #' @export
 split_along_rows <- function(X, drop = NULL, depth = Inf)
   split_along_dim(X, 1L, drop = drop, depth = depth)
+
+#' @rdname split-array
+#' @export
+split_along_cols <- function(X, drop = NULL, depth = Inf)
+  split_along_dim(X, -1L, drop = drop, depth = depth)
 
 
 

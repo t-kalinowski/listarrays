@@ -5,7 +5,7 @@
 \alias{seq_along_rows}
 \title{Sequence along a dimension}
 \usage{
-seq_along_dim(x, .dim)
+seq_along_dim(x, which_dim)
 
 seq_along_rows(x)
 }

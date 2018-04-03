@@ -3,26 +3,33 @@
 \name{split_on_dim}
 \alias{split_on_dim}
 \alias{split_on_rows}
+\alias{split_on_cols}
 \alias{split_along_dim}
 \alias{split_along_rows}
+\alias{split_along_cols}
 \title{Split an array along a dimension}
 \usage{
-split_on_dim(X, .dim, f = dimnames(X)[[.dim]], drop = FALSE, depth = Inf)
+split_on_dim(X, which_dim, f = dimnames(X)[[which_dim]], drop = FALSE,
+  depth = Inf)
 
 split_on_rows(X, f = rownames(X), drop = FALSE, depth = Inf)
 
-split_along_dim(X, .dim, drop = NULL, depth = Inf)
+split_on_cols(X, f = rownames(X), drop = FALSE, depth = Inf)
+
+split_along_dim(X, which_dim, drop = NULL, depth = Inf)
 
 split_along_rows(X, drop = NULL, depth = Inf)
+
+split_along_cols(X, drop = NULL, depth = Inf)
 }
 \arguments{
 \item{X}{an array, or list of arrays. Atomic vectors without a dimension
 attribute is treated as a 1 dimensions array (Meaning, atomic vectors
-without a dim attribute are only accepted if \code{.dim} is \code{1}. Names of list
+without a dim attribute are only accepted if \code{which_dim} is \code{1}. Names of list
 are preserved. If a list of arrays, all the arrays must have the same
 length of the dimension being split.}
 
-\item{.dim}{a scalar integer, specifying which dimension to split along}
+\item{which_dim}{a scalar integer, specifying which dimension to split along}
 
 \item{f}{Specify how to split the dimension. \describe{
 
@@ -47,8 +54,8 @@ want to explicit treat a list as a vector (that is, a one-dimensional
 array). (You can alternatively set dim attributes with \code{dim<-} on the list
 to prevent recursion)
 
-\code{split_along_dim(X, .dim)} is equivalent to
-\code{split_on_dim(X, .dim, seq_along_dim(X, .dim))}.}
+\code{split_along_dim(X, which_dim)} is equivalent to
+\code{split_on_dim(X, which_dim, seq_along_dim(X, which_dim))}.}
 }
 \value{
 A list of arrays, or if a list of arrays was passed in, then a list

@@ -82,11 +82,11 @@ set_dim2 <- function(...) {
 #' @export
 #' @rdname set_dim
 `dim2<-` <- function(x, value) {
-  dx <- dim(x)
-  if(identical(dx, as.integer(value)))
+  dim_x <- dim(x)
+  if(identical(dim_x, as.integer(value)))
     return(x)
 
-  if (!is.null(dx))
+  if (!is.null(dim_x))
     x <- t(x)
 
   dim(x) <- rev(value)
@@ -137,7 +137,89 @@ array_reshape <- function(x, dim, order = c("C", "F")) {
   x
 }
 
+#' @export
+array2 <- function(data, dims, dimnames) {
+  dim2(data) <- dims
+  dimnames(data) <- dimnames
+  data
+}
 
+
+#' @export
+ndim <- function(x) {
+  if (is.null(dx <- dim(x)))
+    1L
+  else
+    length(dx)
+}
+
+# is.negative.scalar.integerish <- function(x) is.integerish(x, n = 1L) && x < 0L
+
+standardize_which_dim <- function(X, which_dim,
+                                  names_dimnames_X = names(dimnames(X)),
+                                  n_dim = ndim(X)) {
+  # 3 valid inputs
+  # a) string for a name
+  # b) negative number for counting backwards
+  # c) positive integer (canonical)
+  # outputs:
+  # case c always
+
+  if (is.character(which_dim)) {
+    stopifnot(is.scalar(which_dim))
+    which_dim <- match(which_dim, names_dimnames_X)
+    if(is.na(which_dim))
+      stop("which_dim %in% names(dimnames(X)) must be TRUE")
+
+  } else if (is.scalar.integerish(which_dim)) {
+    which_dim <- as.integer(which_dim)
+
+    stopifnot(abs(which_dim) <= n_dim)
+
+    if(which_dim < 0L)
+      which_dim <- n_dim + which_dim + 1L
+
+  } else
+    stop("`which_dim` must be a positive or negative integer, or character string")
+
+  which_dim
+
+}
+
+# ## better error messages, fold into standardize_which_dim()
+# if(is.character(.dim)) {
+#   dnn <- names(dimnames(X))
+#
+#   if(is.null(dnn) || any(dnn == ""))
+#     stop("X must have axis names set if .dim is a character")
+#
+#   if(.dim %not_in% dnn)
+#     stop(".dim must match to an axis name of .dim")
+#
+#   new_d <- unique(c(.dim, dnn))
+#
+# } else {
+#
+#   check.is.integerish(.dim, n = 1L)
+#   if(.dim > length(dim(X)))
+#     stop(".dim must be less than or equal to length(dim(X))")
+
+# TESTING BLOCK
+# x <- array(1:8, 2:4)
+# standardize_which_dim(x, -1) == 3
+# standardize_which_dim(x, -2) == 2
+# standardize_which_dim(x, -3) == 1
+# standardize_which_dim(x, 3) == 3
+# standardize_which_dim(x, 2) == 2
+# standardize_which_dim(x, 1) == 1
+#
+# x <- provideDimnames(x)
+# names(dimnames(x)) <- paste0("axis", 1:3)
+#
+# standardize_which_dim(x, "axis1") == 1
+# standardize_which_dim(x, "axis2") == 2
+# standardize_which_dim(x, "axis3") == 3
+## END TESTING BLOCK
 # TODO:
 #
 # 1. make bind_as_dim, seq_along_dim, et.al accept negative integers for

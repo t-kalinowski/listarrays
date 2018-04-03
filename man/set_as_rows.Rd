@@ -2,9 +2,12 @@
 % Please edit documentation in R/reshape.R
 \name{set_as_rows}
 \alias{set_as_rows}
+\alias{set_as_cols}
 \title{Reshape an array to bring a dim forward}
 \usage{
-set_as_rows(X, .dim)
+set_as_rows(X, which_dim)
+
+set_as_cols(X, which_dim)
 }
 \arguments{
 \item{X}{an array}

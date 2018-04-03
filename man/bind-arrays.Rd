@@ -3,23 +3,29 @@
 \name{bind_as_dim}
 \alias{bind_as_dim}
 \alias{bind_as_rows}
+\alias{bind_as_cols}
 \alias{bind_on_dim}
 \alias{bind_on_rows}
+\alias{bind_on_cols}
 \title{Bind arrays along a specified dimension}
 \usage{
-bind_as_dim(list_of_arrays, .dim)
+bind_as_dim(list_of_arrays, which_dim)
 
 bind_as_rows(...)
 
-bind_on_dim(list_of_arrays, .dim)
+bind_as_cols(...)
+
+bind_on_dim(list_of_arrays, which_dim)
 
 bind_on_rows(...)
+
+bind_on_cols(...)
 }
 \arguments{
 \item{list_of_arrays}{a list of arrays. All arrays must be of the same
 dimension. NULL's in place of arrays are automatically dropped.}
 
-\item{.dim}{Scalar integer, specifying the index position of where to
+\item{which_dim}{Scalar integer, specifying the index position of where to
 introduce the new dimension to introduce.}
 
 \item{...}{Arrays to be bound, specified individually or supplied as a single list}

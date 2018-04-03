@@ -13,7 +13,7 @@
 #' @param list_of_arrays a list of arrays. All arrays must be of the same
 #'   dimension. NULL's in place of arrays are automatically dropped.
 #' @param ... Arrays to be bound, specified individually or supplied as a single list
-#' @param .dim Scalar integer, specifying the index position of where to
+#' @param which_dim Scalar integer, specifying the index position of where to
 #'   introduce the new dimension to introduce.
 #'
 #' @return An array, with one additional dimension.
@@ -50,16 +50,20 @@
 #' dim(combined)
 #' for(i in seq_along(list_of_arrays))
 #'    stopifnot(identical(combined[,,i,], list_of_arrays[[i]]))
-bind_as_dim <- function(list_of_arrays, .dim) {
-  check.is.integerish(.dim, 1L)
+bind_as_dim <- function(list_of_arrays, which_dim) {
 
-  # TODO, .dim should accept a named vector, in which case it sets a new dimname
-  # e.g., .dim = c(channels = 3)
-  # if(!is.null(names(.dim)))
-  #   new_dimname <- names(.dim)
+  check.is.integerish(which_dim, 1L)
+  which_dim <- as.integer(which_dim)
+
+
+
+  # TODO, which_dim should accept a named vector, in which case it sets a new dimname
+  # e.g., which_dim = c(channels = 3)
+  # if(!is.null(names(which_dim)))
+  #   new_dimname <- names(which_dim)
 
   # TODO, think if `list_of_arrays` should instead be ..., downside there is
-  # .dim then must be named
+  # which_dim then must be named
 
   stopifnot(is.list(list_of_arrays))
   list_of_arrays <- dropNULLs(list_of_arrays)
@@ -69,11 +73,14 @@ bind_as_dim <- function(list_of_arrays, .dim) {
   stopifnot(length(base_dim) == 1)
   base_dim <- base_dim[[1]]
 
-  new_dim <- append(base_dim, length(list_of_arrays), after = .dim - 1L)
+  if(is.negative(which_dim))
+    which_dim <- which_dim + length(base_dim) + 2L
+
+  new_dim <- append(base_dim, length(list_of_arrays), after = which_dim - 1L)
 
   X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
 
-  Xi <- extract_dim_chr_expr(X, .dim, .idx_var = "i")
+  Xi <- extract_dim_chr_expr(X, which_dim, .idx_var = "i")
   expr <- parse1(paste0(Xi, " <- list_of_arrays[[i]]"))
 
   e <- environment()
@@ -83,7 +90,7 @@ bind_as_dim <- function(list_of_arrays, .dim) {
     eval(expr, e)
 
   if(!is.null(names(list_of_arrays)))
-    dimnames(X)[[.dim]] <- names(list_of_arrays)
+    dimnames(X)[[which_dim]] <- names(list_of_arrays)
 
   X
 }
@@ -94,41 +101,64 @@ bind_as_rows <- function(...) {
   list_of_arrays <- list(...)
   if (identical(nargs(), 1L))
     list_of_arrays <- list_of_arrays[[1]]
-  bind_as_dim(list_of_arrays, .dim = 1L)
+  bind_as_dim(list_of_arrays, which_dim = 1L)
+}
+
+#' @rdname bind-arrays
+#' @export
+bind_as_cols <- function(...) {
+  list_of_arrays <- list(...)
+  if (identical(nargs(), 1L))
+    list_of_arrays <- list_of_arrays[[1]]
+  bind_as_dim(list_of_arrays, which_dim = -1L)
 }
 
 
 
 #' @rdname bind-arrays
 #' @export
-bind_on_dim <- function(list_of_arrays, .dim) {
+bind_on_dim <- function(list_of_arrays, which_dim) {
 
   stopifnot(is.list(list_of_arrays))
   list_of_arrays <- dropNULLs(list_of_arrays)
 
-  if(is.character(.dim)) {
-    all_axis_names <- lapply(list_of_arrays, function(x) names(dimnames(x)))
-    stopifnot(length(unique(all_axis_names)) == 1L)
-    axis_names <- all_axis_names[[1]]
-    .dim <- match(.dim, axis_names)
-  }
-  check.is.integerish(.dim, 1L)
-
-
   all_dims <- lapply(list_of_arrays, function(x) dim(x) %||% length(x))
+  all_n_dims <- lapply(all_dims, length)
+  stopifnot(is.scalar(unique(all_n_dims)))
+  n_dim <- all_n_dims[[1]]
 
-  base_dim <- unique(lapply(all_dims, function(d) d[-.dim]))
-  stopifnot(length(base_dim) == 1L)
+  which_dim <- standardize_which_dim(
+    which_dim = which_dim,
+    names_dimnames_X = {
+      all_axis_names <- lapply(list_of_arrays, function(x) names(dimnames(x)))
+      stopifnot(length(unique(all_axis_names)) == 1L)
+      all_axis_names[[1]]
+    }, n_dim = n_dim)
+
+
+  # if(is.character(which_dim)) {
+  #   all_axis_names <- lapply(list_of_arrays, function(x) names(dimnames(x)))
+  #   stopifnot(length(unique(all_axis_names)) == 1L)
+  #   axis_names <- all_axis_names[[1]]
+  #   which_dim <- match(which_dim, axis_names)
+  # }
+  # check.is.integerish(which_dim, 1L)
+  #
+  #
+  # all_dims <- lapply(list_of_arrays, function(x) dim(x) %||% length(x))
+  #
+  base_dim <- unique(lapply(all_dims, function(d) d[-which_dim]))
+  stopifnot(identical(length(base_dim), 1L))
   base_dim <- base_dim[[1]]
 
-  n_entries_per_array <- vapply(all_dims, function(d) d[.dim], 1L)
+  n_entries_per_array <- vapply(all_dims, function(d) d[which_dim], 1L)
 
   new_dim <- all_dims[[1]]
-  new_dim[.dim] <- sum(n_entries_per_array)
+  new_dim[which_dim] <- sum(n_entries_per_array)
 
   X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
 
-  Xi <- extract_dim_chr_expr(X, .dim, .idx_var = "start:end")
+  Xi <- extract_dim_chr_expr(X, which_dim, .idx_var = "start:end")
   expr <- parse1(paste0(Xi, " <- list_of_arrays[[i]]"))
 
   eval <- maybe_eval_bare()
@@ -142,7 +172,7 @@ bind_on_dim <- function(list_of_arrays, .dim) {
   }
 
   if(!is.null(names(list_of_arrays)))
-    dimnames(X)[[.dim]] <- rep(names(list_of_arrays),
+    dimnames(X)[[which_dim]] <- rep(names(list_of_arrays),
                                times = n_entries_per_array)
 
   X
@@ -155,7 +185,17 @@ bind_on_rows <- function(...) {
   if (identical(length(list_of_arrays), 1L))
     list_of_arrays <- list_of_arrays[[1]]
 
-  bind_on_dim(list_of_arrays, .dim = 1L)
+  bind_on_dim(list_of_arrays, which_dim = 1L)
+}
+
+#' @rdname bind-arrays
+#' @export
+bind_on_cols <- function(...) {
+  list_of_arrays <- list(...)
+  if (identical(length(list_of_arrays), 1L))
+    list_of_arrays <- list_of_arrays[[1]]
+
+  bind_on_dim(list_of_arrays, which_dim = -1L)
 }
 
 
@@ -163,7 +203,7 @@ bind_on_rows <- function(...) {
 
 
 ## Maybe add this?
-# map_*_dim <- function(x, .dim, .f) {
+# map_*_dim <- function(x, which_dim, .f) {
 #   map(x, .f) %>%
 #     bind_*_dim()
 # }

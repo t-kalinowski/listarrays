@@ -1,4 +1,5 @@
 
+# remove this throughout in favor of ndim() (no 's)
 ndims <- function(x) length(dim(x) %||% 1L)
 
 `%||%` <- function (x, y) {
@@ -9,6 +10,9 @@ ndims <- function(x) length(dim(x) %||% 1L)
 }
 
 parse1 <- function(chr) parse(text = chr, keep.source = FALSE)[[1]]
+
+
+is.negative <- function(x) x < 0
 
 #' @importFrom compiler cmpfun
 # parse_and_compile <- function(chr, env = parent.frame())
@@ -28,21 +32,24 @@ parse1 <- function(chr) parse(text = chr, keep.source = FALSE)[[1]]
 # }
 
 
-is.integerish <- function(x, n = NULL) {
+is.integerish <- function(x, n = NULL, allow_na = FALSE) {
   if (!is.null(n) && n != length(x))
     return(FALSE)
-  if (any(is.na(x) | is.infinite(x)))
+  if (!allow_na && any(is.na(x) | is.infinite(x)))
     return(FALSE)
-  if (identical(typeof(x), "integer"))
+  if (identical(typeof_x <- typeof(x), "integer"))
     return(TRUE)
-  if (identical(typeof(x), "double"))
-    return(all(x == as.integer(x)))
+  if (identical(typeof_x, "double"))
+    return(all(x == as.integer(x), na.rm = TRUE))
   FALSE
 }
 
 
+is.scalar <- function(x) identical(length(x), 1L)
+
 is.scalar.integerish <- function(x)
-  is.integerish(x, n = 1L)
+  is.scalar(x) && is.integerish(x)
+  # is.integerish(x, n = 1L)
 
 
 `%not_in%` <- function(x, y) match(x, y, nomatch = 0L) == 0L
