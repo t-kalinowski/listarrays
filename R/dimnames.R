@@ -80,7 +80,7 @@ set_dimnames <- function(x, nm, .dim = NULL) {
   } else
     nm <- as.character(nm)
 
-  dim_nms <- dimnames(x) %||% vector("list", ndims(x))
+  dim_nms <- dimnames(x) %||% vector("list", ndim(x))
 
   if (is.null(.dim)) {
     if (is.character(nm)) {

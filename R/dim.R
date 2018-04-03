@@ -145,46 +145,8 @@ array2 <- function(data, dims, dimnames) {
 }
 
 
-#' @export
-ndim <- function(x) {
-  if (is.null(dx <- dim(x)))
-    1L
-  else
-    length(dx)
-}
-
 # is.negative.scalar.integerish <- function(x) is.integerish(x, n = 1L) && x < 0L
 
-standardize_which_dim <- function(X, which_dim,
-                                  names_dimnames_X = names(dimnames(X)),
-                                  n_dim = ndim(X)) {
-  # 3 valid inputs
-  # a) string for a name
-  # b) negative number for counting backwards
-  # c) positive integer (canonical)
-  # outputs:
-  # case c always
-
-  if (is.character(which_dim)) {
-    stopifnot(is.scalar(which_dim))
-    which_dim <- match(which_dim, names_dimnames_X)
-    if(is.na(which_dim))
-      stop("which_dim %in% names(dimnames(X)) must be TRUE")
-
-  } else if (is.scalar.integerish(which_dim)) {
-    which_dim <- as.integer(which_dim)
-
-    stopifnot(abs(which_dim) <= n_dim)
-
-    if(which_dim < 0L)
-      which_dim <- n_dim + which_dim + 1L
-
-  } else
-    stop("`which_dim` must be a positive or negative integer, or character string")
-
-  which_dim
-
-}
 
 # ## better error messages, fold into standardize_which_dim()
 # if(is.character(.dim)) {
@@ -315,20 +277,20 @@ standardize_which_dim <- function(X, which_dim,
 # )
 
 
-
-# equivelant to reticulate::array_reshape(),
-# but a pure R solution (and therefore usually faster)
-array_reshape2 <- function(x, dim, order = c("C", "F")) {
-
-  # rename to avoid possible recursive loop when calling dim()
-  # arg is named `dim` for compatability with reticulate::array_reshape()
-  .dim <- dim; rm(dim)
-
-  order <- match.arg(order)
-  if (identical(order, "C"))
-    dim2(x) <- .dim
-  else
-    dim(x) <- .dim
-
-  x
-}
+#
+# # equivelant to reticulate::array_reshape(),
+# # but a pure R solution (and therefore usually faster)
+# array_reshape2 <- function(x, dim, order = c("C", "F")) {
+#
+#   # rename to avoid possible recursive loop when calling dim()
+#   # arg is named `dim` for compatability with reticulate::array_reshape()
+#   .dim <- dim; rm(dim)
+#
+#   order <- match.arg(order)
+#   if (identical(order, "C"))
+#     dim2(x) <- .dim
+#   else
+#     dim(x) <- .dim
+#
+#   x
+# }

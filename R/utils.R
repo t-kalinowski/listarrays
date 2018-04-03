@@ -1,6 +1,12 @@
 
-# remove this throughout in favor of ndim() (no 's)
-ndims <- function(x) length(dim(x) %||% 1L)
+
+#' @export
+ndim <- function(x) {
+  if (is.null(dx <- dim(x)))
+    1L
+  else
+    length(dx)
+}
 
 `%||%` <- function (x, y) {
   if (is.null(x))
@@ -9,12 +15,12 @@ ndims <- function(x) length(dim(x) %||% 1L)
     x
 }
 
-parse1 <- function(chr) parse(text = chr, keep.source = FALSE)[[1]]
+#' @importFrom compiler cmpfun
+parse1 <- function(text) parse(text = text, keep.source = FALSE)[[1]]
 
 
 is.negative <- function(x) x < 0
 
-#' @importFrom compiler cmpfun
 # parse_and_compile <- function(chr, env = parent.frame())
 #   compile(parse(text = chr, keep.source = FALSE), env = env)
 #
@@ -49,7 +55,6 @@ is.scalar <- function(x) identical(length(x), 1L)
 
 is.scalar.integerish <- function(x)
   is.scalar(x) && is.integerish(x)
-  # is.integerish(x, n = 1L)
 
 
 `%not_in%` <- function(x, y) match(x, y, nomatch = 0L) == 0L
@@ -65,8 +70,7 @@ check.is.integerish <- function(x, n = NULL) {
   }
 }
 
-
 p0 <- function(...) paste0(...)
 
-dropNULLs <- function(x) x[!vapply(x, is.null, logical(1))]
+dropNULLs <- function(x) x[!vapply(x, is.null, TRUE)]
 

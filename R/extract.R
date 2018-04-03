@@ -63,7 +63,7 @@ extract_rows <- function(X, idx, drop = NULL, depth = Inf)
 
 
 extract_dim_chr_expr <-
-  function(X, .dim, drop = NULL, .ndims = ndims(X),
+  function(X, .dim, drop = NULL, .ndims = ndim(X),
            .idx_var = names(.dim) %||% paste0("idx", if(length(.dim) > 1L) seq_along(.dim)),
            .var_to_subset = deparse(substitute(X))) {
 
