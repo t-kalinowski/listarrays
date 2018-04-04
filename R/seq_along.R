@@ -25,7 +25,7 @@
 
 
 seq_along_dim <- function(x, which_dim)
-  seq_len( dim(x)[[standardize_which_dim(x, which_dim)]] )
+  seq_len( dim(x)[[standardize_which_dim(which_dim, x)]] )
 
 .seq_along_dim <- function(x, which_dim)
   seq_len( dim(x)[[which_dim]] )

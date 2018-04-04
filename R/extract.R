@@ -33,17 +33,14 @@
 #' X2
 #' Y2
 #' y2
-extract_dim <- function(X, .dim, idx, drop = NULL, depth = Inf) {
+extract_dim <- function(X, which_dim, idx, drop = NULL, depth = Inf) {
+  which_dim <- standardize_which_dim(which_dim, X)
 
   if(is.list(X) && is.null(dim(X)) && depth > 0L)
-    return(lapply(X, function(x) extract_dim(x, .dim, idx, drop = drop, depth = depth - 1L)))
+    return(lapply(X, function(x)
+      extract_dim(x, which_dim, idx, drop = drop, depth = depth - 1L)))
 
-  if(is.character(.dim))
-    .dim <- match(.dim, names(get_dim(X)))
-
-  stopifnot(is.scalar.integerish(.dim))
-
-  expr <- extract_dim_chr_expr(X, .dim, .idx_var = "idx", drop = drop)
+  expr <- extract_dim_chr_expr(X, which_dim, .idx_var = "idx", drop = drop)
   expr <- parse(text = expr, keep.source = FALSE)[[1]]
   eval(expr)
 }
@@ -54,10 +51,10 @@ extract_dim <- function(X, .dim, idx, drop = NULL, depth = Inf) {
 extract_rows <- function(X, idx, drop = NULL, depth = Inf)
   extract_dim(X, 1L, idx, drop = drop, depth = depth)
 
-# ' @rdname extract_dim
-# ' @export
-# extract_cols <- function(X, idx, drop = NULL, depth = Inf)
-#   extract_dim(X, 2L, idx, drop = drop, depth = depth)
+#' @rdname extract_dim
+#' @export
+extract_cols <- function(X, idx, drop = NULL, depth = Inf)
+  extract_dim(X, -1L, idx, drop = drop, depth = depth)
 
 
 

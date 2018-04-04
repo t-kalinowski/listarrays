@@ -127,8 +127,7 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
   stopifnot(is.scalar(unique(all_n_dims)))
   n_dim <- all_n_dims[[1]]
 
-  which_dim <- standardize_which_dim(
-    which_dim = which_dim,
+  which_dim <- standardize_which_dim(which_dim,
     names_dimnames_X = {
       all_axis_names <- lapply(list_of_arrays, function(x) names(dimnames(x)))
       stopifnot(length(unique(all_axis_names)) == 1L)

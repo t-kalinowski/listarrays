@@ -20,7 +20,7 @@
 set_as_rows <- function(X, which_dim) {
   stopifnot(is.array(X))
 
-  which_dim <- standardize_which_dim(X, which_dim)
+  which_dim <- standardize_which_dim(which_dim, X)
 
   cur_dim_order <- seq_along(dim(X))
   new_dim_order <- c(which_dim, cur_dim_order[-which_dim])
@@ -35,7 +35,7 @@ set_as_rows <- function(X, which_dim) {
 #' @rdname set_as_rows
 set_as_cols <- function(X, which_dim) {
   stopifnot(is.array(X))
-  which_dim <- standardize_which_dim(X, which_dim)
+  which_dim <- standardize_which_dim(which_dim, X)
 
   cur_dim_order <- seq_along(dim(X))
   new_dim_order <- c(cur_dim_order[-which_dim], which_dim)

@@ -81,7 +81,7 @@ split_on_dim <- function(X, which_dim,
   if (is.list(X) && is.null(dim(X)) && depth > 0L)
     return(lapply(X, function(x) split_on_dim(x, which_dim, f = f, drop = drop, depth = depth - 1L)))
 
-  which_dim <- standardize_which_dim(X, which_dim)
+  which_dim <- standardize_which_dim(which_dim, X)
 
   id <- .seq_along_dim(X, which_dim)
 
@@ -148,7 +148,7 @@ split_along_dim <- function(X, which_dim, drop = NULL, depth = Inf) {
     return(lapply(X, function(x)
       split_along_dim(x, which_dim, drop = drop, depth = depth - 1L)))
 
-  which_dim <- standardize_which_dim(X, which_dim)
+  which_dim <- standardize_which_dim(which_dim, X)
 
   if (identical(which_dim, 1L) && ndim(X) >= 3L && dim(X)[1L] >= 1e5L &&
       any(dim(X)[-1L] != 1L) && is.array(X) && (is.null(drop)) || isTRUE(drop)) {
