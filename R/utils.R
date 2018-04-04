@@ -81,35 +81,3 @@ quick_cbind <- function(lst) {
   dim(x) <- c(length(lst[[1]]), length(lst))
   x
 }
-#
-# library(microbenchmark)
-# library(ggplot2)
-# dl <-  lapply(1:10000, function(x) sample.int(100, 4))
-# which_dim <- 1L
-#
-# r <- microbenchmark(
-#   vapply(dl, function(d) d[which_dim], 1L),
-#   do.call(rbind, dl)[, which_dim],
-#   do.call(cbind, dl)[which_dim,],
-#   {
-#     x <- unlist(dl)
-#     dim(x) <- c(length(dl[[1]]), length(dl))
-#     x[which_dim,]
-#   }
-# )
-# r
-# autoplot(r)
-#
-#
-# identical(
-#   vapply(dl, function(d) d[which_dim], 1L),
-#   {
-#     x <- unlist(dl)
-#     dim(x) <- c(length(dl[[1]]), length(dl))
-#     x[which_dim,]
-#   })
-#
-# n_entries_per_array <- vapply(all_dims, function(d) d[which_dim], 1L)
-# n_entries_per_array <- do.call(rbind, all_dims)[, which_dim])
-# # vapply faster for long dims, rbind faster for long all_dims
-# long all_dims more common
