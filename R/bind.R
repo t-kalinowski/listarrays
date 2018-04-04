@@ -52,10 +52,9 @@
 #'    stopifnot(identical(combined[,,i,], list_of_arrays[[i]]))
 bind_as_dim <- function(list_of_arrays, which_dim) {
 
+  # standardize_which_dim(which_dim, n_dim = )
   check.is.integerish(which_dim, 1L)
   which_dim <- as.integer(which_dim)
-
-
 
   # TODO, which_dim should accept a named vector, in which case it sets a new dimname
   # e.g., which_dim = c(channels = 3)
@@ -82,15 +81,6 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
 
   Xi <- extract_dim_chr_expr(.var_to_subset = "X", .idx_var = "i",
                              .dim = which_dim, .ndims = length(new_dim))
-
-  # expr <- parse1(paste0(Xi, " <- list_of_arrays[[i]]"))
-
-  # e <- environment()
-  # eval <- maybe_eval_bare()
-  #
-  # for(i in seq_along(list_of_arrays))
-  #   eval(expr, e)
-
 
   args <- as.pairlist(alist( list_of_arrays = ))
   body <- parse1(paste0("{
