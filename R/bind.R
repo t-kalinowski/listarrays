@@ -146,7 +146,7 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
   stopifnot(identical(length(base_dim), 1L))
   base_dim <- base_dim[[1]]
 
-  n_entries_per_array <- vapply(all_dims, function(d) d[which_dim], 1L)
+  n_entries_per_array <- quick_cbind(all_dims)[which_dim,]
 
   new_dim <- all_dims[[1]]
   new_dim[which_dim] <- sum(n_entries_per_array)
