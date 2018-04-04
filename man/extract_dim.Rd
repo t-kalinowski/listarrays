@@ -3,17 +3,18 @@
 \name{extract_dim}
 \alias{extract_dim}
 \alias{extract_rows}
+\alias{extract_cols}
 \title{Extract with \code{[} on a specified dimension}
 \usage{
-extract_dim(X, .dim, idx, drop = NULL, depth = Inf)
+extract_dim(X, which_dim, idx, drop = NULL, depth = Inf)
 
 extract_rows(X, idx, drop = NULL, depth = Inf)
+
+extract_cols(X, idx, drop = NULL, depth = Inf)
 }
 \arguments{
 \item{X}{Typically, an array, but any object with a \code{[} method is accepted
 (e.g., dataframe, vectors)}
-
-\item{.dim}{A scalar integer or character, specifying the dimension to extract from}
 
 \item{idx}{A numeric, boolean, or character vector to perform subsetting with.}
 
@@ -25,6 +26,8 @@ objects, including arrays)}
 of arrays. Set this if you want to explicit treat a list as a vector (that
 is, a one-dimensional array). (You can alternatively set a dim attribute
 with \code{dim<-} on the list to prevent recursion)}
+
+\item{.dim}{A scalar integer or character, specifying the dimension to extract from}
 }
 \description{
 Extract with \code{[} on a specified dimension

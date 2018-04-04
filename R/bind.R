@@ -80,14 +80,32 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
 
   X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
 
-  Xi <- extract_dim_chr_expr(X, which_dim, .idx_var = "i")
-  expr <- parse1(paste0(Xi, " <- list_of_arrays[[i]]"))
+  Xi <- extract_dim_chr_expr(.var_to_subset = "X", .idx_var = "i",
+                             .dim = which_dim, .ndims = length(new_dim))
 
-  e <- environment()
-  eval <- maybe_eval_bare()
+  # expr <- parse1(paste0(Xi, " <- list_of_arrays[[i]]"))
 
-  for(i in seq_along(list_of_arrays))
-    eval(expr, e)
+  # e <- environment()
+  # eval <- maybe_eval_bare()
+  #
+  # for(i in seq_along(list_of_arrays))
+  #   eval(expr, e)
+
+
+  args <- as.pairlist(alist( list_of_arrays = ))
+  body <- parse1(paste0("{
+    X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
+    for (i in seq_along(list_of_arrays))
+      ",Xi,"  <- list_of_arrays[[i]]
+    X
+  }"))
+
+  bind_it <- eval(call("function", args, body))
+
+  if(length(list_of_arrays) > 100)
+    bind_it <- cmpfun(bind_it)
+
+  X <- bind_it(list_of_arrays)
 
   if(!is.null(names(list_of_arrays)))
     dimnames(X)[[which_dim]] <- names(list_of_arrays)
@@ -134,18 +152,6 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
       all_axis_names[[1]]
     }, n_dim = n_dim)
 
-
-  # if(is.character(which_dim)) {
-  #   all_axis_names <- lapply(list_of_arrays, function(x) names(dimnames(x)))
-  #   stopifnot(length(unique(all_axis_names)) == 1L)
-  #   axis_names <- all_axis_names[[1]]
-  #   which_dim <- match(which_dim, axis_names)
-  # }
-  # check.is.integerish(which_dim, 1L)
-  #
-  #
-  # all_dims <- lapply(list_of_arrays, function(x) dim(x) %||% length(x))
-  #
   base_dim <- unique(lapply(all_dims, function(d) d[-which_dim]))
   stopifnot(identical(length(base_dim), 1L))
   base_dim <- base_dim[[1]]
@@ -155,24 +161,32 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
   new_dim <- all_dims[[1]]
   new_dim[which_dim] <- sum(n_entries_per_array)
 
-  X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
+  X_start_to_end <- extract_dim_chr_expr(
+    .var_to_subset = "X", .idx_var = "start:end",
+    .dim = which_dim, .ndims = length(new_dim))
 
-  Xi <- extract_dim_chr_expr(X, which_dim, .idx_var = "start:end")
-  expr <- parse1(paste0(Xi, " <- list_of_arrays[[i]]"))
+  args <- as.pairlist(alist(
+    list_of_arrays =,  n_entries_per_array = ))
+  body <- parse1(paste0("{
+    X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
+    start <- 1L
+    for (i in seq_along(list_of_arrays)) {
+      end <- start + n_entries_per_array[[i]] - 1L
+      ",X_start_to_end,"  <- list_of_arrays[[i]]
+      start <- end + 1L
+    }
+    X
+  }"))
+  bind_it <- eval(call("function", args, body))
 
-  eval <- maybe_eval_bare()
-  e <- environment()
+  if(length(list_of_arrays) > 100)
+    bind_it <- cmpfun(bind_it)
 
-  start <- 1L
-  for(i in seq_along(list_of_arrays)) {
-    end <- start + n_entries_per_array[i] - 1L
-    eval(expr, e)
-    start <- end + 1L
-  }
+  X <- bind_it(list_of_arrays,  n_entries_per_array)
 
-  if(!is.null(names(list_of_arrays)))
-    dimnames(X)[[which_dim]] <- rep(names(list_of_arrays),
-                               times = n_entries_per_array)
+  if (!is.null(names(list_of_arrays)))
+    dimnames(X)[[which_dim]] <-
+      rep(names(list_of_arrays), times = n_entries_per_array)
 
   X
 }

@@ -137,6 +137,10 @@ split_on_cols <- function(X,
   split_on_dim(X, -1L, f = f, drop = drop, depth = depth)
 
 
+# not sure why NAMESPACE import isn't working...
+cmpfun <- compiler::cmpfun
+
+
 
 #' @rdname split-array
 #' @export

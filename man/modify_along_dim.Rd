@@ -3,16 +3,19 @@
 \name{modify_along_dim}
 \alias{modify_along_dim}
 \alias{modify_along_rows}
+\alias{modify_along_cols}
 \title{Modify an array by mapping over 1 or more dimensions}
 \usage{
-modify_along_dim(X, .dim, .f, ...)
+modify_along_dim(X, which_dim, .f, ...)
 
 modify_along_rows(X, .f, ...)
+
+modify_along_cols(X, .f, ...)
 }
 \arguments{
 \item{X}{An array, or a list of arrays}
 
-\item{.dim}{integer vector of dimensions to modify at}
+\item{which_dim}{integer vector of dimensions to modify at}
 
 \item{.f}{a function or formula defining a function(same semantics as
 \code{\link[purrr:map]{purrr::map}}). The function must return either an array the same shape as
