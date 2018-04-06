@@ -15,7 +15,7 @@ test_that("split_on_dim", {
 
   for (d in seq_along(dim(x))) {
     f <- rep_len(1:2, dim(x)[d])
-    expect_length(split_on_dim(x, d, f), 2L)
+    expect_length( split_on_dim(x, d, f), 2L)
   }
 
 })

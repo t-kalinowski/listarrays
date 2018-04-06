@@ -79,7 +79,8 @@ split_on_dim <- function(X, which_dim,
     f <- interaction(f, drop = TRUE)
 
   if (is.list(X) && is.null(dim(X)) && depth > 0L)
-    return(lapply(X, function(x) split_on_dim(x, which_dim, f = f, drop = drop, depth = depth - 1L)))
+    return(lapply(X, function(x)
+      split_on_dim(x, which_dim, f = f, drop = drop, depth = depth - 1L)))
 
   which_dim <- standardize_which_dim(which_dim, X)
 
@@ -93,23 +94,24 @@ split_on_dim <- function(X, which_dim,
           labels = paste0("grp", seq_along(f)))
   }
 
-
   if (!identical(length(id), length(f)))
     stop("`f` must be the same length as the dimension being split on.")
+
+  # if(!is.factor(f)) stop("invalid `f` supplied") # can also be a numeric
 
   l <- split(id, f)
 
   extract_expr <- extract_dim_chr_expr(X, which_dim, .idx_var = "l[[i]]", drop = drop)
 
   args <-  as.pairlist(alist(X = , l = ))
-  body <-  parse1(paste0(
+  body <-  parse1(
     "{
       out <- vector('list', length(l))
       for (i in seq_along(l))
         out[[i]] <- ",extract_expr,"
       out
     }"
-  ))
+  )
 
   split_it <- eval(call("function", args, body))
 
@@ -171,14 +173,13 @@ split_along_dim <- function(X, which_dim, drop = NULL, depth = Inf) {
   length_out <-  get_dim(X)[[which_dim]]
 
   args <-  as.pairlist(alist(X = , length_out = ))
-  body <- parse1( paste0(
-   "{
+  body <- parse1("{
       out <- vector('list', length_out)
       for (i in seq_len(length_out))
         out[[i]] <- ", extract,"
       out
    }"
-  ))
+  )
 
   split_it <- eval(call("function", args, body))
 

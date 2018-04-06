@@ -16,27 +16,9 @@ ndim <- function(x) {
 }
 
 #' @importFrom compiler cmpfun
-parse1 <- function(text) parse(text = text, keep.source = FALSE)[[1]]
-
+parse1 <- function(...) parse(text = paste0(...), keep.source = FALSE)[[1]]
 
 is.negative <- function(x) x < 0
-
-# parse_and_compile <- function(chr, env = parent.frame())
-#   compile(parse(text = chr, keep.source = FALSE), env = env)
-#
-# compile <- compiler::compile
-
-# eval_text <- function(text, env = parent.frame())
-#   eval(compile(parse(text = text, keep.source = FALSE), env), env)
-# b <- browser
-# eval_text <- function(text, compile = TRUE, env = parent.frame()) {
-#   x <- parse(text = text, keep.source = FALSE)
-#   # b()
-#   if (compile)
-#     x <- compile(x, env)
-#   eval(x, env)
-# }
-
 
 is.integerish <- function(x, n = NULL, allow_na = FALSE) {
   if (!is.null(n) && n != length(x))
@@ -59,7 +41,7 @@ is.scalar.integerish <- function(x)
 
 `%not_in%` <- function(x, y) match(x, y, nomatch = 0L) == 0L
 
-
+# is this still in use?
 check.is.integerish <- function(x, n = NULL) {
   nm <- deparse(substitute(x))
   if(!(is.integerish(x, n))) {
@@ -70,10 +52,11 @@ check.is.integerish <- function(x, n = NULL) {
   }
 }
 
+
+# is this still in use?
 p0 <- function(...) paste0(...)
 
 dropNULLs <- function(x) x[!vapply(x, is.null, TRUE)]
-
 
 
 quick_cbind <- function(lst) {
@@ -81,3 +64,21 @@ quick_cbind <- function(lst) {
   dim(x) <- c(length(lst[[1]]), length(lst))
   x
 }
+
+
+
+# parse_and_compile <- function(chr, env = parent.frame())
+#   compile(parse(text = chr, keep.source = FALSE), env = env)
+#
+# compile <- compiler::compile
+
+# eval_text <- function(text, env = parent.frame())
+#   eval(compile(parse(text = text, keep.source = FALSE), env), env)
+# b <- browser
+# eval_text <- function(text, compile = TRUE, env = parent.frame()) {
+#   x <- parse(text = text, keep.source = FALSE)
+#   # b()
+#   if (compile)
+#     x <- compile(x, env)
+#   eval(x, env)
+# }

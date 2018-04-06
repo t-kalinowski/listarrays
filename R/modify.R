@@ -53,7 +53,7 @@ modify_along_dim <- function(X, which_dim, .f, ...) {
   # allow for different return types,
   # e.g, double in -> integer out
 
-  expr <- parse1(paste0(Xe, " <- .f(", oXe, ", ...)"))
+  expr <- parse1(Xe, " <- .f(", oXe, ", ...)")
 
   # consider replacing this with an iterator from package:arrangements
   # or a hand-crafted generator function
