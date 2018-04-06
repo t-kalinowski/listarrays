@@ -41,37 +41,33 @@ modify_along_dim <- function(X, which_dim, .f, ...) {
 
   names(which_dim) <- paste0("idx", seq_along(which_dim))
 
-  Xe <- extract_dim_chr_expr( X, which_dim,
-                              .idx_var = paste0("combs$", names(which_dim), "[[r]]"),
-                              .var_to_subset = "X")
+  Xe <- extract_dim_chr_expr(X, which_dim,
+                             .idx_var = names(which_dim),
+                             .var_to_subset = "X")
 
   oXe <- paste0("o", Xe)
-  oX <- X
 
-  X <- array(dim = dim(X), dimnames = dimnames(X))
-  # do storage.mode(X) <- "logical"
-  # allow for different return types,
-  # e.g, double in -> integer out
+  loop_body <- paste0(Xe, " <- .f(", oXe, ", ...)")
 
-  expr <- parse1(Xe, " <- .f(", oXe, ", ...)")
+  loop_controlflow <- paste0(collapse = "\n",
+    "for (", names(which_dim), " in .seq_along_dim(X,", which_dim, "))")
 
-  # consider replacing this with an iterator from package:arrangements
-  # or a hand-crafted generator function
-  dims <- dim(X)[which_dim]
-  names(dims) <- names(which_dim)
+  loop <- paste0(loop_controlflow, "\n   ", loop_body)
 
-  combs <- do.call(
-    function(...) expand.grid(..., KEEP.OUT.ATTRS = FALSE),
-    lapply(dims, seq_len)
-  )
+  args <- as.pairlist(alist(X = , .f = , ... = ))
+  body <- parse1("{
+      oX <- X
+      storage.mode(X) <- 'logical'
+      ", loop, "
+      X
+  }")
 
-  e <- environment()
-  eval <- maybe_eval_bare()
+  modify_it <- eval(call("function", args, body))
 
-  for (r in seq_along_rows(combs))
-    eval(expr, e)
+  if (prod(which_dim) > 100)
+    modify_it <- cmpfun(modify_it)
 
-  X
+  modify_it(X,  .f, ...)
 }
 
 #' @export
