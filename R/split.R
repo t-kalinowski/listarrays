@@ -97,8 +97,6 @@ split_on_dim <- function(X, which_dim,
   if (!identical(length(id), length(f)))
     stop("`f` must be the same length as the dimension being split on.")
 
-  # if(!is.factor(f)) stop("invalid `f` supplied") # can also be a numeric
-
   l <- split(id, f)
 
   extract_expr <- extract_dim_chr_expr(X, which_dim, .idx_var = "l[[i]]", drop = drop)
