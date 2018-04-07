@@ -75,7 +75,9 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
   if(is.negative(which_dim))
     which_dim <- which_dim + length(base_dim) + 2L
 
-  new_dim <- append(base_dim, length(list_of_arrays), after = which_dim - 1L)
+  padding_ones <- rep_len(1L, pmax(0, which_dim - length(base_dim) - 1L))
+  new_dim <- c(base_dim, padding_ones)
+  new_dim <- append(new_dim, length(list_of_arrays), after = which_dim - 1L)
 
   X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
 
