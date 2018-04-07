@@ -78,24 +78,16 @@ set_dim2 <- function(...) {
   set_dim(..., order = "C")
 }
 
-#' @export
-drop_dim <- function(x) {
-  dim(x) <- NULL
-  x
-}
-
-#' @export
-drop_dim2 <- function(x) {
-  dim2(x) <- NULL
-  x
-}
 
 
 #' @export
 #' @rdname set_dim
 `dim2<-` <- function(x, value) {
-  if(is.null(value))
-    return(t(x))
+  if(is.null(value)) {
+    x <- t(x)
+    dim(x) <- NULL
+    return(x)
+  }
 
   dim_x <- dim(x)
   if(identical(dim_x, as.integer(value)))
