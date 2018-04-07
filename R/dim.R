@@ -78,10 +78,25 @@ set_dim2 <- function(...) {
   set_dim(..., order = "C")
 }
 
+#' @export
+drop_dim <- function(x) {
+  dim(x) <- NULL
+  x
+}
+
+#' @export
+drop_dim2 <- function(x) {
+  dim2(x) <- NULL
+  x
+}
+
 
 #' @export
 #' @rdname set_dim
 `dim2<-` <- function(x, value) {
+  if(is.null(value))
+    return(t(x))
+
   dim_x <- dim(x)
   if(identical(dim_x, as.integer(value)))
     return(x)
@@ -92,6 +107,8 @@ set_dim2 <- function(...) {
   dim(x) <- rev(value)
   t(x)
 }
+
+# should matrix(..., byrow = TRUE) be used for matrixes?
 
 
 # transpose
@@ -184,15 +201,15 @@ array2 <- function(data, dims, dimnames) {
 ## END TESTING BLOCK
 # TODO:
 #
-# 1. make bind_as_dim, seq_along_dim, et.al accept negative integers for
+# DON 1. make bind_as_dim, seq_along_dim, et.al accept negative integers for
 # .dim, equivelant to counting from the back.
 #
-# 2. bring back *_cols(), this time as seq_along_dim(x, -1L) (ditto for others
+# DONE 2. bring back *_cols(), this time as seq_along_dim(x, -1L) (ditto for others
 # where this makes sense)
 #
 # 3. factor out the pad_to_length() function
 #
-# 4. factor out the standardize_which_dim(x, .dim) function
+# DONE 4. factor out the standardize_which_dim(x, .dim) function
 #
 # 5. accept a single NA in supplied new_dim in set_dim() (which is then infered
 # from the length)
@@ -206,7 +223,7 @@ array2 <- function(data, dims, dimnames) {
 # 9. now with dim2<-(), it seems like listarrays is not the best name. consider
 # renaming. candidates: rrays, purrrays, arrays, array
 #
-# 10. remove the dot "." prefixes for arguments throughout. .dim -> which_dim or new_dim
+# 10. WIP (DONE FOR ALL EXPORTED FUNCTIONS) remove the dot "." prefixes for arguments throughout. .dim -> which_dim or new_dim
 #
 # 11. port updated drop_dim over to TKutils
 #

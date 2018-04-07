@@ -57,14 +57,6 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
   new_axis_nm <- names(which_dim)
   which_dim <- as.integer(which_dim)
 
-  # TODO, which_dim should accept a named vector, in which case it sets a new dimname
-  # e.g., which_dim = c(channels = 3)
-  # if(!is.null(names(which_dim)))
-  #   new_dimname <- names(which_dim)
-
-  # TODO, think if `list_of_arrays` should instead be ..., downside there is
-  # which_dim then must be named
-
   stopifnot(is.list(list_of_arrays))
   list_of_arrays <- dropNULLs(list_of_arrays)
 

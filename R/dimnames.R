@@ -143,10 +143,9 @@ set_dimnames <- function(x, nm, .dim = NULL) {
 } # end function definition
 
 
-
-drop_dimnames <- function(x, .dim = NULL, keep_axis_names = FALSE) {
-    .dim <-
-  if(is.null(.dim)) {
+#' @export
+drop_dimnames <- function(x, which_dim = NULL, keep_axis_names = FALSE) {
+  if(is.null(which_dim)) {
     if(keep_axis_names)
       dimnames(x) <- lapply(dimnames(x), function(...) NULL)
     else
