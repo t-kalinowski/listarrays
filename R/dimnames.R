@@ -143,6 +143,15 @@ set_dimnames <- function(x, nm, .dim = NULL) {
 } # end function definition
 
 
+#' Drop dimnames
+#'
+#' A pipe-friendly wrapper for `dimnames(x) <- NULL` or (in essence)
+#' \code{dimnames(x)[.dim] <- list(NULL)}
+#'
+#' @param x an object, potentially with dimnames
+#' @param .dim If `NULL` (the default) then all dimnames are dropped. If integer
+#'   vector, then dimnames only at the specified dimensions are dropped.
+#'
 #' @export
 drop_dimnames <- function(x, which_dim = NULL, keep_axis_names = FALSE) {
   if(is.null(which_dim)) {
