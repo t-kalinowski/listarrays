@@ -26,7 +26,6 @@ seq_along_dim <- function(x, which_dim)
 .seq_along_dim <- function(x, which_dim)
   seq_len( DIM(x)[[which_dim]] )
 
-DIM <- function(x) dim(x) %||% length(x)
 
 
 

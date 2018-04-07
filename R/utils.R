@@ -8,6 +8,12 @@ ndim <- function(x) {
     length(dx)
 }
 
+# DIM() is to dim() as NROW() is to nrow()
+
+#' @export
+DIM <- function(x) dim(x) %||% length(x)
+
+
 `%||%` <- function (x, y) {
   if (is.null(x))
     y
@@ -50,7 +56,7 @@ check.is.integerish <- function(x, n = NULL) {
       msg <- paste(msg, "of length", n)
     stop(msg, call. = FALSE)
   }
-  as.integer(x)
+  # as.integer(x)
 }
 
 
