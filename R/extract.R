@@ -1,7 +1,3 @@
-
-
-
-
 #' Extract with `[` on a specified dimension
 #'
 #' @param X Typically, an array, but any object with a `[` method is accepted
