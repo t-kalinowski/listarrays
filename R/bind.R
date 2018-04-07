@@ -53,8 +53,7 @@
 bind_as_dim <- function(list_of_arrays, which_dim) {
 
   # standardize_which_dim(which_dim, n_dim = )
-  check.is.integerish(which_dim, 1L)
-  which_dim <- as.integer(which_dim)
+  which_dim <- check.is.integerish(which_dim, 1L)
 
   # TODO, which_dim should accept a named vector, in which case it sets a new dimname
   # e.g., which_dim = c(channels = 3)

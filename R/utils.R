@@ -50,11 +50,10 @@ check.is.integerish <- function(x, n = NULL) {
       msg <- paste(msg, "of length", n)
     stop(msg, call. = FALSE)
   }
+  as.integer(x)
 }
 
 
-# is this still in use?
-p0 <- function(...) paste0(...)
 
 dropNULLs <- function(x) x[!vapply(x, is.null, TRUE)]
 

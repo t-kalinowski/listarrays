@@ -168,7 +168,7 @@ split_along_dim <- function(X, which_dim, drop = NULL, depth = Inf) {
   extract <- extract_dim_chr_expr(X, which_dim, .idx_var = "i",
                                drop = drop, .var_to_subset = "X")
 
-  length_out <-  get_dim(X)[[which_dim]]
+  length_out <-  DIM(X)[[which_dim]]
 
   args <-  as.pairlist(alist(X = , length_out = ))
   body <- parse1("{
@@ -181,7 +181,7 @@ split_along_dim <- function(X, which_dim, drop = NULL, depth = Inf) {
 
   split_it <- eval(call("function", args, body))
 
-  if(length_out > 5000)
+  if(length_out > 500)
     split_it <- cmpfun(split_it)
 
   out <- split_it(X, length_out)

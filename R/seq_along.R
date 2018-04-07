@@ -20,25 +20,13 @@
 #' identical(seq_along_rows(x), seq_along(x))
 #'
 #' @export
-# seq_along_dim <- function(x, .dim)
-#   seq_len(get_dim(x)[[.dim]])
-
-
 seq_along_dim <- function(x, which_dim)
-  seq_len( dim(x)[[standardize_which_dim(which_dim, x)]] )
+  seq_len( DIM(x)[[standardize_which_dim(which_dim, x)]] )
 
 .seq_along_dim <- function(x, which_dim)
-  seq_len( dim(x)[[which_dim]] )
+  seq_len( DIM(x)[[which_dim]] )
 
-
-
-
-get_dim <- function(x) {
-  d <- dim(x) %||% length(x)
-  if(!is.null(dnn <- names(dimnames(x))))
-    names(d) <- dnn
-  d
-}
+DIM <- function(x) dim(x) %||% length(x)
 
 
 
@@ -52,7 +40,12 @@ seq_along_cols <- function(x) seq_along_dim(x, -1L)
 
 
 
-
+# get_dim <- function(x) {
+#   d <- dim(x) %||% length(x)
+#   if(!is.null(dnn <- names(dimnames(x))))
+#     names(d) <- dnn
+#   d
+# }
 
 
 
