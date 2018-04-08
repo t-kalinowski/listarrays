@@ -51,6 +51,7 @@ set_dim <- function(x, new_dim,
                     pad = getOption("listarrays.autopad_arrays_with", NULL),
                     order = c("F", "C"),
                     verbose = getOption("verbose")) {
+
   if (!is.null(pad) && !identical(length(x), needed_len <- prod(new_dim))) {
     stopifnot(identical(length(pad), 1L))
     if (verbose)
@@ -216,12 +217,6 @@ array2 <- function(data, dims, dimnames) {
 # renaming. candidates: rrays, purrrays, arrays, array
 #
 # 10. WIP (DONE FOR ALL EXPORTED FUNCTIONS) remove the dot "." prefixes for arguments throughout. .dim -> which_dim or new_dim
-#
-# 11. port updated drop_dim over to TKutils
-#
-# 12. add drop_dim2(), to transpose and flatten.
-#
-# 13. see if there is any benefit to adding the "for" loop into the eval, and then call eval only once...?
 #
 
 

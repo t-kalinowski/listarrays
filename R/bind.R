@@ -129,7 +129,7 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
   list_of_arrays <- dropNULLs(list_of_arrays)
 
   all_dims <- lapply(list_of_arrays, function(x) dim(x) %||% length(x))
-  all_n_dims <- lapply(all_dims, length)
+  all_n_dims <- lengths(all_dims) #lapply(all_dims, length)
   stopifnot(is.scalar(unique(all_n_dims)))
   n_dim <- all_n_dims[[1]]
 
