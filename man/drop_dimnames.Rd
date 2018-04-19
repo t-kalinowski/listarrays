@@ -2,17 +2,26 @@
 % Please edit documentation in R/dimnames.R
 \name{drop_dimnames}
 \alias{drop_dimnames}
+\alias{drop_dim}
+\alias{drop_dim2}
 \title{Drop dimnames}
 \usage{
 drop_dimnames(x, which_dim = NULL, keep_axis_names = FALSE)
+
+drop_dim(x)
+
+drop_dim2(x)
 }
 \arguments{
 \item{x}{an object, potentially with dimnames}
 
-\item{.dim}{If \code{NULL} (the default) then all dimnames are dropped. If integer
-vector, then dimnames only at the specified dimensions are dropped.}
+\item{which_dim}{If \code{NULL} (the default) then all dimnames are dropped. If
+integer vector, then dimnames only at the specified dimensions are dropped.}
+
+\item{keep_axis_names}{TRUE or FALSE, whether to preserve the axis names when
+dropping the dimanmes}
 }
 \description{
-A pipe-friendly wrapper for \code{dimnames(x) <- NULL} or (in essence)
-\code{dimnames(x)[.dim] <- list(NULL)}
+A pipe-friendly wrapper for \code{dim(x) <- NULL} and \code{dimnames(x) <- NULL} or (in
+essence) \code{dimnames(x)[.dim] <- list(NULL)}
 }

@@ -2,7 +2,7 @@
 #' Reshape an array to bring a dim forward
 #'
 #' @param X an array
-#' @param .dim scalar integer or string, which dim to bring forward
+#' @param which_dim scalar integer or string, which dim to bring forward. Negative numbers count from the back
 #'
 #' This is a powered by `base::aperm()`.
 #'

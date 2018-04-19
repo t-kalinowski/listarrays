@@ -42,6 +42,8 @@
 <![endif]-->
 
 
+
+
   </head>
 
   <body>
@@ -82,6 +84,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,20 +92,23 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Sequence along a dimension</h1>
     <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/seq_along.R'><code>R/seq_along.R</code></a></small>
+    <div class="hidden name"><code>seq_along_dim.Rd</code></div>
     </div>
 
     
     <p>Sequence along a dimension</p>
     
 
-    <pre class="usage"><span class='fu'>seq_along_dim</span>(<span class='no'>x</span>, <span class='no'>.dim</span>)
+    <pre class="usage"><span class='fu'>seq_along_dim</span>(<span class='no'>x</span>, <span class='no'>which_dim</span>)
 
-<span class='fu'>seq_along_rows</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>seq_along_rows</span>(<span class='no'>x</span>)
+
+<span class='fu'>seq_along_cols</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -117,8 +123,9 @@ arrays (i.e., <code>seq_along_rows</code> is equivalent to <code>seq_along</code
 atomic vector or list).</p></td>
     </tr>
     <tr>
-      <th>.dim</th>
-      <td><p>a scalar integer, specifying which dimension to generate a sequence for.</p></td>
+      <th>which_dim</th>
+      <td><p>a scalar integer or character string, specifying which
+dimension to generate a sequence for. Negative numbers count from the back</p></td>
     </tr>
     </table>
     
@@ -166,6 +173,8 @@ vectorized equivalents.</p>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

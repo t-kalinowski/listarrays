@@ -2,7 +2,7 @@
 #'
 #' @param X Typically, an array, but any object with a `[` method is accepted
 #'   (e.g., dataframe, vectors)
-#' @param .dim A scalar integer or character, specifying the dimension to extract from
+#' @param which_dim A scalar integer or character, specifying the dimension to extract from
 #' @param idx A numeric, boolean, or character vector to perform subsetting with.
 #' @param drop Passed on to `[`. If `NULL` (the default), then drop is omitted
 #'   from the argument, and the default is used (defaults to TRUE for most

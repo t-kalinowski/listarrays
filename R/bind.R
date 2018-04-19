@@ -9,12 +9,16 @@
 #' each of the arrays in the list).
 #'
 #' `bind_*_rows()` is a wrapper for the common case of `bind_*_dim(X, 1)`.
+#' `bind_*_cols()` is a wrapper for the common case of `bind_*_dim(X, -1)`.
 #'
 #' @param list_of_arrays a list of arrays. All arrays must be of the same
 #'   dimension. NULL's in place of arrays are automatically dropped.
-#' @param ... Arrays to be bound, specified individually or supplied as a single list
-#' @param which_dim Scalar integer, specifying the index position of where to
-#'   introduce the new dimension to introduce.
+#' @param ... Arrays to be bound, specified individually or supplied as a single
+#'   list
+#' @param which_dim Scalar integer specifying the index position of where to
+#'   introduce the new dimension to introduce. Negative numbers count from the
+#'   back. For example, given a 3 dimentional array, `-1`, is equivelant to `3`,
+#'   `-2` to `2` and `-3` to `1`.
 #'
 #' @return An array, with one additional dimension.
 #' @rdname bind-arrays

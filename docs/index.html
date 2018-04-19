@@ -20,7 +20,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -64,12 +64,11 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     
 
     
     
-<div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div id="listarrays" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
@@ -81,8 +80,10 @@
 <li><p><code><a href="reference/bind-arrays.html">bind_on_dim()</a></code> and <code><a href="reference/bind-arrays.html">bind_as_dim()</a></code> take a list and return an array.</p></li>
 <li><p><code><a href="reference/modify_along_dim.html">modify_along_dim()</a></code> takes an array, calls the passed function <code>.f()</code> on each subset of the specified dimension, and returns an array of the same shape. (think of this as a safer alternative to <code><a href="http://www.rdocumentation.org/packages/base/topics/apply">base::apply()</a></code> that is guaranteed to return an array of the same shape as it received)</p></li>
 <li><p><code><a href="reference/extract_dim.html">extract_dim()</a></code> a wrapper around <code>[</code> that allows you to specify the dimension being subset as a function argument. For example, <code><a href="reference/extract_dim.html">extract_dim(X, 1, idx)</a></code> will extract <code>idx</code> on the first dimension, regardless how many dimensions are in the array <code>X</code>. Contrast this with the base alternative <code>X[idx,,]</code>, where you have to match the number of commas <code>,</code> to the number of dimensions in <code>X</code>.</p></li>
-<li><p>Many of the functions have a varient <code>*_rows()</code> for the most common case of the 1st dimension. For example <code><a href="reference/split-array.html">split_on_rows()</a></code> which is equivalent to <code><a href="reference/split-array.html">split_on_dim(X, 1)</a></code></p></li>
+<li><p>Many of the functions have two varients <code>*_rows()</code> and <code>*_cols()</code> for the two most common case of the first and last dimension. For example <code><a href="reference/split-array.html">split_on_rows()</a></code> which is equivalent to <code><a href="reference/split-array.html">split_on_dim(X, 1)</a></code> and <code><a href="reference/split-array.html">split_on_cols()</a></code> which is equivalent to <code><a href="reference/split-array.html">split_on_dim(X, -1)</a></code></p></li>
 <li><p><code><a href="reference/set_dim.html">set_dim()</a></code> and <code><a href="reference/set_dimnames.html">set_dimnames()</a></code>, pipe-friendly and more flexible versions of <code>dim&lt;-</code> and <code>dimnames&lt;-</code></p></li>
+<li><p><code>dim2()&lt;-</code>, <code><a href="reference/set_dim.html">set_dim2()</a></code>, <code><a href="reference/array2.html">array2()</a></code>, which reshape or fills arrays using row-major (C-style) semantics</p></li>
+<li><p><code><a href="reference/t.array.html">t.array()</a></code> a transpose method for multi-dimentional arrays</p></li>
 <li><p>A handful of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example <code><a href="reference/seq_along_dim.html">seq_along_rows()</a></code> (a combination of <code>seq_along()</code> and <code>nrow()</code>).</p></li>
 <li><p>A set of functions that help encode atomic vectors as <code><a href="reference/onehot.html">onehot()</a></code> binary matrix’s and <code><a href="reference/onehot.html">decode_onehot()</a></code> back into atomic vectors. (for example if training a neural network with keras)</p></li>
 <li>
@@ -95,7 +96,6 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>listarrays is not on CRAN yet. You can install the development version from github with</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"t-kalinowski/listarrays"</span>)</code></pre></div>
-</div>
 </div>
 </div>
   </div>
@@ -139,6 +139,8 @@
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

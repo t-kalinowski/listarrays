@@ -4,8 +4,7 @@
 \alias{set_dim}
 \alias{set_dim2}
 \alias{dim2<-}
-\title{Pipe friendly \code{dim<-()}, with option to pad to necessary length. Also allows
-for filling the array using C style row-major semantics.}
+\title{Reshape an array}
 \usage{
 set_dim(x, new_dim, pad = getOption("listarrays.autopad_arrays_with", NULL),
   order = c("F", "C"), verbose = getOption("verbose"))
@@ -16,6 +15,8 @@ dim2(x) <- value
 }
 \arguments{
 \item{x}{A vector or array to set dimensions on}
+
+\item{new_dim, value}{The desired dimensions (an integer(ish) vector)}
 
 \item{pad}{The value to pad the vector with. \code{NULL} (the default) performs no
 padding.}
@@ -28,15 +29,21 @@ encountered in the python world.}
 
 \item{verbose}{Whether to emit a message if padding. By default, \code{FALSE}.}
 
-\item{.dim, value}{The desired dimensions (an integer(ish) vector)}
+\item{...}{passed on to \code{set_dim()}
+
+\code{dim2<-()} and reshapes with row-major semantics, and is equivelant to
+\code{set_dim(order = 'C')} (and \code{reticulate::array_reshape()}). \code{set_dim2()} is a
+wrapper around \code{dim2<-}, and equivelant to \code{set_dim(..., order = "C")}.
+
+\code{array2()} is identical to \code{array()} with the exception that it uses
+row-major (a.k.a, C style) semantics.}
 }
 \value{
 Object with dimensions set
 }
 \description{
-\code{dim2<-()} and reshapes with row-major semantics, and is equivelant to
-\code{set_dim(order = 'C')} and \code{reticulate::array_reshape()}. \code{set_dim2()} is a
-wrapper around \code{dim2<-}, and equivelant to \code{set_dim(..., order = "C")}.
+Pipe friendly \code{dim<-()}, with option to pad to necessary length. Also allows
+for filling the array using C style row-major semantics.
 }
 \examples{
 set_dim(1:10, c(2, 5))

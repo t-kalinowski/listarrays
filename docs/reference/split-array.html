@@ -42,6 +42,8 @@
 <![endif]-->
 
 
+
+
   </head>
 
   <body>
@@ -82,6 +84,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,24 +92,30 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Split an array along a dimension</h1>
     <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/split.R'><code>R/split.R</code></a></small>
+    <div class="hidden name"><code>split-array.Rd</code></div>
     </div>
 
     
     <p>Split an array along a dimension</p>
     
 
-    <pre class="usage"><span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>dimnames</span>(<span class='no'>X</span>)<span class='kw'>[[</span><span class='no'>.dim</span>]], <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+    <pre class="usage"><span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='no'>which_dim</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>dimnames</span>(<span class='no'>X</span>)<span class='kw'>[[</span><span class='no'>which_dim</span>]], <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
 <span class='fu'>split_on_rows</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>rownames</span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+<span class='fu'>split_on_cols</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>rownames</span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_along_rows</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
+<span class='fu'>split_along_dim</span>(<span class='no'>X</span>, <span class='no'>which_dim</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+
+<span class='fu'>split_along_rows</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+
+<span class='fu'>split_along_cols</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -115,20 +124,22 @@
       <th>X</th>
       <td><p>an array, or list of arrays. Atomic vectors without a dimension
 attribute is treated as a 1 dimensions array (Meaning, atomic vectors
-without a dim attribute are only accepted if <code>.dim</code> is <code>1</code>. Names of list
-are preserved. If a list of arrays, all the arrays must have the same
+without a dim attribute are only accepted if <code>which_dim</code> is <code>1</code>. Names of
+list are preserved. If a list of arrays, all the arrays must have the same
 length of the dimension being split.</p></td>
     </tr>
     <tr>
-      <th>.dim</th>
-      <td><p>a scalar integer, specifying which dimension to split along</p></td>
+      <th>which_dim</th>
+      <td><p>a scalar string or integer, specifying which dimension to
+split along. Negative integers count from the back. If a string, it must
+refer to a named dimension (e.g, one of <code>names(dimnames(X))</code>.</p></td>
     </tr>
     <tr>
       <th>f</th>
       <td><p>Specify how to split the dimension.</p><dl class='dl-horizontal'>
 
-<dt>character, integer, factor</dt><dd><p>passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Must be
-the same length as the dimension being split.</p></dd>
+<dt>character, integer, factor</dt><dd><p>passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Must be the
+same length as the dimension being split.</p></dd>
 
 <dt>a list of vectors</dt><dd><p>Passed on to <code><a href='http://www.rdocumentation.org/packages/base/topics/interaction'>base::interaction()</a></code> then
 <code><a href='http://www.rdocumentation.org/packages/base/topics/split'>base::split()</a></code>. Each vector in the list must be the same length as the
@@ -136,10 +147,10 @@ dimension being split.</p></dd>
 
 <dt>a scalar integer</dt><dd><p>used to split into that many groups of equal size</p></dd>
 
-<dt>a numeric vector where <code>all(f&lt;0)</code></dt><dd><p>specifies the
-relative size proportions of the groups being split. <code>sum(f)</code> must be
-<code>1</code>. For example <code>c(0.2, 0.2, 0.6)</code> will return approximately a
-20%-20%-60% split.</p></dd> </dl></td>
+<dt>a numeric vector where <code>all(f&lt;0)</code></dt><dd><p>specifies the relative size
+proportions of the groups being split. <code>sum(f)</code> must be <code>1</code>. For
+example <code>c(0.2, 0.2, 0.6)</code> will return approximately a 20%-20%-60%
+split.</p></dd> </dl></td>
     </tr>
     <tr>
       <th>drop</th>
@@ -151,8 +162,7 @@ relative size proportions of the groups being split. <code>sum(f)</code> must be
 want to explicit treat a list as a vector (that is, a one-dimensional
 array). (You can alternatively set dim attributes with <code>dim&lt;-</code> on the list
 to prevent recursion)</p>
-<p><code>split_along_dim(X, .dim)</code> is equivalent to
-<code>split_on_dim(X, .dim, seq_along_dim(X, .dim))</code>.</p></td>
+<p><code>split_along_dim(X, which_dim)</code> is equivalent to <code>split_on_dim(X, which_dim, seq_along_dim(X, which_dim))</code>.</p></td>
     </tr>
     </table>
     
@@ -274,7 +284,17 @@ of lists of arrays.</p>
 <span class='fu'>str</span>(<span class='no'>train</span>)
 <span class='fu'>str</span>(<span class='no'>validate</span>)
 
-}</div><div class='output co'>#&gt; List of 3
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘magrittr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    equals, is_less_than, not</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: purrr</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘purrr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:magrittr’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    set_names</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:listarrays’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    %||%</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    is_null</span></div><div class='output co'>#&gt; List of 3
 #&gt;  $ X: int [1:2, 1:3, 1:3] 7 4 17 14 27 24 37 34 47 44 ...
 #&gt;  $ Y: num [1:2, 1:10] 0 0 0 0 0 0 0 1 0 0 ...
 #&gt;   ..- attr(*, "dimnames")=List of 2
@@ -298,19 +318,19 @@ of lists of arrays.</p>
 
 <span class='co'># with with array data in a data frame by splitting row-wise</span>
 <span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>tibble</span>))
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='no'>y</span>, <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'>split_along_rows</span>(<span class='no'>X</span>))</div><div class='output co'>#&gt; # A tibble: 10 x 2
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='no'>y</span>, <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'>split_along_rows</span>(<span class='no'>X</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: tibble</span></div><div class='output co'>#&gt; # A tibble: 10 x 2
 #&gt;    y     X            
 #&gt;    &lt;chr&gt; &lt;list&gt;       
-#&gt;  1 a     &lt;int [3 × 3]&gt;
-#&gt;  2 b     &lt;int [3 × 3]&gt;
-#&gt;  3 c     &lt;int [3 × 3]&gt;
-#&gt;  4 d     &lt;int [3 × 3]&gt;
-#&gt;  5 e     &lt;int [3 × 3]&gt;
-#&gt;  6 f     &lt;int [3 × 3]&gt;
-#&gt;  7 g     &lt;int [3 × 3]&gt;
-#&gt;  8 h     &lt;int [3 × 3]&gt;
-#&gt;  9 i     &lt;int [3 × 3]&gt;
-#&gt; 10 j     &lt;int [3 × 3]&gt;</div><div class='input'>
+#&gt;  1 a     &lt;int [3 x 3]&gt;
+#&gt;  2 b     &lt;int [3 x 3]&gt;
+#&gt;  3 c     &lt;int [3 x 3]&gt;
+#&gt;  4 d     &lt;int [3 x 3]&gt;
+#&gt;  5 e     &lt;int [3 x 3]&gt;
+#&gt;  6 f     &lt;int [3 x 3]&gt;
+#&gt;  7 g     &lt;int [3 x 3]&gt;
+#&gt;  8 h     &lt;int [3 x 3]&gt;
+#&gt;  9 i     &lt;int [3 x 3]&gt;
+#&gt; 10 j     &lt;int [3 x 3]&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -337,6 +357,8 @@ of lists of arrays.</p>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

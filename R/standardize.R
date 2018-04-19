@@ -1,6 +1,4 @@
 
-
-
 standardize_which_dim <- function(which_dim, X,
                                   n_dim = ndim(X),
                                   names_dimnames_X = names(dimnames(X)),

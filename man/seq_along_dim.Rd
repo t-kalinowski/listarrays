@@ -3,11 +3,14 @@
 \name{seq_along_dim}
 \alias{seq_along_dim}
 \alias{seq_along_rows}
+\alias{seq_along_cols}
 \title{Sequence along a dimension}
 \usage{
 seq_along_dim(x, which_dim)
 
 seq_along_rows(x)
+
+seq_along_cols(x)
 }
 \arguments{
 \item{x}{a dataframe, array or vector. For \code{seq_along_rows}, and
@@ -17,7 +20,8 @@ determining dimensions, so atomic vectors are treated as 1 dimensional
 arrays (i.e., \code{seq_along_rows} is equivalent to \code{seq_along} when \code{x} is an
 atomic vector or list).}
 
-\item{.dim}{a scalar integer, specifying which dimension to generate a sequence for.}
+\item{which_dim}{a scalar integer or character string, specifying which
+dimension to generate a sequence for. Negative numbers count from the back}
 }
 \value{
 a vector of integers 1:nrow(x), safe for use in \code{for} loops and

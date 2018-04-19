@@ -39,6 +39,8 @@
 <![endif]-->
 
 
+
+
   </head>
 
   <body>
@@ -79,6 +81,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -86,92 +89,119 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
       <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bind-arrays.html">bind_as_dim()</a></code> <code><a href="bind-arrays.html">bind_as_rows()</a></code> <code><a href="bind-arrays.html">bind_on_dim()</a></code> <code><a href="bind-arrays.html">bind_on_rows()</a></code> </p>
-          </td>
-          <td><p>Bind arrays along a specified dimension</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="extract_dim.html">extract_dim()</a></code> <code><a href="extract_dim.html">extract_rows()</a></code> </p>
-          </td>
-          <td><p>Extract with <code>[</code> on a specified dimension</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="modify_along_dim.html">modify_along_dim()</a></code> <code><a href="modify_along_dim.html">modify_along_rows()</a></code> </p>
-          </td>
-          <td><p>Modify an array by mapping over 1 or more dimensions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="onehot.html">onehot_with_decoder()</a></code> <code><a href="onehot.html">onehot()</a></code> <code><a href="onehot.html">decode_onehot()</a></code> <code><a href="onehot.html">onehot_decoder()</a></code> </p>
-          </td>
-          <td><p>Convert vector to a onehot representation (binary class matrix)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="seq_along_dim.html">seq_along_dim()</a></code> <code><a href="seq_along_dim.html">seq_along_rows()</a></code> </p>
-          </td>
-          <td><p>Sequence along a dimension</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="set_as_rows.html">set_as_rows()</a></code> </p>
-          </td>
-          <td><p>Reshape an array to bring a dim forward</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="set_dim.html">set_dim()</a></code> <code><a href="set_dim.html">`dim2<-`()</a></code> </p>
-          </td>
-          <td><p>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length. Also allows
-for filling the array using C style row-major semantics.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="set_dimnames.html">set_dimnames()</a></code> </p>
-          </td>
-          <td><p>Set dimnames</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="shuffle_rows.html">shuffle_rows()</a></code> </p>
-          </td>
-          <td><p>Shuffle along the first dimension multiple arrays in sync</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="split-array.html">split_on_dim()</a></code> <code><a href="split-array.html">split_on_rows()</a></code> <code><a href="split-array.html">split_along_dim()</a></code> <code><a href="split-array.html">split_along_rows()</a></code> </p>
-          </td>
-          <td><p>Split an array along a dimension</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="array2.html">array2()</a></code> </p>
+        </td>
+        <td><p>Fill Array with C-style row-major</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="bind-arrays.html">bind_as_dim()</a></code> <code><a href="bind-arrays.html">bind_as_rows()</a></code> <code><a href="bind-arrays.html">bind_as_cols()</a></code> <code><a href="bind-arrays.html">bind_on_dim()</a></code> <code><a href="bind-arrays.html">bind_on_rows()</a></code> <code><a href="bind-arrays.html">bind_on_cols()</a></code> </p>
+        </td>
+        <td><p>Bind arrays along a specified dimension</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="DIM.html">DIM()</a></code> </p>
+        </td>
+        <td><p>DIM</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="drop_dimnames.html">drop_dimnames()</a></code> <code><a href="drop_dimnames.html">drop_dim()</a></code> <code><a href="drop_dimnames.html">drop_dim2()</a></code> </p>
+        </td>
+        <td><p>Drop dimnames</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="extract_dim.html">extract_dim()</a></code> <code><a href="extract_dim.html">extract_rows()</a></code> <code><a href="extract_dim.html">extract_cols()</a></code> </p>
+        </td>
+        <td><p>Extract with <code>[</code> on a specified dimension</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="modify_along_dim.html">modify_along_dim()</a></code> <code><a href="modify_along_dim.html">modify_along_rows()</a></code> <code><a href="modify_along_dim.html">modify_along_cols()</a></code> </p>
+        </td>
+        <td><p>Modify an array by mapping over 1 or more dimensions</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ndim.html">ndim()</a></code> </p>
+        </td>
+        <td><p>Length of <code>dim()</code></p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="onehot.html">onehot_with_decoder()</a></code> <code><a href="onehot.html">onehot()</a></code> <code><a href="onehot.html">decode_onehot()</a></code> <code><a href="onehot.html">onehot_decoder()</a></code> </p>
+        </td>
+        <td><p>Convert vector to a onehot representation (binary class matrix)</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="seq_along_dim.html">seq_along_dim()</a></code> <code><a href="seq_along_dim.html">seq_along_rows()</a></code> <code><a href="seq_along_dim.html">seq_along_cols()</a></code> </p>
+        </td>
+        <td><p>Sequence along a dimension</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="set_as_rows.html">set_as_rows()</a></code> <code><a href="set_as_rows.html">set_as_cols()</a></code> </p>
+        </td>
+        <td><p>Reshape an array to bring a dim forward</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="set_dim.html">set_dim()</a></code> <code><a href="set_dim.html">set_dim2()</a></code> <code><a href="set_dim.html">`dim2<-`()</a></code> </p>
+        </td>
+        <td><p>Reshape an array</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="set_dimnames.html">set_dimnames()</a></code> </p>
+        </td>
+        <td><p>Set dimnames</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="shuffle_rows.html">shuffle_rows()</a></code> </p>
+        </td>
+        <td><p>Shuffle along the first dimension multiple arrays in sync</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="split-array.html">split_on_dim()</a></code> <code><a href="split-array.html">split_on_rows()</a></code> <code><a href="split-array.html">split_on_cols()</a></code> <code><a href="split-array.html">split_along_dim()</a></code> <code><a href="split-array.html">split_along_rows()</a></code> <code><a href="split-array.html">split_along_cols()</a></code> </p>
+        </td>
+        <td><p>Split an array along a dimension</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="t.array.html">t(<i>&lt;array&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>transpose an array</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -193,6 +223,8 @@ for filling the array using C style row-major semantics.</p></td>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

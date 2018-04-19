@@ -25,16 +25,18 @@ split_along_cols(X, drop = NULL, depth = Inf)
 \arguments{
 \item{X}{an array, or list of arrays. Atomic vectors without a dimension
 attribute is treated as a 1 dimensions array (Meaning, atomic vectors
-without a dim attribute are only accepted if \code{which_dim} is \code{1}. Names of list
-are preserved. If a list of arrays, all the arrays must have the same
+without a dim attribute are only accepted if \code{which_dim} is \code{1}. Names of
+list are preserved. If a list of arrays, all the arrays must have the same
 length of the dimension being split.}
 
-\item{which_dim}{a scalar integer, specifying which dimension to split along}
+\item{which_dim}{a scalar string or integer, specifying which dimension to
+split along. Negative integers count from the back. If a string, it must
+refer to a named dimension (e.g, one of \code{names(dimnames(X))}.}
 
 \item{f}{Specify how to split the dimension. \describe{
 
-\item{character, integer, factor}{passed on to \code{base::split()}. Must be
-the same length as the dimension being split.}
+\item{character, integer, factor}{passed on to \code{base::split()}. Must be the
+same length as the dimension being split.}
 
 \item{a list of vectors}{Passed on to \code{base::interaction()} then
 \code{base::split()}. Each vector in the list must be the same length as the
@@ -42,10 +44,10 @@ dimension being split.}
 
 \item{a scalar integer}{used to split into that many groups of equal size}
 
-\item{a numeric vector where \code{all(f<0)}}{specifies the
-relative size proportions of the groups being split. \code{sum(f)} must be
-\code{1}. For example \code{c(0.2, 0.2, 0.6)} will return approximately a
-20\%-20\%-60\% split.} }}
+\item{a numeric vector where \code{all(f<0)}}{specifies the relative size
+proportions of the groups being split. \code{sum(f)} must be \code{1}. For
+example \code{c(0.2, 0.2, 0.6)} will return approximately a 20\%-20\%-60\%
+split.} }}
 
 \item{drop}{passed on to \code{[}.}
 
@@ -54,8 +56,7 @@ want to explicit treat a list as a vector (that is, a one-dimensional
 array). (You can alternatively set dim attributes with \code{dim<-} on the list
 to prevent recursion)
 
-\code{split_along_dim(X, which_dim)} is equivalent to
-\code{split_on_dim(X, which_dim, seq_along_dim(X, which_dim))}.}
+\code{split_along_dim(X, which_dim)} is equivalent to \code{split_on_dim(X, which_dim, seq_along_dim(X, which_dim))}.}
 }
 \value{
 A list of arrays, or if a list of arrays was passed in, then a list

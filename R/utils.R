@@ -1,5 +1,10 @@
 
 
+
+
+
+#' Length of `dim()`
+#' @param x a matrix or atomic vector
 #' @export
 ndim <- function(x) {
   if (is.null(dx <- dim(x)))
@@ -10,6 +15,17 @@ ndim <- function(x) {
 
 # DIM() is to dim() as NROW() is to nrow()
 
+
+
+#' DIM
+#'
+#' `DIM()` is to `dim()` as `NROW()` is to `nrow()`. That is, it is identical to
+#' `dim()` in most cases except if the input is a bare atomic vectors with no
+#' `dim` attribute, in which case, the length of the vector is returned instead
+#' of `NULL`.
+#'
+#' @param x an array or atomic vector
+#'
 #' @export
 DIM <- function(x) dim(x) %||% length(x)
 
@@ -70,21 +86,3 @@ quick_cbind <- function(lst) {
   dim(x) <- c(length(lst[[1]]), length(lst))
   x
 }
-
-
-
-# parse_and_compile <- function(chr, env = parent.frame())
-#   compile(parse(text = chr, keep.source = FALSE), env = env)
-#
-# compile <- compiler::compile
-
-# eval_text <- function(text, env = parent.frame())
-#   eval(compile(parse(text = text, keep.source = FALSE), env), env)
-# b <- browser
-# eval_text <- function(text, compile = TRUE, env = parent.frame()) {
-#   x <- parse(text = text, keep.source = FALSE)
-#   # b()
-#   if (compile)
-#     x <- compile(x, env)
-#   eval(x, env)
-# }

@@ -1,6 +1,4 @@
 
-
-
 #' Modify an array by mapping over 1 or more dimensions
 #'
 #' This function can be thought of as a version of `base::apply()` that is
@@ -79,5 +77,3 @@ modify_along_rows <- function(X, .f, ...)
 #' @rdname modify_along_dim
 modify_along_cols <- function(X, .f, ...)
   modify_along_dim(X, -1L, .f, ...)
-
-

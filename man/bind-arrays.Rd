@@ -25,10 +25,13 @@ bind_on_cols(...)
 \item{list_of_arrays}{a list of arrays. All arrays must be of the same
 dimension. NULL's in place of arrays are automatically dropped.}
 
-\item{which_dim}{Scalar integer, specifying the index position of where to
-introduce the new dimension to introduce.}
+\item{which_dim}{Scalar integer specifying the index position of where to
+introduce the new dimension to introduce. Negative numbers count from the
+back. For example, given a 3 dimentional array, \code{-1}, is equivelant to \code{3},
+\code{-2} to \code{2} and \code{-3} to \code{1}.}
 
-\item{...}{Arrays to be bound, specified individually or supplied as a single list}
+\item{...}{Arrays to be bound, specified individually or supplied as a single
+list}
 }
 \value{
 An array, with one additional dimension.
@@ -42,6 +45,7 @@ each of the arrays in the list).
 }
 \details{
 \code{bind_*_rows()} is a wrapper for the common case of \code{bind_*_dim(X, 1)}.
+\code{bind_*_cols()} is a wrapper for the common case of \code{bind_*_dim(X, -1)}.
 }
 \examples{
 list_of_arrays <- replicate(10, array(1:8, dim = c(2,3,4)), FALSE)

@@ -31,7 +31,7 @@
 #'   names' refers to the second. This function can be used either or both both
 #'   axis names and dimnames.
 #'
-#' @return x, with dimnames
+#' @return x, with modified dimnames and or axisnames
 #' @export
 #' @importFrom utils modifyList
 #'
@@ -140,17 +140,19 @@ set_dimnames <- function(x, nm, .dim = NULL) {
 
     } # end else .dim supplied
   stop("invalid input")
-} # end function definition
+}
 
 
 #' Drop dimnames
 #'
-#' A pipe-friendly wrapper for `dimnames(x) <- NULL` or (in essence)
-#' \code{dimnames(x)[.dim] <- list(NULL)}
+#' A pipe-friendly wrapper for `dim(x) <- NULL` and `dimnames(x) <- NULL` or (in
+#' essence) \code{dimnames(x)[.dim] <- list(NULL)}
 #'
 #' @param x an object, potentially with dimnames
-#' @param .dim If `NULL` (the default) then all dimnames are dropped. If integer
-#'   vector, then dimnames only at the specified dimensions are dropped.
+#' @param which_dim If `NULL` (the default) then all dimnames are dropped. If
+#'   integer vector, then dimnames only at the specified dimensions are dropped.
+#' @param keep_axis_names TRUE or FALSE, whether to preserve the axis names when
+#'   dropping the dimanmes
 #'
 #' @export
 drop_dimnames <- function(x, which_dim = NULL, keep_axis_names = FALSE) {
@@ -160,28 +162,25 @@ drop_dimnames <- function(x, which_dim = NULL, keep_axis_names = FALSE) {
     else
       dimnames(x) <- NULL
   } else {
-    dimnames(x)[.dim] <- list(NULL)
+    which_dim <- standardize_which_dim(which_dim, x, multiple_OK = TRUE)
+    dimnames(x)[which_dim] <- list(NULL)
     if(!keep_axis_names)
-      names(dimnames(x))[.dim] <- ""
+      names(dimnames(x))[which_dim] <- ""
   }
   x
 }
-#
-# .dim <- c(2, 3)
-# x <- nx2
-# # x <- set_dimnames(x, LETTERS[1:4], 3)
-# dimnames(x)
-# dimnames(x)[.dim] <- list(NULL)
-# names(dimnames(x))[.dim] <- ""
-# dimnames(x)
 
-# ' @export
-# get_dimnames <- function(x, .dim = NULL) {
-#   if(is.null(.dim))
-#     dimnames(x)
-#   else if (length(.dim)  > 1L)
-#     dimnames(x)[.dim]
-#   else
-#     dimnames(x)[[.dim]]
-# }
+#' @rdname drop_dimnames
+#' @export
+drop_dim <- function(x) {
+  dim(x) <- NULL
+  x
+}
+
+#' @rdname drop_dimnames
+#' @export
+drop_dim2 <- function(x) {
+  dim2(x) <- NULL
+  x
+}
 

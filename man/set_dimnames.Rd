@@ -14,7 +14,7 @@ set_dimnames(x, nm, .dim = NULL)
 \item{.dim}{a character vector or numeric vector or \code{NULL}}
 }
 \value{
-x, with dimnames
+x, with modified dimnames and or axisnames
 }
 \description{
 A more flexible and pipe-friendly version of \code{dimnames<-}.

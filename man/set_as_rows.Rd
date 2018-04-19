@@ -12,7 +12,7 @@ set_as_cols(X, which_dim)
 \arguments{
 \item{X}{an array}
 
-\item{.dim}{scalar integer or string, which dim to bring forward
+\item{which_dim}{scalar integer or string, which dim to bring forward. Negative numbers count from the back
 
 This is a powered by \code{base::aperm()}.}
 }

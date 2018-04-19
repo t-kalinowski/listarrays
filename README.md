@@ -15,9 +15,13 @@ The package provides:
 
 -   `extract_dim()` a wrapper around `[` that allows you to specify the dimension being subset as a function argument. For example, `extract_dim(X, 1, idx)` will extract `idx` on the first dimension, regardless how many dimensions are in the array `X`. Contrast this with the base alternative `X[idx,,]`, where you have to match the number of commas `,` to the number of dimensions in `X`.
 
--   Many of the functions have a varient `*_rows()` for the most common case of the 1st dimension. For example `split_on_rows()` which is equivalent to `split_on_dim(X, 1)`
+-   Many of the functions have two varients `*_rows()` and `*_cols()` for the two most common case of the first and last dimension. For example `split_on_rows()` which is equivalent to `split_on_dim(X, 1)` and `split_on_cols()` which is equivalent to `split_on_dim(X, -1)`
 
 -   `set_dim()` and `set_dimnames()`, pipe-friendly and more flexible versions of `dim<-` and `dimnames<-`
+
+-   `dim2()<-`, `set_dim2()`, `array2()`, which reshape or fills arrays using row-major (C-style) semantics
+
+-   `t.array()` a transpose method for multi-dimentional arrays
 
 -   A handful of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example `seq_along_rows()` (a combination of `seq_along()` and `nrow()`).
 

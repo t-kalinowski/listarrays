@@ -46,6 +46,8 @@ each of the arrays in the list)." />
 <![endif]-->
 
 
+
+
   </head>
 
   <body>
@@ -86,6 +88,7 @@ each of the arrays in the list)." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -93,11 +96,12 @@ each of the arrays in the list)." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Bind arrays along a specified dimension</h1>
     <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/bind.R'><code>R/bind.R</code></a></small>
+    <div class="hidden name"><code>bind-arrays.Rd</code></div>
     </div>
 
     
@@ -108,13 +112,17 @@ dimension, (meaning, the returned array has the same number of dimensions as
 each of the arrays in the list).</p>
     
 
-    <pre class="usage"><span class='fu'>bind_as_dim</span>(<span class='no'>list_of_arrays</span>, <span class='no'>.dim</span>)
+    <pre class="usage"><span class='fu'>bind_as_dim</span>(<span class='no'>list_of_arrays</span>, <span class='no'>which_dim</span>)
 
 <span class='fu'>bind_as_rows</span>(<span class='no'>...</span>)
 
-<span class='fu'>bind_on_dim</span>(<span class='no'>list_of_arrays</span>, <span class='no'>.dim</span>)
+<span class='fu'>bind_as_cols</span>(<span class='no'>...</span>)
 
-<span class='fu'>bind_on_rows</span>(<span class='no'>...</span>)</pre>
+<span class='fu'>bind_on_dim</span>(<span class='no'>list_of_arrays</span>, <span class='no'>which_dim</span>)
+
+<span class='fu'>bind_on_rows</span>(<span class='no'>...</span>)
+
+<span class='fu'>bind_on_cols</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -125,13 +133,16 @@ each of the arrays in the list).</p>
 dimension. NULL's in place of arrays are automatically dropped.</p></td>
     </tr>
     <tr>
-      <th>.dim</th>
-      <td><p>Scalar integer, specifying the index position of where to
-introduce the new dimension to introduce.</p></td>
+      <th>which_dim</th>
+      <td><p>Scalar integer specifying the index position of where to
+introduce the new dimension to introduce. Negative numbers count from the
+back. For example, given a 3 dimentional array, <code>-1</code>, is equivelant to <code>3</code>,
+<code>-2</code> to <code>2</code> and <code>-3</code> to <code>1</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arrays to be bound, specified individually or supplied as a single list</p></td>
+      <td><p>Arrays to be bound, specified individually or supplied as a single
+list</p></td>
     </tr>
     </table>
     
@@ -141,7 +152,8 @@ introduce the new dimension to introduce.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>bind_*_rows()</code> is a wrapper for the common case of <code>bind_*_dim(X, 1)</code>.</p>
+    <p><code>bind_*_rows()</code> is a wrapper for the common case of <code>bind_*_dim(X, 1)</code>.
+<code>bind_*_cols()</code> is a wrapper for the common case of <code>bind_*_dim(X, -1)</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -194,6 +206,8 @@ introduce the new dimension to introduce.</p></td>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

@@ -2,14 +2,16 @@
 #'
 #' @param X an array, or list of arrays. Atomic vectors without a dimension
 #'   attribute is treated as a 1 dimensions array (Meaning, atomic vectors
-#'   without a dim attribute are only accepted if `which_dim` is `1`. Names of list
-#'   are preserved. If a list of arrays, all the arrays must have the same
+#'   without a dim attribute are only accepted if `which_dim` is `1`. Names of
+#'   list are preserved. If a list of arrays, all the arrays must have the same
 #'   length of the dimension being split.
-#' @param which_dim a scalar integer, specifying which dimension to split along
+#' @param which_dim a scalar string or integer, specifying which dimension to
+#'   split along. Negative integers count from the back. If a string, it must
+#'   refer to a named dimension (e.g, one of `names(dimnames(X))`.
 #' @param f Specify how to split the dimension. \describe{
 #'
-#'   \item{character, integer, factor}{passed on to `base::split()`. Must be
-#'   the same length as the dimension being split.}
+#'   \item{character, integer, factor}{passed on to `base::split()`. Must be the
+#'   same length as the dimension being split.}
 #'
 #'   \item{a list of vectors}{Passed on to `base::interaction()` then
 #'   `base::split()`. Each vector in the list must be the same length as the
@@ -17,18 +19,18 @@
 #'
 #'   \item{a scalar integer}{used to split into that many groups of equal size}
 #'
-#'   \item{a numeric vector where \code{all(f<0)}}{specifies the
-#'   relative size proportions of the groups being split. \code{sum(f)} must be
-#'   \code{1}. For example \code{c(0.2, 0.2, 0.6)} will return approximately a
-#'   20\%-20\%-60\% split.} }
+#'   \item{a numeric vector where \code{all(f<0)}}{specifies the relative size
+#'   proportions of the groups being split. \code{sum(f)} must be \code{1}. For
+#'   example \code{c(0.2, 0.2, 0.6)} will return approximately a 20\%-20\%-60\%
+#'   split.} }
 #' @param drop passed on to `[`.
 #' @param depth Scalar number, how many levels to recurse down. Set this if you
 #'   want to explicit treat a list as a vector (that is, a one-dimensional
 #'   array). (You can alternatively set dim attributes with `dim<-` on the list
 #'   to prevent recursion)
 #'
-#' `split_along_dim(X, which_dim)` is equivalent to
-#' `split_on_dim(X, which_dim, seq_along_dim(X, which_dim))`.
+#'   `split_along_dim(X, which_dim)` is equivalent to `split_on_dim(X,
+#'   which_dim, seq_along_dim(X, which_dim))`.
 #'
 #' @return A list of arrays, or if a list of arrays was passed in, then a list
 #'   of lists of arrays.
@@ -135,10 +137,6 @@ split_on_cols <- function(X,
                           f = rownames(X),
                           drop = FALSE, depth = Inf)
   split_on_dim(X, -1L, f = f, drop = drop, depth = depth)
-
-
-# not sure why NAMESPACE import isn't working...
-cmpfun <- compiler::cmpfun
 
 
 

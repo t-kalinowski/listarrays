@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length. Also allows
-for filling the array using C style row-major semantics. — set_dim • listarrays</title>
+<title>Reshape an array — set_dim • listarrays</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,11 +27,10 @@ for filling the array using C style row-major semantics. — set_dim • listarr
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length. Also allows
-for filling the array using C style row-major semantics. — set_dim" />
+<meta property="og:title" content="Reshape an array — set_dim" />
 
-<meta property="og:description" content="dim2&lt;-() reshapes with row-major semantics, and is equivelant to
-set_dim(order = 'C') and reticulate::array_reshape()" />
+<meta property="og:description" content="Pipe friendly dim&lt;-(), with option to pad to necessary length. Also allows
+for filling the array using C style row-major semantics." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -43,6 +41,8 @@ set_dim(order = 'C') and reticulate::array_reshape()" />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -85,6 +85,7 @@ set_dim(order = 'C') and reticulate::array_reshape()" />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -92,21 +93,23 @@ set_dim(order = 'C') and reticulate::array_reshape()" />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length. Also allows
-for filling the array using C style row-major semantics.</h1>
+    <h1>Reshape an array</h1>
     <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dim.R'><code>R/dim.R</code></a></small>
+    <div class="hidden name"><code>set_dim.Rd</code></div>
     </div>
 
     
-    <p><code>dim2&lt;-()</code> reshapes with row-major semantics, and is equivelant to
-<code>set_dim(order = 'C')</code> and <code><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>reticulate::array_reshape()</a></code></p>
+    <p>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length. Also allows
+for filling the array using C style row-major semantics.</p>
     
 
-    <pre class="usage"><span class='fu'>set_dim</span>(<span class='no'>x</span>, <span class='no'>.dim</span>, <span class='kw'>pad</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"F"</span>, <span class='st'>"C"</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"verbose"</span>))
+    <pre class="usage"><span class='fu'>set_dim</span>(<span class='no'>x</span>, <span class='no'>new_dim</span>, <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"listarrays.autopad_arrays_with"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>order</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"F"</span>, <span class='st'>"C"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"verbose"</span>))
+
+<span class='fu'>set_dim2</span>(<span class='no'>...</span>)
 
 <span class='fu'>dim2</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
@@ -118,7 +121,7 @@ for filling the array using C style row-major semantics.</h1>
       <td><p>A vector or array to set dimensions on</p></td>
     </tr>
     <tr>
-      <th>.dim, value</th>
+      <th>new_dim, value</th>
       <td><p>The desired dimensions (an integer(ish) vector)</p></td>
     </tr>
     <tr>
@@ -138,6 +141,15 @@ encountered in the python world.</p></td>
       <th>verbose</th>
       <td><p>Whether to emit a message if padding. By default, <code>FALSE</code>.</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>passed on to <code>set_dim()</code></p>
+<p><code>dim2&lt;-()</code> and reshapes with row-major semantics, and is equivelant to
+<code>set_dim(order = 'C')</code> (and <code><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>reticulate::array_reshape()</a></code>). <code>set_dim2()</code> is a
+wrapper around <code>dim2&lt;-</code>, and equivelant to <code>set_dim(..., order = "C")</code>.</p>
+<p><code><a href='array2.html'>array2()</a></code> is identical to <code>array()</code> with the exception that it uses
+row-major (a.k.a, C style) semantics.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -146,7 +158,7 @@ encountered in the python world.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>reticulate::array_reshape()</a></code></p>
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>reticulate::array_reshape()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -204,6 +216,8 @@ encountered in the python world.</p></td>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>
