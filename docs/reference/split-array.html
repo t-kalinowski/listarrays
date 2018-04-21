@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -96,13 +98,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Split an array along a dimension</h1>
-    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/split.R'><code>R/split.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/split.R'><code>R/split.R</code></a></small>
     <div class="hidden name"><code>split-array.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Split an array along a dimension</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='no'>which_dim</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'>dimnames</span>(<span class='no'>X</span>)<span class='kw'>[[</span><span class='no'>which_dim</span>]], <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
@@ -321,16 +325,16 @@ of lists of arrays.</p>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='no'>y</span>, <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'>split_along_rows</span>(<span class='no'>X</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: tibble</span></div><div class='output co'>#&gt; # A tibble: 10 x 2
 #&gt;    y     X            
 #&gt;    &lt;chr&gt; &lt;list&gt;       
-#&gt;  1 a     &lt;int [3 x 3]&gt;
-#&gt;  2 b     &lt;int [3 x 3]&gt;
-#&gt;  3 c     &lt;int [3 x 3]&gt;
-#&gt;  4 d     &lt;int [3 x 3]&gt;
-#&gt;  5 e     &lt;int [3 x 3]&gt;
-#&gt;  6 f     &lt;int [3 x 3]&gt;
-#&gt;  7 g     &lt;int [3 x 3]&gt;
-#&gt;  8 h     &lt;int [3 x 3]&gt;
-#&gt;  9 i     &lt;int [3 x 3]&gt;
-#&gt; 10 j     &lt;int [3 x 3]&gt;</div><div class='input'>
+#&gt;  1 a     &lt;int [3 × 3]&gt;
+#&gt;  2 b     &lt;int [3 × 3]&gt;
+#&gt;  3 c     &lt;int [3 × 3]&gt;
+#&gt;  4 d     &lt;int [3 × 3]&gt;
+#&gt;  5 e     &lt;int [3 × 3]&gt;
+#&gt;  6 f     &lt;int [3 × 3]&gt;
+#&gt;  7 g     &lt;int [3 × 3]&gt;
+#&gt;  8 h     &lt;int [3 × 3]&gt;
+#&gt;  9 i     &lt;int [3 × 3]&gt;
+#&gt; 10 j     &lt;int [3 × 3]&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

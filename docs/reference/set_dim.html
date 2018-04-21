@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -97,14 +99,16 @@ for filling the array using C style row-major semantics." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Reshape an array</h1>
-    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dim.R'><code>R/dim.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dim.R'><code>R/dim.R</code></a></small>
     <div class="hidden name"><code>set_dim.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length. Also allows
 for filling the array using C style row-major semantics.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>set_dim</span>(<span class='no'>x</span>, <span class='no'>new_dim</span>, <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"listarrays.autopad_arrays_with"</span>, <span class='kw'>NULL</span>),
   <span class='kw'>order</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"F"</span>, <span class='st'>"C"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"verbose"</span>))
