@@ -70,7 +70,6 @@
 #' # with with array data in a data frame by splitting row-wise
 #' if(require(tibble))
 #'   tibble(y, X = split_along_rows(X))
-#'
 split_on_dim <- function(X, which_dim,
                          f = dimnames(X)[[which_dim]],
                          drop = FALSE, depth = Inf) {
@@ -101,7 +100,7 @@ split_on_dim <- function(X, which_dim,
 
   l <- split(id, f)
 
-  extract_expr <- extract_dim_chr_expr(X, which_dim, .idx_var = "l[[i]]", drop = drop)
+  extract_expr <- extract_dim_chr_expr(X, which_dim, idx_var_nm = "l[[i]]", drop = drop)
 
   args <-  as.pairlist(alist(X = , l = ))
   body <-  parse1(
@@ -163,8 +162,8 @@ split_along_dim <- function(X, which_dim, drop = NULL, depth = Inf) {
     which_dim <- length(dim(X))
   }
 
-  extract <- extract_dim_chr_expr(X, which_dim, .idx_var = "i",
-                               drop = drop, .var_to_subset = "X")
+  extract <- extract_dim_chr_expr(X, which_dim, idx_var_nm = "i",
+                               drop = drop, var_to_subset = "X")
 
   length_out <-  DIM(X)[[which_dim]]
 
@@ -201,55 +200,3 @@ split_along_rows <- function(X, drop = NULL, depth = Inf)
 split_along_cols <- function(X, drop = NULL, depth = Inf)
   split_along_dim(X, -1L, drop = drop, depth = depth)
 
-
-
-
-
-#
-# fun <- rlang::eval_bare(call("function", args, body) )
-#
-# if(compile)
-#   fun <- compiler::cmpfun(fun)
-#
-# out <- fun(X, l)
-
-# "
-#
-# "
-# # out <- vector("list", length(l))
-# expr <-  c(
-# 'out <- vector("list", length(l))',
-#   "for(i in seq_along(l))",
-#     p0("out[[i]] <- ", extract_expr),
-# "out"
-#   )
-# expr <- yasp::pcnl(expr)
-# expr <- yasp::brace(expr)
-
-
-# body <- parse1(expr)
-# body <- parse(text = expr, keep.source = FALSE)
-
-# browser()
-# expr <- parse(text = expr, keep.source = F)
-
-# expr <- compile(expr, environment())
-
-# z <- rlang::eval_bare(expr)
-
-# z <- eval_text(expr, compile = TRUE)
-
-# , keep.source = FALSE)
-
-
-# expr <- compile(expr, env = environment())
-
-# browser()
-
-# eval(expr)
-
-# eval_text(c(
-#   "for(i in seq_along(l)) {",
-#      "idx <- l[[i]]",
-#   p0("out[[i]] <- ", expr),
-#   "}"), environment())

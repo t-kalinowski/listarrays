@@ -8,7 +8,7 @@
 #' @param X An array, or a list of arrays
 #' @param which_dim integer vector of dimensions to modify at
 #' @param .f a function or formula defining a function(same semantics as
-#'   [`purrr::map`]). The function must return either an array the same shape as
+#'   [`purrr::map()`]). The function must return either an array the same shape as
 #'   it was passed, a vector of the same length, or a scalar, although the type
 #'   of the returned object does not need to be the same as was passed in.
 #' @param ... passed on to `.f()`
@@ -31,7 +31,8 @@ modify_along_dim <- function(X, which_dim, .f, ...) {
     .f <- rlang::as_function(.f)
   } else {
     if (inherits(.f, "formula"))
-      stop("Specifing functions via forumla syntax requires package rlang to be available")
+      stop("Specifing functions via forumla syntax requires ",
+           "package rlang to be available")
     .f <- match.fun(.f)
   }
 
@@ -40,8 +41,8 @@ modify_along_dim <- function(X, which_dim, .f, ...) {
   names(which_dim) <- paste0("idx", seq_along(which_dim))
 
   Xe <- extract_dim_chr_expr(X, which_dim,
-                             .idx_var = names(which_dim),
-                             .var_to_subset = "X")
+                             idx_var_nm = names(which_dim),
+                             var_to_subset = "X")
 
   oXe <- paste0("o", Xe)
 

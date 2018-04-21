@@ -21,8 +21,6 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -32,7 +30,7 @@
 <meta property="og:title" content="Drop dimnames — drop_dimnames" />
 
 <meta property="og:description" content="A pipe-friendly wrapper for dim(x) &lt;- NULL and dimnames(x) &lt;- NULL or (in
-essence) dimnames(x)[.dim] &lt;- list(NULL)" />
+essence) dimnames(x)[which_dim] &lt;- list(NULL)" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,16 +97,14 @@ essence) dimnames(x)[.dim] &lt;- list(NULL)" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Drop dimnames</h1>
-    <small class="dont-index">Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dimnames.R'><code>R/dimnames.R</code></a></small>
+    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dimnames.R'><code>R/dimnames.R</code></a></small>
     <div class="hidden name"><code>drop_dimnames.Rd</code></div>
     </div>
 
-    <div class="ref-description">
     
     <p>A pipe-friendly wrapper for <code>dim(x) &lt;- NULL</code> and <code>dimnames(x) &lt;- NULL</code> or (in
-essence) <code>dimnames(x)[.dim] &lt;- list(NULL)</code></p>
+essence) <code>dimnames(x)[which_dim] &lt;- list(NULL)</code></p>
     
-    </div>
 
     <pre class="usage"><span class='fu'>drop_dimnames</span>(<span class='no'>x</span>, <span class='kw'>which_dim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keep_axis_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 

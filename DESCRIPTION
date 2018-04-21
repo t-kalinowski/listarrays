@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R: person("Tomasz", "Kalinowski", email = "kalinowskit@gmail.com", 
     role = c("aut", "cre"))
 Description: A toolbox for working with R arrays in a functional programming style. 
-    Flexibly split, bind, modify, subset and name arrays.
+    Flexibly split, bind, reshape, modify, subset and name arrays.
 URL: https://github.com/t-kalinowski/listarrays, https://t-kalinowski.github.io/listarrays/
 BugReports: https://github.com/t-kalinowski/listarrays/issues
 License: GPL-3

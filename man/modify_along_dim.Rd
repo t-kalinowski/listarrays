@@ -18,7 +18,7 @@ modify_along_cols(X, .f, ...)
 \item{which_dim}{integer vector of dimensions to modify at}
 
 \item{.f}{a function or formula defining a function(same semantics as
-\code{\link[purrr:map]{purrr::map}}). The function must return either an array the same shape as
+\code{\link[purrr:map]{purrr::map()}}). The function must return either an array the same shape as
 it was passed, a vector of the same length, or a scalar, although the type
 of the returned object does not need to be the same as was passed in.}
 

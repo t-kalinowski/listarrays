@@ -23,5 +23,5 @@ dropping the dimanmes}
 }
 \description{
 A pipe-friendly wrapper for \code{dim(x) <- NULL} and \code{dimnames(x) <- NULL} or (in
-essence) \code{dimnames(x)[.dim] <- list(NULL)}
+essence) \code{dimnames(x)[which_dim] <- list(NULL)}
 }

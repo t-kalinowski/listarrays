@@ -78,8 +78,8 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
 
   X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
 
-  Xi <- extract_dim_chr_expr(.var_to_subset = "X", .idx_var = "i",
-                             .dim = which_dim, .ndims = length(new_dim))
+  Xi <- extract_dim_chr_expr(var_to_subset = "X", idx_var_nm = "i",
+                             which_dim = which_dim, ndims = length(new_dim))
 
   args <- as.pairlist(alist( list_of_arrays = ))
   body <- parse1("{
@@ -154,8 +154,8 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
   new_dim[which_dim] <- sum(n_entries_per_array)
 
   X_start_to_end <- extract_dim_chr_expr(
-    .var_to_subset = "X", .idx_var = "start:end",
-    .dim = which_dim, .ndims = length(new_dim))
+    var_to_subset = "X", idx_var_nm = "start:end",
+    which_dim = which_dim, ndims = length(new_dim))
 
   args <- as.pairlist(alist(
     list_of_arrays =,  n_entries_per_array = ))
@@ -175,7 +175,7 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
   if(length(list_of_arrays) > 100)
     bind_it <- cmpfun(bind_it)
 
-  X <- bind_it(list_of_arrays,  n_entries_per_array)
+  X <- bind_it(list_of_arrays, n_entries_per_array)
 
   if (!is.null(names(list_of_arrays)))
     dimnames(X)[[which_dim]] <-

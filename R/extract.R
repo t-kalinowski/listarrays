@@ -36,7 +36,7 @@ extract_dim <- function(X, which_dim, idx, drop = NULL, depth = Inf) {
     return(lapply(X, function(x)
       extract_dim(x, which_dim, idx, drop = drop, depth = depth - 1L)))
 
-  expr <- extract_dim_chr_expr(X, which_dim, .idx_var = "idx", drop = drop)
+  expr <- extract_dim_chr_expr(X, which_dim, idx_var_nm = "idx", drop = drop)
   expr <- parse(text = expr, keep.source = FALSE)[[1]]
   eval(expr)
 }
@@ -56,22 +56,23 @@ extract_cols <- function(X, idx, drop = NULL, depth = Inf)
 
 
 extract_dim_chr_expr <-
-  function(X, .dim, drop = NULL, .ndims = ndim(X),
-           .idx_var = names(.dim) %||% paste0("idx", if(length(.dim) > 1L) seq_along(.dim)),
-           .var_to_subset = deparse(substitute(X))) {
+  function(X, which_dim, drop = NULL, ndims = ndim(X),
+           idx_var_nm = names(which_dim) %||%
+             paste0("idx", if(length(which_dim) > 1L) seq_along(which_dim)),
+           var_to_subset = deparse(substitute(X))) {
 
-  force(.var_to_subset)
+    force(var_to_subset)
 
-  .dim <- as.integer(.dim)
-  stopifnot(identical(length(.idx_var), length(.dim)), !anyDuplicated(.idx_var))
+    which_dim <- as.integer(which_dim)
+    stopifnot(identical(length(idx_var_nm), length(which_dim)),
+              !anyDuplicated(idx_var_nm))
 
-  args <- character(.ndims)
-  args[.dim] <- .idx_var
+    args <- character(ndims)
+    args[which_dim] <- idx_var_nm
 
-  if(!is.null(drop))
-    args <- c(args, " drop = drop")
+    if(!is.null(drop))
+      args <- c(args, " drop = drop")
 
-  args <- paste0(args, collapse = ",")
-  paste0(.var_to_subset, "[", args, "]")
-}
-
+    args <- paste0(args, collapse = ",")
+    sprintf("%s[%s]", var_to_subset, args)
+  }

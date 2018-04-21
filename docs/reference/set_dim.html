@@ -21,8 +21,6 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -99,23 +97,17 @@ for filling the array using C style row-major semantics." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Reshape an array</h1>
-    <small class="dont-index">Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dim.R'><code>R/dim.R</code></a></small>
+    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dim.R'><code>R/dim.R</code></a></small>
     <div class="hidden name"><code>set_dim.Rd</code></div>
     </div>
 
-    <div class="ref-description">
     
     <p>Pipe friendly <code>dim&lt;-()</code>, with option to pad to necessary length. Also allows
 for filling the array using C style row-major semantics.</p>
     
-    </div>
 
     <pre class="usage"><span class='fu'>set_dim</span>(<span class='no'>x</span>, <span class='no'>new_dim</span>, <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"listarrays.autopad_arrays_with"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>order</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"F"</span>, <span class='st'>"C"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"verbose"</span>))
-
-<span class='fu'>set_dim2</span>(<span class='no'>...</span>)
-
-<span class='fu'>dim2</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
+  <span class='kw'>order</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"F"</span>, <span class='st'>"C"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"verbose"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -125,7 +117,7 @@ for filling the array using C style row-major semantics.</p>
       <td><p>A vector or array to set dimensions on</p></td>
     </tr>
     <tr>
-      <th>new_dim, value</th>
+      <th>new_dim</th>
       <td><p>The desired dimensions (an integer(ish) vector)</p></td>
     </tr>
     <tr>
@@ -145,15 +137,6 @@ encountered in the python world.</p></td>
       <th>verbose</th>
       <td><p>Whether to emit a message if padding. By default, <code>FALSE</code>.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>passed on to <code>set_dim()</code></p>
-<p><code>dim2&lt;-()</code> and reshapes with row-major semantics, and is equivelant to
-<code>set_dim(order = 'C')</code> (and <code><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>reticulate::array_reshape()</a></code>). <code>set_dim2()</code> is a
-wrapper around <code>dim2&lt;-</code>, and equivelant to <code>set_dim(..., order = "C")</code>.</p>
-<p><code><a href='array2.html'>array2()</a></code> is identical to <code>array()</code> with the exception that it uses
-row-major (a.k.a, C style) semantics.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -162,7 +145,7 @@ row-major (a.k.a, C style) semantics.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>reticulate::array_reshape()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='array2.html'>set_dim2()</a></code>, <code>`dim&lt;-`()</code>, <code><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>reticulate::array_reshape()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -190,7 +173,7 @@ row-major (a.k.a, C style) semantics.</p></td>
 <span class='no'>py_reshaped</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reticulate</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/reticulate/topics/array_reshape'>array_reshape</a></span>(<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
 <span class='fu'>storage.mode</span>(<span class='no'>py_reshaped</span>) <span class='kw'>&lt;-</span> <span class='st'>"integer"</span> <span class='co'># reticulate coerces to double</span>
 <span class='fu'>identical</span>(<span class='no'>y</span>, <span class='no'>py_reshaped</span>)
-<span class='co'># if needed, see listarrays:::array_reshape2() for</span>
+<span class='co'># if needed, see listarrays:::array_reshape() for</span>
 <span class='co'># a drop-in pure R replacement for reticulate::array_reshape()</span>
 <span class='co'># }</span></pre>
   </div>

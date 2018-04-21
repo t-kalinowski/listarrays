@@ -8,4 +8,3 @@ eval <- NULL
     eval <<- base::eval
 }
 
-maybe_eval_bare <- function() eval

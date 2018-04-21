@@ -13,8 +13,6 @@ ndim <- function(x) {
     length(dx)
 }
 
-# DIM() is to dim() as NROW() is to nrow()
-
 
 
 #' DIM
@@ -38,6 +36,7 @@ DIM <- function(x) dim(x) %||% length(x)
 }
 
 #' @importFrom compiler cmpfun
+
 parse1 <- function(...) parse(text = paste0(...), keep.source = FALSE)[[1]]
 
 is.negative <- function(x) x < 0
@@ -63,7 +62,6 @@ is.scalar.integerish <- function(x)
 
 `%not_in%` <- function(x, y) match(x, y, nomatch = 0L) == 0L
 
-# is this still in use?
 check.is.integerish <- function(x, n = NULL) {
   nm <- deparse(substitute(x))
   if(!(is.integerish(x, n))) {
@@ -72,11 +70,7 @@ check.is.integerish <- function(x, n = NULL) {
       msg <- paste(msg, "of length", n)
     stop(msg, call. = FALSE)
   }
-
-  # as.integer(x)
 }
-
-
 
 dropNULLs <- function(x) x[!vapply(x, is.null, TRUE)]
 

@@ -12,7 +12,7 @@
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="A toolbox for working with R arrays in a functional programming style">
 <meta property="og:description" content="A toolbox for working with R arrays in a functional programming style. 
-    Flexibly split, bind, modify, subset and name arrays.">
+    Flexibly split, bind, reshape, modify, subset and name arrays.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -82,7 +82,7 @@
 <li><p><code><a href="reference/extract_dim.html">extract_dim()</a></code> a wrapper around <code>[</code> that allows you to specify the dimension being subset as a function argument. For example, <code><a href="reference/extract_dim.html">extract_dim(X, 1, idx)</a></code> will extract <code>idx</code> on the first dimension, regardless how many dimensions are in the array <code>X</code>. Contrast this with the base alternative <code>X[idx,,]</code>, where you have to match the number of commas <code>,</code> to the number of dimensions in <code>X</code>.</p></li>
 <li><p>Many of the functions have two varients <code>*_rows()</code> and <code>*_cols()</code> for the two most common case of the first and last dimension. For example <code><a href="reference/split-array.html">split_on_rows()</a></code> which is equivalent to <code><a href="reference/split-array.html">split_on_dim(X, 1)</a></code> and <code><a href="reference/split-array.html">split_on_cols()</a></code> which is equivalent to <code><a href="reference/split-array.html">split_on_dim(X, -1)</a></code></p></li>
 <li><p><code><a href="reference/set_dim.html">set_dim()</a></code> and <code><a href="reference/set_dimnames.html">set_dimnames()</a></code>, pipe-friendly and more flexible versions of <code>dim&lt;-</code> and <code>dimnames&lt;-</code></p></li>
-<li><p><code>dim2()&lt;-</code>, <code><a href="reference/set_dim.html">set_dim2()</a></code>, <code><a href="reference/array2.html">array2()</a></code>, which reshape or fills arrays using row-major (C-style) semantics</p></li>
+<li><p><code>dim2()&lt;-</code>, <code><a href="reference/array2.html">set_dim2()</a></code>, <code><a href="reference/array2.html">array2()</a></code>, which reshape or fills arrays using row-major (C-style) semantics</p></li>
 <li><p><code><a href="reference/t.array.html">t.array()</a></code> a transpose method for multi-dimentional arrays</p></li>
 <li><p>A handful of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example <code><a href="reference/seq_along_dim.html">seq_along_rows()</a></code> (a combination of <code>seq_along()</code> and <code>nrow()</code>).</p></li>
 <li><p>A set of functions that help encode atomic vectors as <code><a href="reference/onehot.html">onehot()</a></code> binary matrix’s and <code><a href="reference/onehot.html">decode_onehot()</a></code> back into atomic vectors. (for example if training a neural network with keras)</p></li>

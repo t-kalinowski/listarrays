@@ -2,21 +2,15 @@
 % Please edit documentation in R/dim.R
 \name{set_dim}
 \alias{set_dim}
-\alias{set_dim2}
-\alias{dim2<-}
 \title{Reshape an array}
 \usage{
 set_dim(x, new_dim, pad = getOption("listarrays.autopad_arrays_with", NULL),
   order = c("F", "C"), verbose = getOption("verbose"))
-
-set_dim2(...)
-
-dim2(x) <- value
 }
 \arguments{
 \item{x}{A vector or array to set dimensions on}
 
-\item{new_dim, value}{The desired dimensions (an integer(ish) vector)}
+\item{new_dim}{The desired dimensions (an integer(ish) vector)}
 
 \item{pad}{The value to pad the vector with. \code{NULL} (the default) performs no
 padding.}
@@ -28,15 +22,6 @@ semantics. The default, "F", corresponds to the default behavior of R's
 encountered in the python world.}
 
 \item{verbose}{Whether to emit a message if padding. By default, \code{FALSE}.}
-
-\item{...}{passed on to \code{set_dim()}
-
-\code{dim2<-()} and reshapes with row-major semantics, and is equivelant to
-\code{set_dim(order = 'C')} (and \code{reticulate::array_reshape()}). \code{set_dim2()} is a
-wrapper around \code{dim2<-}, and equivelant to \code{set_dim(..., order = "C")}.
-
-\code{array2()} is identical to \code{array()} with the exception that it uses
-row-major (a.k.a, C style) semantics.}
 }
 \value{
 Object with dimensions set
@@ -67,10 +52,10 @@ identical(y, set_dim(1:4, c(2,2), order = "C"))
 py_reshaped <- reticulate::array_reshape(1:4, c(2,2))
 storage.mode(py_reshaped) <- "integer" # reticulate coerces to double
 identical(y, py_reshaped)
-# if needed, see listarrays:::array_reshape2() for
+# if needed, see listarrays:::array_reshape() for
 # a drop-in pure R replacement for reticulate::array_reshape()
 }
 }
 \seealso{
-\code{reticulate::array_reshape()}
+\code{set_dim2()}, \code{`dim<-`()}, \code{reticulate::array_reshape()}
 }

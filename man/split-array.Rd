@@ -98,5 +98,4 @@ str(validate)
 # with with array data in a data frame by splitting row-wise
 if(require(tibble))
   tibble(y, X = split_along_rows(X))
-
 }

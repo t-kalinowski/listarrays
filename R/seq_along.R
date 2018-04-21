@@ -23,6 +23,7 @@
 seq_along_dim <- function(x, which_dim)
   seq_len( DIM(x)[[standardize_which_dim(which_dim, x)]] )
 
+# assumes cannonical which_dim, no checking
 .seq_along_dim <- function(x, which_dim)
   seq_len( DIM(x)[[which_dim]] )
 

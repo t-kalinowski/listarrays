@@ -10,40 +10,40 @@ test_that("setting dimnames works", {
   expect_equal(names(dimnames(x_named)), xyz)
 
   # setting a single dim with a character string works
-  y <- set_dimnames(x, xyz, .dim = 2)
+  y <- set_dimnames(x, xyz, which_dim = 2)
   expect_equal(dimnames(y)[[2L]], xyz)
 
-  y <- set_dimnames(x_named, xyz, .dim = 2)
+  y <- set_dimnames(x_named, xyz, which_dim = 2)
   expect_equal(dimnames(y)[[2L]], xyz)
   expect_equal(names(dimnames(y)), xyz)
 
-  y <- set_dimnames(x_named, xyz, .dim = "y")
+  y <- set_dimnames(x_named, xyz, which_dim = "y")
   expect_equal(dimnames(y)[[2L]], xyz)
   expect_equal(names(dimnames(y)), xyz)
 
 
   # setting with a list works
-  y <- set_dimnames(x, list(xyz), .dim = 2)
+  y <- set_dimnames(x, list(xyz), which_dim = 2)
   expect_equal(dimnames(y)[[2L]], xyz)
 
-  y <- set_dimnames(x_named, list(xyz), .dim = 2)
+  y <- set_dimnames(x_named, list(xyz), which_dim = 2)
   expect_equal(dimnames(y)[[2L]], xyz)
   expect_equal(names(dimnames(y)), xyz)
 
-  y <- set_dimnames(x_named, list(xyz), .dim = "y")
+  y <- set_dimnames(x_named, list(xyz), which_dim = "y")
   expect_equal(dimnames(y)[[2L]], xyz)
   expect_equal(names(dimnames(y)), xyz)
 
   y2 <- set_dimnames(x_named, list(y = xyz))
   expect_identical(y, y2)
 
-  y <- set_dimnames(x, list(z = xyz), .dim = 2)
+  y <- set_dimnames(x, list(z = xyz), which_dim = 2)
   expect_equal(names(dimnames(y)), c("", "z", ""))
   expect_equal(dimnames(y)[["z"]], xyz)
 
 
   # setting more than one dimensionat a time works
-  y <- set_dimnames(x, list(a = xyz, b = letters[1:4]), .dim = 2:3)
+  y <- set_dimnames(x, list(a = xyz, b = letters[1:4]), which_dim = 2:3)
   expect_equal(names(dimnames(y)), c("", "a", "b"))
   expect_equal(dimnames(y)[["a"]], xyz)
   expect_equal(dimnames(y)[["b"]], letters[1:4])
@@ -53,7 +53,7 @@ test_that("setting dimnames works", {
 
 
 
-test_that("specifying `.dim` by name works", {
+test_that("specifying `which_dim` by name works", {
 
   x <- provideDimnames(array(1:8, 2:4))
   x <- set_dimnames(x, paste0("axis", 1:3))
