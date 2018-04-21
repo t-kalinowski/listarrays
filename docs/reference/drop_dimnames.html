@@ -29,8 +29,8 @@
   
 <meta property="og:title" content="Drop dimnames — drop_dimnames" />
 
-<meta property="og:description" content="A pipe-friendly wrapper for dim(x) &lt;- NULL and dimnames(x) &lt;- NULL or (in
-essence) dimnames(x)[which_dim] &lt;- list(NULL)" />
+<meta property="og:description" content="A pipe-friendly wrapper for dim(x) &lt;- NULL and dimnames(x) &lt;- NULL or, if
+which_dim is not NULL, dimnames(x)[which_dim] &lt;- list(NULL)" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -102,8 +102,8 @@ essence) dimnames(x)[which_dim] &lt;- list(NULL)" />
     </div>
 
     
-    <p>A pipe-friendly wrapper for <code>dim(x) &lt;- NULL</code> and <code>dimnames(x) &lt;- NULL</code> or (in
-essence) <code>dimnames(x)[which_dim] &lt;- list(NULL)</code></p>
+    <p>A pipe-friendly wrapper for <code>dim(x) &lt;- NULL</code> and <code>dimnames(x) &lt;- NULL</code> or, if
+<code>which_dim</code> is not <code>NULL</code>, <code>dimnames(x)[which_dim] &lt;- list(NULL)</code></p>
     
 
     <pre class="usage"><span class='fu'>drop_dimnames</span>(<span class='no'>x</span>, <span class='kw'>which_dim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keep_axis_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)

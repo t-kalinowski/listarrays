@@ -122,11 +122,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>X</th>
-      <td><p>an array, or list of arrays. Atomic vectors without a dimension
-attribute is treated as a 1 dimensions array (Meaning, atomic vectors
+      <td><p>an array, or list of arrays. An atomic vector without a dimension
+attribute is treated as a 1 dimensional array (Meaning, atomic vectors
 without a dim attribute are only accepted if <code>which_dim</code> is <code>1</code>. Names of
-list are preserved. If a list of arrays, all the arrays must have the same
-length of the dimension being split.</p></td>
+the passed list are preserved. If a list of arrays, all the arrays must
+have the same length of the dimension being split.</p></td>
     </tr>
     <tr>
       <th>which_dim</th>
@@ -159,7 +159,7 @@ split.</p></dd> </dl></td>
     <tr>
       <th>depth</th>
       <td><p>Scalar number, how many levels to recurse down. Set this if you
-want to explicit treat a list as a vector (that is, a one-dimensional
+want to explicitly treat a list as a vector (that is, a one-dimensional
 array). (You can alternatively set dim attributes with <code>dim&lt;-</code> on the list
 to prevent recursion)</p>
 <p><code>split_along_dim(X, which_dim)</code> is equivalent to <code>split_on_dim(X, which_dim, seq_along_dim(X, which_dim))</code>.</p></td>

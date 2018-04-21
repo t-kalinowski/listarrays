@@ -3,7 +3,7 @@
 \name{set_as_rows}
 \alias{set_as_rows}
 \alias{set_as_cols}
-\title{Reshape an array to bring a dim forward}
+\title{Reshape an array to send a dimension forward or back}
 \usage{
 set_as_rows(X, which_dim)
 
@@ -21,7 +21,7 @@ This is a powered by \code{base::aperm()}.}
 a reshaped array
 }
 \description{
-Reshape an array to bring a dim forward
+Reshape an array to send a dimension forward or back
 }
 \examples{
 x <- array(1:24, 2:4)

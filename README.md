@@ -7,7 +7,7 @@ A toolbox for working with R arrays in a functional programming style. Flexibly 
 
 The package provides:
 
--   `split_on_dim()` and `split_along_dim()`, which take an array and return a list.
+-   `split_on_dim()` and `split_along_dim()` which take an array and return a list.
 
 -   `bind_on_dim()` and `bind_as_dim()` take a list and return an array.
 
@@ -15,7 +15,7 @@ The package provides:
 
 -   `extract_dim()` a wrapper around `[` that allows you to specify the dimension being subset as a function argument. For example, `extract_dim(X, 1, idx)` will extract `idx` on the first dimension, regardless how many dimensions are in the array `X`. Contrast this with the base alternative `X[idx,,]`, where you have to match the number of commas `,` to the number of dimensions in `X`.
 
--   Many of the functions have two varients `*_rows()` and `*_cols()` for the two most common case of the first and last dimension. For example `split_on_rows()` which is equivalent to `split_on_dim(X, 1)` and `split_on_cols()` which is equivalent to `split_on_dim(X, -1)`
+-   Many of the functions have two variants `*_rows()` and `*_cols()` for the two most common case of the first and last dimension. For example `split_on_rows()` which is equivalent to `split_on_dim(X, 1)` and `split_on_cols()` which is equivalent to `split_on_dim(X, -1)`
 
 -   `set_dim()` and `set_dimnames()`, pipe-friendly and more flexible versions of `dim<-` and `dimnames<-`
 
@@ -36,7 +36,13 @@ The package provides:
 Installation
 ------------
 
-listarrays is not on CRAN yet. You can install the development version from github with
+You can install listarrays from CRAN with:
+
+``` r
+install.packages("listarrays")
+```
+
+Or install the development version from github with:
 
 ``` r
 devtools::install_github("t-kalinowski/listarrays")

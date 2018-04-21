@@ -1,5 +1,5 @@
 
-#' Reshape an array to bring a dim forward
+#' Reshape an array to send a dimension forward or back
 #'
 #' @param X an array
 #' @param which_dim scalar integer or string, which dim to bring forward.

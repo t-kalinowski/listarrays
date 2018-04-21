@@ -80,6 +80,10 @@ array_reshape <- function(x, dim, order = c("C", "F")) {
   else
     dim(x) <- new_dim
 
+  # match reticulate behavior
+  if(identical(storage.mode(x), "integer"))
+    storage.mode(x) <- "double"
+
   x
 }
 

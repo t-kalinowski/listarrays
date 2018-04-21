@@ -8,9 +8,9 @@
 #' @param X An array, or a list of arrays
 #' @param which_dim integer vector of dimensions to modify at
 #' @param .f a function or formula defining a function(same semantics as
-#'   [`purrr::map()`]). The function must return either an array the same shape as
-#'   it was passed, a vector of the same length, or a scalar, although the type
-#'   of the returned object does not need to be the same as was passed in.
+#'   [`purrr::map()`]). The function must return either an array the same shape
+#'   as it was passed, a vector of the same length, or a scalar, although the
+#'   type of the returned object does not need to be the same as was passed in.
 #' @param ... passed on to `.f()`
 #'
 #' @export

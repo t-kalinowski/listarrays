@@ -3,7 +3,9 @@
 
 
 
-#' Length of `dim()`
+#' Length of `DIM()`
+#'
+#' Returns the number of dimensions, or 1 for an atomic vector.
 #' @param x a matrix or atomic vector
 #' @export
 ndim <- function(x) {
@@ -18,7 +20,7 @@ ndim <- function(x) {
 #' DIM
 #'
 #' `DIM()` is to `dim()` as `NROW()` is to `nrow()`. That is, it is identical to
-#' `dim()` in most cases except if the input is a bare atomic vectors with no
+#' `dim()` in most cases except if the input is a bare atomic vector with no
 #' `dim` attribute, in which case, the length of the vector is returned instead
 #' of `NULL`.
 #'

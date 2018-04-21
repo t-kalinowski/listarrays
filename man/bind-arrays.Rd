@@ -27,7 +27,7 @@ dimension. NULL's in place of arrays are automatically dropped.}
 
 \item{which_dim}{Scalar integer specifying the index position of where to
 introduce the new dimension to introduce. Negative numbers count from the
-back. For example, given a 3 dimentional array, \code{-1}, is equivelant to \code{3},
+back. For example, given a 3 dimensional array, \code{-1}, is equivalent to \code{3},
 \code{-2} to \code{2} and \code{-3} to \code{1}.}
 
 \item{...}{Arrays to be bound, specified individually or supplied as a single

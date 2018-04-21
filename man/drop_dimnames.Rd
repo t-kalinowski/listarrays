@@ -22,6 +22,6 @@ integer vector, then dimnames only at the specified dimensions are dropped.}
 dropping the dimanmes}
 }
 \description{
-A pipe-friendly wrapper for \code{dim(x) <- NULL} and \code{dimnames(x) <- NULL} or (in
-essence) \code{dimnames(x)[which_dim] <- list(NULL)}
+A pipe-friendly wrapper for \code{dim(x) <- NULL} and \code{dimnames(x) <- NULL} or, if
+\code{which_dim} is not \code{NULL}, \code{dimnames(x)[which_dim] <- list(NULL)}
 }

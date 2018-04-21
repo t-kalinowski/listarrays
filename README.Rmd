@@ -18,7 +18,7 @@ split, bind, reshape, modify, subset, and name arrays.
 
 The package provides:
 
-+  `split_on_dim()` and `split_along_dim()`, which take an array and return a list.
++  `split_on_dim()` and `split_along_dim()` which take an array and return a list.
     
 +  `bind_on_dim()` and `bind_as_dim()` take a list and return an array.
     
@@ -33,7 +33,7 @@ The package provides:
    the array `X`.  Contrast this with the base alternative `X[idx,,]`, where you
    have to match the number of commas `,` to the number of dimensions in `X`.
     
-+  Many of the functions have two varients `*_rows()` and `*_cols()` for the two 
++  Many of the functions have two variants `*_rows()` and `*_cols()` for the two 
    most common case of the first and last dimension. For example 
    `split_on_rows()` which is equivalent to `split_on_dim(X, 1)` and 
    `split_on_cols()` which is equivalent to `split_on_dim(X, -1)`
@@ -64,9 +64,13 @@ c(X, Y) %<-% shuffle_rows(X, Y, in_sync = TRUE)
 
 ## Installation
 
-listarrays is not on CRAN yet. You can install the development version from github with
+You can install listarrays from CRAN with:
+```{r, eval=FALSE}
+install.packages("listarrays")
+```
 
-``` r
+Or install the development version from github with:
+``` {r, eval=FALSE}
 devtools::install_github("t-kalinowski/listarrays")
 ```
 

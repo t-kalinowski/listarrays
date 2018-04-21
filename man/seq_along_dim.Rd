@@ -14,14 +14,13 @@ seq_along_cols(x)
 }
 \arguments{
 \item{x}{a dataframe, array or vector. For \code{seq_along_rows}, and
-\code{seq_along_cols} sequence along the first and second dimensions,
-respectively. Objects supplied are coerced with \code{as.array} prior to
-determining dimensions, so atomic vectors are treated as 1 dimensional
+\code{seq_along_cols} sequence along the first and last dimensions,
+respectively. Atomic vectors are treated as 1 dimensional
 arrays (i.e., \code{seq_along_rows} is equivalent to \code{seq_along} when \code{x} is an
 atomic vector or list).}
 
 \item{which_dim}{a scalar integer or character string, specifying which
-dimension to generate a sequence for. Negative numbers count from the back}
+dimension to generate a sequence for. Negative numbers count from the back.}
 }
 \value{
 a vector of integers 1:nrow(x), safe for use in \code{for} loops and

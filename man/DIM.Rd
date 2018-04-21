@@ -11,7 +11,7 @@ DIM(x)
 }
 \description{
 \code{DIM()} is to \code{dim()} as \code{NROW()} is to \code{nrow()}. That is, it is identical to
-\code{dim()} in most cases except if the input is a bare atomic vectors with no
+\code{dim()} in most cases except if the input is a bare atomic vector with no
 \code{dim} attribute, in which case, the length of the vector is returned instead
 of \code{NULL}.
 }

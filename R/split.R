@@ -1,10 +1,10 @@
 #' Split an array along a dimension
 #'
-#' @param X an array, or list of arrays. Atomic vectors without a dimension
-#'   attribute is treated as a 1 dimensions array (Meaning, atomic vectors
+#' @param X an array, or list of arrays. An atomic vector without a dimension
+#'   attribute is treated as a 1 dimensional array (Meaning, atomic vectors
 #'   without a dim attribute are only accepted if `which_dim` is `1`. Names of
-#'   list are preserved. If a list of arrays, all the arrays must have the same
-#'   length of the dimension being split.
+#'   the passed list are preserved. If a list of arrays, all the arrays must
+#'   have the same length of the dimension being split.
 #' @param which_dim a scalar string or integer, specifying which dimension to
 #'   split along. Negative integers count from the back. If a string, it must
 #'   refer to a named dimension (e.g, one of `names(dimnames(X))`.
@@ -25,7 +25,7 @@
 #'   split.} }
 #' @param drop passed on to `[`.
 #' @param depth Scalar number, how many levels to recurse down. Set this if you
-#'   want to explicit treat a list as a vector (that is, a one-dimensional
+#'   want to explicitly treat a list as a vector (that is, a one-dimensional
 #'   array). (You can alternatively set dim attributes with `dim<-` on the list
 #'   to prevent recursion)
 #'

@@ -116,16 +116,15 @@
     <tr>
       <th>x</th>
       <td><p>a dataframe, array or vector. For <code>seq_along_rows</code>, and
-<code>seq_along_cols</code> sequence along the first and second dimensions,
-respectively. Objects supplied are coerced with <code>as.array</code> prior to
-determining dimensions, so atomic vectors are treated as 1 dimensional
+<code>seq_along_cols</code> sequence along the first and last dimensions,
+respectively. Atomic vectors are treated as 1 dimensional
 arrays (i.e., <code>seq_along_rows</code> is equivalent to <code>seq_along</code> when <code>x</code> is an
 atomic vector or list).</p></td>
     </tr>
     <tr>
       <th>which_dim</th>
       <td><p>a scalar integer or character string, specifying which
-dimension to generate a sequence for. Negative numbers count from the back</p></td>
+dimension to generate a sequence for. Negative numbers count from the back.</p></td>
     </tr>
     </table>
     

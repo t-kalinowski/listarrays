@@ -26,10 +26,10 @@ picture.
 \note{
 The word "dimnames" is slightly overloaded. Most commonly it refers to
 the names of entries along a particular axis (e.g., date1, date2, date3,
-...), but occausionally it is also used to refer to the names of the array
+...), but occasionally it is also used to refer to the names of the array
 axes themselves (e.g, dates, temperature, pressure, ...). To disambiguate,
 in the examples 'dimnames' always refers to the first case, while 'axis
-names' refers to the second. This function can be used either or both both
+names' refers to the second. \code{set_dimnames()} can be used to set either or both
 axis names and dimnames.
 }
 \examples{

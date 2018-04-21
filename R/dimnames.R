@@ -1,17 +1,3 @@
-
-
-# a more flexible and pipe-friendly version of dimnames<- Compared to dimnames<-
-#
-# +  if passed a single character vector and the character vector is of length
-# dim(x), and which_dim = NULL, then the names are assigned to the dimensions
-#
-# + allows you to set a single or just a few dimensions only, by specifying
-# "which_dim". if setting just one, then nm can be either a character vector (or
-# something coercible to character) and must be the same length as the dim being
-# set. Alternatively, it can be a list which can be named, and in turn contains
-# a list of character vectors.
-
-
 #' Set dimnames
 #'
 #' A more flexible and pipe-friendly version of `dimnames<-`.
@@ -25,10 +11,10 @@
 #'
 #' @note The word "dimnames" is slightly overloaded. Most commonly it refers to
 #'   the names of entries along a particular axis (e.g., date1, date2, date3,
-#'   ...), but occausionally it is also used to refer to the names of the array
+#'   ...), but occasionally it is also used to refer to the names of the array
 #'   axes themselves (e.g, dates, temperature, pressure, ...). To disambiguate,
 #'   in the examples 'dimnames' always refers to the first case, while 'axis
-#'   names' refers to the second. This function can be used either or both both
+#'   names' refers to the second. `set_dimnames()` can be used to set either or both
 #'   axis names and dimnames.
 #'
 #' @return x, with modified dimnames and or axisnames
@@ -145,8 +131,8 @@ set_dimnames <- function(x, nm, which_dim = NULL) {
 
 #' Drop dimnames
 #'
-#' A pipe-friendly wrapper for `dim(x) <- NULL` and `dimnames(x) <- NULL` or (in
-#' essence) \code{dimnames(x)[which_dim] <- list(NULL)}
+#' A pipe-friendly wrapper for `dim(x) <- NULL` and `dimnames(x) <- NULL` or, if
+#' `which_dim` is not `NULL`, \code{dimnames(x)[which_dim] <- list(NULL)}
 #'
 #' @param x an object, potentially with dimnames
 #' @param which_dim If `NULL` (the default) then all dimnames are dropped. If
@@ -183,4 +169,3 @@ drop_dim2 <- function(x) {
   dim2(x) <- NULL
   x
 }
-

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{ndim}
 \alias{ndim}
-\title{Length of \code{dim()}}
+\title{Length of \code{DIM()}}
 \usage{
 ndim(x)
 }
@@ -10,5 +10,5 @@ ndim(x)
 \item{x}{a matrix or atomic vector}
 }
 \description{
-Length of \code{dim()}
+Returns the number of dimensions, or 1 for an atomic vector.
 }

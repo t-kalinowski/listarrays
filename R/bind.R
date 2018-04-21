@@ -1,5 +1,3 @@
-
-
 #' Bind arrays along a specified dimension
 #'
 #' `bind_as_*` introduces a new dimension, such that each element in
@@ -17,7 +15,7 @@
 #'   list
 #' @param which_dim Scalar integer specifying the index position of where to
 #'   introduce the new dimension to introduce. Negative numbers count from the
-#'   back. For example, given a 3 dimentional array, `-1`, is equivelant to `3`,
+#'   back. For example, given a 3 dimensional array, `-1`, is equivalent to `3`,
 #'   `-2` to `2` and `-3` to `1`.
 #'
 #' @return An array, with one additional dimension.
@@ -213,4 +211,3 @@ bind_on_cols <- function(...) {
 #   map(x, .f) %>%
 #     bind_*_dim()
 # }
-
