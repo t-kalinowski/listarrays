@@ -2,10 +2,9 @@
 #' Shuffle along the first dimension multiple arrays in sync
 #'
 #' @param ... arrays of various dimensions (vectors and data.frames OK too)
-#' @param in_sync if the objects should be shuffled in sync (i.e., row order is
-#'   the same in all returned objects)
 #'
-#' @return A list of objects passed on to `...`
+#' @return A list of objects passed on to `...`, or if a single object was
+#'   supplied, then the single object shuffled
 #' @export
 #'
 #' @examples
@@ -29,28 +28,26 @@
 #' }
 shuffle_rows <- function(..., in_sync = TRUE) {
   l <- list(...)
-  if(is.list(l[[1]]) && identical(length(l), 1L)) {
-    single_list_in <- TRUE
-    l <- l[[1]]
-  } else
-    single_list_in <- FALSE
 
-  n <- length(l)
+  single_obj_in <- identical(length(l), 1L)
+  single_list_in <- is.list(l[[1]]) && is.null(dim(l[[1]]))
 
-  n_cases <- unique(lapply(l, function(x) nrow(x) %||% length(x)))
-  stopifnot(length(n_cases) == 1L)
-  n_cases <- n_cases[[1]]
+  if(single_list_in) {
+    single_obj_in <- FALSE
+    l <- l[[1L]]
+  }
 
-  if(in_sync)
-    idx <- sample.int(n_cases)
-  else
-    makeActiveBinding("idx", function() sample.int(n_cases), environment())
+  nrows <- unique(vapply(l, function(x) nrow(x) %||% length(x), 1L))
+  if(!identical(length(nrows), 1L))
+    stop("All objects passed to `...` must have the same number of rows")
+
+  idx <- sample.int(nrows)
 
   for (i in seq_along(l))
     l[[i]] <- extract_rows(l[[i]], idx, drop = FALSE)
 
-  if (!single_list_in && identical(length(l), 1L))
-     l[[1]]
+  if (single_obj_in)
+     l[[1L]]
   else
     l
 }
