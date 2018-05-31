@@ -63,7 +63,7 @@ modify_along_dim <- function(X, which_dim, .f, ...) {
 
   modify_it <- eval(call("function", args, body))
 
-  if (prod(which_dim) > 100)
+  if (prod(DIM(X)[which_dim]) > 100)
     modify_it <- cmpfun(modify_it)
 
   modify_it(X,  .f, ...)

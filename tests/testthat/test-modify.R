@@ -27,5 +27,9 @@ test_that("modify_along_dim works", {
     expect_identical(x, modify_along_dim(x, d, identity))
   }
 
+  # go big enough to trigger calling cmpfun()
+  arr <- function(...) array(seq_len(prod(c(...))), c(...))
+  x <- arr(5:9)
+  expect_identical(x, modify_along_dim(x, 3:5, identity))
 
 })
