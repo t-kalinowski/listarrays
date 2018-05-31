@@ -4,16 +4,14 @@
 \alias{shuffle_rows}
 \title{Shuffle along the first dimension multiple arrays in sync}
 \usage{
-shuffle_rows(..., in_sync = TRUE)
+shuffle_rows(...)
 }
 \arguments{
 \item{...}{arrays of various dimensions (vectors and data.frames OK too)}
-
-\item{in_sync}{if the objects should be shuffled in sync (i.e., row order is
-the same in all returned objects)}
 }
 \value{
-A list of objects passed on to \code{...}
+A list of objects passed on to \code{...}, or if a single object was
+supplied, then the single object shuffled
 }
 \description{
 Shuffle along the first dimension multiple arrays in sync

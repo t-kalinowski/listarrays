@@ -26,7 +26,7 @@
 #'   stopifnot(
 #'     length(unique(c(l, ls))) == length(l))
 #' }
-shuffle_rows <- function(..., in_sync = TRUE) {
+shuffle_rows <- function(...) {
   l <- list(...)
 
   single_obj_in <- identical(length(l), 1L)
