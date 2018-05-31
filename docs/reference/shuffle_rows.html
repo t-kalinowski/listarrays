@@ -25,12 +25,16 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Shuffle along the first dimension multiple arrays in sync — shuffle_rows" />
 
 <meta property="og:description" content="Shuffle along the first dimension multiple arrays in sync" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -40,8 +44,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -59,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">listarrays</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9000</span>
       </span>
     </div>
 
@@ -96,15 +98,17 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Shuffle along the first dimension multiple arrays in sync</h1>
-    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/shuffle.R'><code>R/shuffle.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/shuffle.R'><code>R/shuffle.R</code></a></small>
     <div class="hidden name"><code>shuffle_rows.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Shuffle along the first dimension multiple arrays in sync</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>shuffle_rows</span>(<span class='no'>...</span>, <span class='kw'>in_sync</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>shuffle_rows</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -113,16 +117,12 @@
       <th>...</th>
       <td><p>arrays of various dimensions (vectors and data.frames OK too)</p></td>
     </tr>
-    <tr>
-      <th>in_sync</th>
-      <td><p>if the objects should be shuffled in sync (i.e., row order is
-the same in all returned objects)</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of objects passed on to <code>...</code></p>
+    <p>A list of objects passed on to <code>...</code>, or if a single object was
+supplied, then the single object shuffled</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

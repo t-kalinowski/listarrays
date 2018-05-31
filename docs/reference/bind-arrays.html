@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Bind arrays along a specified dimension — bind_as_dim" />
@@ -37,6 +40,7 @@ each of the arrays in the list)." />
 <meta name="twitter:card" content="summary" />
 
 
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -44,8 +48,6 @@ each of the arrays in the list)." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -63,7 +65,7 @@ each of the arrays in the list)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">listarrays</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9000</span>
       </span>
     </div>
 
@@ -100,10 +102,11 @@ each of the arrays in the list)." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Bind arrays along a specified dimension</h1>
-    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/bind.R'><code>R/bind.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/bind.R'><code>R/bind.R</code></a></small>
     <div class="hidden name"><code>bind-arrays.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>bind_as_*</code> introduces a new dimension, such that each element in
 <code>list_of_arrays</code> corresponds to one index position along the new dimension in
@@ -111,6 +114,7 @@ the returned array. <code>bind_on_*</code> binds all elements along an existing
 dimension, (meaning, the returned array has the same number of dimensions as
 each of the arrays in the list).</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>bind_as_dim</span>(<span class='no'>list_of_arrays</span>, <span class='no'>which_dim</span>)
 

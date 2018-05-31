@@ -29,11 +29,7 @@ The package provides:
 
 -   A set of functions that help encode atomic vectors as `onehot()` binary matrix's and `decode_onehot()` back into atomic vectors. (for example if training a neural network with keras)
 
--   Many of the functions work recursively if provided a list of arrays. This is particularly useful in combination with `` zeallot::`%<-%`() `` multi-assignment operator, which allows for patterns like:
-
-    ``` r
-    c(X, Y) %<-% shuffle_rows(X, Y, in_sync = TRUE)
-    ```
+-   Many of the functions work recursively if provided a list of arrays.
 
 Installation
 ------------

@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="DIM — DIM" />
@@ -36,6 +39,7 @@ of NULL." />
 <meta name="twitter:card" content="summary" />
 
 
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -43,8 +47,6 @@ of NULL." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -62,7 +64,7 @@ of NULL." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">listarrays</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9000</span>
       </span>
     </div>
 
@@ -99,16 +101,18 @@ of NULL." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>DIM</h1>
-    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
     <div class="hidden name"><code>DIM.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>DIM()</code> is to <code>dim()</code> as <code>NROW()</code> is to <code>nrow()</code>. That is, it is identical to
 <code>dim()</code> in most cases except if the input is a bare atomic vector with no
 <code>dim</code> attribute, in which case, the length of the vector is returned instead
 of <code>NULL</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>DIM</span>(<span class='no'>x</span>)</pre>
     

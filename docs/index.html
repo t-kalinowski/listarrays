@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">listarrays</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9000</span>
       </span>
     </div>
 
@@ -73,6 +73,7 @@
 <div id="listarrays" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#listarrays" class="anchor"></a>listarrays</h1></div>
+
 <p>A toolbox for working with R arrays in a functional programming style. Flexibly split, bind, reshape, modify, subset, and name arrays.</p>
 <p>The package provides:</p>
 <ul>
@@ -86,10 +87,7 @@
 <li><p><code><a href="reference/t.array.html">t.array()</a></code> a transpose method for multi-dimentional arrays</p></li>
 <li><p>A handful of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example <code><a href="reference/seq_along_dim.html">seq_along_rows()</a></code> (a combination of <code>seq_along()</code> and <code>nrow()</code>).</p></li>
 <li><p>A set of functions that help encode atomic vectors as <code><a href="reference/onehot.html">onehot()</a></code> binary matrix’s and <code><a href="reference/onehot.html">decode_onehot()</a></code> back into atomic vectors. (for example if training a neural network with keras)</p></li>
-<li>
-<p>Many of the functions work recursively if provided a list of arrays. This is particularly useful in combination with <code>zeallot::`%&lt;-%`()</code> multi-assignment operator, which allows for patterns like:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(X, Y) <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw"><a href="reference/shuffle_rows.html">shuffle_rows</a></span>(X, Y, <span class="dt">in_sync =</span> <span class="ot">TRUE</span>)</code></pre></div>
-</li>
+<li><p>Many of the functions work recursively if provided a list of arrays.</p></li>
 </ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -106,6 +104,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=listarrays">https://​cloud.r-project.org/​package=listarrays</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/t-kalinowski/listarrays">https://​github.com/​t-kalinowski/​listarrays</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/t-kalinowski/listarrays/issues">https://​github.com/​t-kalinowski/​listarrays/​issues</a>
@@ -126,7 +126,13 @@
 </ul>
 </div>
 
-      </div>
+      <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=listarrays"><img src="https://www.r-pkg.org/badges/version/listarrays" alt="CRAN status"></a></li>
+</ul>
+</div>
+</div>
 
 </div>
 

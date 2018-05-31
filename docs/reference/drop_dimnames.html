@@ -25,13 +25,17 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Drop dimnames — drop_dimnames" />
 
-<meta property="og:description" content="A pipe-friendly wrapper for dim(x) &lt;- NULL and dimnames(x) &lt;- NULL or, if
-which_dim is not NULL, dimnames(x)[which_dim] &lt;- list(NULL)" />
+<meta property="og:description" content="A pipe-friendly wrapper for dim(x) &amp;lt;- NULL and dimnames(x) &amp;lt;- NULL or, if
+which_dim is not NULL, dimnames(x)[which_dim] &amp;lt;- list(NULL)" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -41,8 +45,6 @@ which_dim is not NULL, dimnames(x)[which_dim] &lt;- list(NULL)" />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -60,7 +62,7 @@ which_dim is not NULL, dimnames(x)[which_dim] &lt;- list(NULL)" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">listarrays</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9000</span>
       </span>
     </div>
 
@@ -97,14 +99,16 @@ which_dim is not NULL, dimnames(x)[which_dim] &lt;- list(NULL)" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Drop dimnames</h1>
-    <small>Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dimnames.R'><code>R/dimnames.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dimnames.R'><code>R/dimnames.R</code></a></small>
     <div class="hidden name"><code>drop_dimnames.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>A pipe-friendly wrapper for <code>dim(x) &lt;- NULL</code> and <code>dimnames(x) &lt;- NULL</code> or, if
 <code>which_dim</code> is not <code>NULL</code>, <code>dimnames(x)[which_dim] &lt;- list(NULL)</code></p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>drop_dimnames</span>(<span class='no'>x</span>, <span class='kw'>which_dim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keep_axis_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
