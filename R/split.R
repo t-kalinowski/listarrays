@@ -92,7 +92,7 @@ split_on_dim <- function(X, which_dim,
   else if (is.numeric(f) && all(f < 1)) {
     stopifnot(sum(f) == 1)
     f <- cut(id, c(0, cumsum(f) * length(id)),
-          labels = paste0("grp", seq_along(f)))
+          labels = names(f) %||% paste0("grp", seq_along(f)))
   }
 
   if (!identical(length(id), length(f)))
