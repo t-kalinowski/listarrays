@@ -3,6 +3,8 @@
 listarrays
 ==========
 
+[![CRAN status](https://www.r-pkg.org/badges/version/listarrays)](https://cran.r-project.org/package=listarrays)
+
 A toolbox for working with R arrays in a functional programming style. Flexibly split, bind, reshape, modify, subset, and name arrays.
 
 The package provides:
