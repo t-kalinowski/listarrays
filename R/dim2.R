@@ -39,9 +39,13 @@ array2 <- function(data, dim = length(data), dimnames = NULL) {
 #' @param x object to set dimensions on (array or atomic vector)
 #' @param value a numeric (integerish) vector of new dimensions
 `dim2<-` <- function(x, value) {
-  if(is.null(value)) {
+  if (is.null(value)) {
+    if (is.null(dim(x)))
+      return(x)
+
     x <- t(x)
     dim(x) <- NULL
+
     return(x)
   }
 
