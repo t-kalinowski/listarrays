@@ -40,10 +40,12 @@ array2 <- function(data, dim = length(data), dimnames = NULL) {
 #' @param value a numeric (integerish) vector of new dimensions
 `dim2<-` <- function(x, value) {
   if (is.null(value)) {
-    if (is.null(dim(x)))
+    if (is.null(dim(x) -> dx))
       return(x)
 
-    x <- t(x)
+    if(length(dx) > 1L)
+      x <- t(x)
+
     dim(x) <- NULL
 
     return(x)
