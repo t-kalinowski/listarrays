@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -173,12 +175,19 @@ list</p></td>
   <span class='fu'>stopifnot</span>(<span class='fu'>identical</span>(<span class='no'>combined_as</span>[<span class='no'>i</span>,,,], <span class='no'>list_of_arrays</span><span class='kw'>[[</span><span class='no'>i</span>]]))
 
 <span class='co'># bind on an existing dimension</span>
-<span class='no'>combined_on</span> <span class='kw'>&lt;-</span> <span class='fu'>bind_on_rows</span>(<span class='no'>list_of_arrays</span>)
-<span class='fu'>dim</span>(<span class='no'>combined_on</span>)</div><div class='output co'>#&gt; [1] 20  3  4</div><div class='input'><span class='fu'>dim</span>(<span class='no'>combined_on</span>)[<span class='fl'>1</span>] <span class='kw'>==</span> <span class='fu'>sum</span>(<span class='fu'>sapply</span>(<span class='no'>list_of_arrays</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'>dim</span>(<span class='no'>x</span>)[<span class='fl'>1</span>]))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>identical</span>(<span class='no'>list_of_arrays</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>combined_on</span>[<span class='fl'>1</span>:<span class='fl'>2</span>,,])</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'>seq_along</span>(<span class='no'>list_of_arrays</span>))
+<span class='no'>combined_on</span> <span class='kw'>&lt;-</span> <span class='fu'>bind_on_rows</span>(<span class='no'>list_of_arrays</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot open file '{</span>
+#&gt; <span class='warning'>    X &lt;- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)</span>
+#&gt; <span class='warning'>    start &lt;- 1L</span>
+#&gt; <span class='warning'>    for (i in seq_along(list_of_arrays)) {</span>
+#&gt; <span class='warning'>      end &lt;- start + n_entries_per_array[[i]] - 1L</span>
+#&gt; <span class='warning'>      X[start:end,,]  &lt;- list_of_arrays[[i]]</span>
+#&gt; <span class='warning'>      start &lt;- end + 1L</span>
+#&gt; <span class='warning'>    }</span>
+#&gt; <span class='warning'>    X</span>
+#&gt; <span class='warning'>}': File name too long</span></div><div class='output co'>#&gt; <span class='error'>Error in file(filename, "r"): cannot open the connection</span></div><div class='input'><span class='fu'>dim</span>(<span class='no'>combined_on</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'combined_on' not found</span></div><div class='input'><span class='fu'>dim</span>(<span class='no'>combined_on</span>)[<span class='fl'>1</span>] <span class='kw'>==</span> <span class='fu'>sum</span>(<span class='fu'>sapply</span>(<span class='no'>list_of_arrays</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'>dim</span>(<span class='no'>x</span>)[<span class='fl'>1</span>]))</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'combined_on' not found</span></div><div class='input'><span class='fu'>identical</span>(<span class='no'>list_of_arrays</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>combined_on</span>[<span class='fl'>1</span>:<span class='fl'>2</span>,,])</div><div class='output co'>#&gt; <span class='error'>Error in identical(list_of_arrays[[1]], combined_on[1:2, , ]): object 'combined_on' not found</span></div><div class='input'><span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'>seq_along</span>(<span class='no'>list_of_arrays</span>))
   <span class='fu'>stopifnot</span>(<span class='fu'>identical</span>(
     <span class='no'>list_of_arrays</span><span class='kw'>[[</span><span class='no'>i</span>]], <span class='no'>combined_on</span>[ (<span class='fl'>1</span>:<span class='fl'>2</span>) + (<span class='no'>i</span>-<span class='fl'>1</span>)*<span class='fl'>2</span>,,]
-  ))
-
+  ))</div><div class='output co'>#&gt; <span class='error'>Error in identical(list_of_arrays[[i]], combined_on[(1:2) + (i - 1) *     2, , ]): object 'combined_on' not found</span></div><div class='input'>
 <span class='co'># bind on any dimension</span>
 <span class='no'>combined</span> <span class='kw'>&lt;-</span> <span class='fu'>bind_as_dim</span>(<span class='no'>list_of_arrays</span>, <span class='fl'>3</span>)
 <span class='fu'>dim</span>(<span class='no'>combined</span>)</div><div class='output co'>#&gt; [1]  2  3 10  4</div><div class='input'><span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'>seq_along</span>(<span class='no'>list_of_arrays</span>))

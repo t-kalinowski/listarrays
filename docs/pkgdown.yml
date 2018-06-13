@@ -1,5 +1,5 @@
 pandoc: 1.19.2.1
-pkgdown: 1.0.0.9000
-pkgdown_sha: 1e1229f6b6c2c96e0b8e476d7f3d7e9b95ab659b
+pkgdown: 1.1.0.9000
+pkgdown_sha: bcf6299e76d4a398aadfc476b3ac22d253a91d35
 articles: []
 

@@ -157,6 +157,18 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
 
   args <- as.pairlist(alist(
     list_of_arrays =,  n_entries_per_array = ))
+
+#   body <- parse(sprintf("{
+#     X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
+#     start <- 1L
+#     for (i in seq_along(list_of_arrays)) {
+#       end <- start + n_entries_per_array[[i]] - 1L
+#       %s  <- list_of_arrays[[i]]
+#       start <- end + 1L
+#     }
+#     X
+# }", X_start_to_end))[[1]]
+
   body <- parse1("{
     X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
     start <- 1L
