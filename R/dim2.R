@@ -36,6 +36,11 @@ array2 <- function(data, dim = length(data), dimnames = NULL) {
 
 #' @export
 #' @rdname array2
+matrix2 <- function(...)
+  matrix(..., byrow = TRUE)
+
+#' @export
+#' @rdname array2
 #' @param x object to set dimensions on (array or atomic vector)
 #' @param value a numeric (integerish) vector of new dimensions
 `dim2<-` <- function(x, value) {

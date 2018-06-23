@@ -2,11 +2,14 @@
 % Please edit documentation in R/dim2.R
 \name{array2}
 \alias{array2}
+\alias{matrix2}
 \alias{dim2<-}
 \alias{set_dim2}
 \title{Make or reshape an array with C-style (row-major) semantics}
 \usage{
 array2(data, dim = length(data), dimnames = NULL)
+
+matrix2(...)
 
 dim2(x) <- value
 
@@ -19,11 +22,11 @@ set_dim2(...)
 
 \item{dimnames}{a list of dimnames, must be the same length as \code{dims}}
 
+\item{...}{passed on to \code{set_dim()}}
+
 \item{x}{object to set dimensions on (array or atomic vector)}
 
 \item{value}{a numeric (integerish) vector of new dimensions}
-
-\item{...}{passed on to \code{set_dim()}}
 }
 \description{
 These functions reshape or make an array using C-style, row-major semantics.

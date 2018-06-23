@@ -116,6 +116,8 @@ vector has been reordered).</p>
 
     <pre class="usage"><span class='fu'>array2</span>(<span class='no'>data</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='no'>data</span>), <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
+<span class='fu'>matrix2</span>(<span class='no'>...</span>)
+
 <span class='fu'>dim2</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
 <span class='fu'>set_dim2</span>(<span class='no'>...</span>)</pre>
@@ -136,16 +138,16 @@ vector has been reordered).</p>
       <td><p>a list of dimnames, must be the same length as <code>dims</code></p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>passed on to <code><a href='set_dim.html'>set_dim()</a></code></p></td>
+    </tr>
+    <tr>
       <th>x</th>
       <td><p>object to set dimensions on (array or atomic vector)</p></td>
     </tr>
     <tr>
       <th>value</th>
       <td><p>a numeric (integerish) vector of new dimensions</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>passed on to <code><a href='set_dim.html'>set_dim()</a></code></p></td>
     </tr>
     </table>
     
