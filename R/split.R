@@ -182,10 +182,7 @@ split_along_dim <- function(X, which_dim, drop = NULL, depth = Inf) {
     split_it <- cmpfun(split_it)
 
   out <- split_it(X, length_out)
-
-  if (!is.null(nms <- dimnames(X)[[which_dim]]))
-    names(out) <- nms
-
+  names(out) <- dimnames(X)[[which_dim]]
   out
 }
 
