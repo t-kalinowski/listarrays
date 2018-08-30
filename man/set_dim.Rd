@@ -4,8 +4,8 @@
 \alias{set_dim}
 \title{Reshape an array}
 \usage{
-set_dim(x, new_dim, pad = getOption("listarrays.autopad_arrays_with", NULL),
-  order = c("F", "C"), verbose = getOption("verbose"))
+set_dim(x, new_dim, pad = getOption("listarrays.autopad_arrays_with",
+  NULL), order = c("F", "C"), verbose = getOption("verbose"))
 }
 \arguments{
 \item{x}{A vector or array to set dimensions on}
