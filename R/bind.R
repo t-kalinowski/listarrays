@@ -74,8 +74,6 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
   new_dim <- c(base_dim, padding_ones)
   new_dim <- append(new_dim, length(list_of_arrays), after = which_dim - 1L)
 
-  X <- array(vector(typeof(list_of_arrays[[1]])), dim = new_dim)
-
   Xi <- extract_dim_chr_expr(var_to_subset = "X", idx_var_nm = "i",
                              which_dim = which_dim, ndims = length(new_dim))
 
