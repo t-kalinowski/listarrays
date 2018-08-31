@@ -37,7 +37,7 @@ shuffle_rows <- function(...) {
     l <- l[[1L]]
   }
 
-  nrows <- unique(vapply(l, function(x) nrow(x) %||% length(x), 1L))
+  nrows <- unique(vapply(l, NROW, 0L))
   if(!identical(length(nrows), 1L))
     stop("All objects passed to `...` must have the same number of rows")
 
