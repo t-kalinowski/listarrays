@@ -78,12 +78,12 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
                              which_dim = which_dim, ndims = length(new_dim))
 
   args <- as.pairlist(alist( list_of_arrays = ))
-  body <- parse1("{
+  body <- parse1(sprintf("{
     X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
     for (i in seq_along(list_of_arrays))
-      ",Xi,"  <- list_of_arrays[[i]]
+      %s <- list_of_arrays[[i]]
     X
-  }")
+  }", Xi))
 
   bind_it <- eval(call("function", args, body))
 
@@ -156,27 +156,16 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
   args <- as.pairlist(alist(
     list_of_arrays =,  n_entries_per_array = ))
 
-#   body <- parse(sprintf("{
-#     X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
-#     start <- 1L
-#     for (i in seq_along(list_of_arrays)) {
-#       end <- start + n_entries_per_array[[i]] - 1L
-#       %s  <- list_of_arrays[[i]]
-#       start <- end + 1L
-#     }
-#     X
-# }", X_start_to_end))[[1]]
-
-  body <- parse1("{
+  body <- parse1(sprintf("{
     X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
     start <- 1L
     for (i in seq_along(list_of_arrays)) {
       end <- start + n_entries_per_array[[i]] - 1L
-      ",X_start_to_end,"  <- list_of_arrays[[i]]
+      %s <- list_of_arrays[[i]]
       start <- end + 1L
     }
     X
-  }")
+  }", X_start_to_end))
 
   bind_it <- eval(call("function", args, body))
 

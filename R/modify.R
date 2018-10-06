@@ -26,7 +26,6 @@ modify_along_dim <- function(X, which_dim, .f, ...) {
   if(is.list(X) && is.null(dim(X)))
     return(lapply(X, function(x) modify_along_dim(x, which_dim, .f, ...)))
 
-
   if (requireNamespace("rlang", quietly = TRUE)) {
     .f <- rlang::as_function(.f)
   } else {
@@ -44,22 +43,19 @@ modify_along_dim <- function(X, which_dim, .f, ...) {
                              idx_var_nm = names(which_dim),
                              var_to_subset = "X")
 
-  oXe <- paste0("o", Xe)
-
-  loop_body <- paste0(Xe, " <- .f(", oXe, ", ...)")
-
-  loop_controlflow <- paste0(collapse = "\n",
-    "for (", names(which_dim), " in .seq_along_dim(X,", which_dim, "))")
-
-  loop <- paste0(loop_controlflow, "\n   ", loop_body)
+  loop_controlflow <- paste0(
+    "for (", names(which_dim),
+      " in .seq_along_dim(X,", as.integer(which_dim), "))",
+    collapse = "\n")
 
   args <- as.pairlist(alist(X = , .f = , ... = ))
-  body <- parse1("{
-      oX <- X
-      storage.mode(X) <- 'logical'
-      ", loop, "
-      X
-  }")
+  body <- parse1(sprintf("{
+    oX <- X
+    storage.mode(X) <- 'logical'
+    %s
+      %s <- .f(o%s, ...)
+    X
+  }", loop_controlflow, Xe, Xe))
 
   modify_it <- eval(call("function", args, body))
 

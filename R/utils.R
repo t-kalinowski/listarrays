@@ -39,7 +39,7 @@ DIM <- function(x) dim(x) %||% length(x)
 
 #' @importFrom compiler cmpfun
 
-parse1 <- function(...) parse(text = paste0(...), keep.source = FALSE)[[1]]
+parse1 <- function(x) parse(text = x, keep.source = FALSE)[[1]]
 
 is.negative <- function(x) x < 0
 
