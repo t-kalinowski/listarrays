@@ -5,6 +5,7 @@ test_that("shuffle_rows", {
   y <- matrix(1:9, ncol = 3)
   z <- array(1:27, c(3,3,3))
 
+  suppressWarnings(RNGversion("3.5.0"))
   set.seed(1)
   l <- shuffle_rows(x, y, z)
 
