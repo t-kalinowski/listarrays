@@ -63,34 +63,37 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
   list_of_arrays <- dropNULLs(list_of_arrays)
 
   base_dim <- unique(lapply(list_of_arrays, function(x) dim(x) %||% length(x)))
-
-  stopifnot(length(base_dim) == 1)
+  stopifnot(is.scalar(base_dim))
   base_dim <- base_dim[[1]]
 
   if(is.negative(which_dim))
     which_dim <- which_dim + length(base_dim) + 2L
 
-  padding_ones <- rep_len(1L, pmax(0, which_dim - length(base_dim) - 1L))
-  new_dim <- c(base_dim, padding_ones)
-  new_dim <- append(new_dim, length(list_of_arrays), after = which_dim - 1L)
+  # padding_ones <- rep_len(1L, pmax(0, which_dim - length(base_dim) - 1L))
+  # new_dim <- c(base_dim, padding_ones)
+  # new_dim <- append(new_dim, length(list_of_arrays), after = which_dim - 1L)
+  #
+  # Xi <- extract_dim_chr_expr(var_to_subset = "X", idx_var_nm = "i",
+  #                            which_dim = which_dim, ndims = length(new_dim))
+  #
+  # args <- as.pairlist(alist( list_of_arrays = ))
+  # body <- parse1(sprintf("{
+  #   X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
+  #   for (i in seq_along(list_of_arrays))
+  #     %s <- list_of_arrays[[i]]
+  #   X
+  # }", Xi))
+  #
+  # bind_it <- eval(call("function", args, body))
+  #
+  # if(length(list_of_arrays) > 100)
+  #   bind_it <- cmpfun(bind_it)
+  #
+  # X <- bind_it(list_of_arrays)
 
-  Xi <- extract_dim_chr_expr(var_to_subset = "X", idx_var_nm = "i",
-                             which_dim = which_dim, ndims = length(new_dim))
-
-  args <- as.pairlist(alist( list_of_arrays = ))
-  body <- parse1(sprintf("{
-    X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
-    for (i in seq_along(list_of_arrays))
-      %s <- list_of_arrays[[i]]
-    X
-  }", Xi))
-
-  bind_it <- eval(call("function", args, body))
-
-  if(length(list_of_arrays) > 100)
-    bind_it <- cmpfun(bind_it)
-
-  X <- bind_it(list_of_arrays)
+  rank <- length(base_dim)
+  perm <- append(seq_len(rank), rank + 1L, after = which_dim-1L)
+  X <- aperm(simplify2array(list_of_arrays), perm)
 
   if(!is.null(names(list_of_arrays)))
     dimnames(X)[[which_dim]] <- names(list_of_arrays)
