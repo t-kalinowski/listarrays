@@ -95,8 +95,8 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
   perm <- append(seq_len(rank), rank + 1L, after = which_dim-1L)
   X <- aperm(simplify2array(list_of_arrays), perm)
 
-  if(!is.null(names(list_of_arrays)))
-    dimnames(X)[[which_dim]] <- names(list_of_arrays)
+  # if(!is.null(names(list_of_arrays)))
+  #   dimnames(X)[[which_dim]] <- names(list_of_arrays)
 
   if(!is.null(new_axis_nm))
     names(dimnames(X))[which_dim] <- new_axis_nm
