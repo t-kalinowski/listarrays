@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sequence along a dimension — seq_along_dim • listarrays</title>
+<title>Expand the shape of an array — expand_dims • listarrays</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Sequence along a dimension — seq_along_dim" />
+<meta property="og:title" content="Expand the shape of an array — expand_dims" />
 
-<meta property="og:description" content="Sequence along a dimension" />
+<meta property="og:description" content="This is the inverse operation of base::drop().
+It is analogous to python's numpy.expand_dims(), but vectorized on
+which_dim." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -101,60 +103,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sequence along a dimension</h1>
-    <small class="dont-index">Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/seq_along.R'><code>R/seq_along.R</code></a></small>
-    <div class="hidden name"><code>seq_along_dim.Rd</code></div>
+    <h1>Expand the shape of an array</h1>
+    <small class="dont-index">Source: <a href='https://github.com/t-kalinowski/listarrays/blob/master/R/dim.R'><code>R/dim.R</code></a></small>
+    <div class="hidden name"><code>expand_dims.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Sequence along a dimension</p>
+    <p>This is the inverse operation of <code><a href='https://www.rdocumentation.org/packages/base/topics/drop'>base::drop()</a></code>.
+It is analogous to python's <code>numpy.expand_dims()</code>, but vectorized on
+<code>which_dim</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>seq_along_dim</span>(<span class='no'>x</span>, <span class='no'>which_dim</span>)
-
-<span class='fu'>seq_along_rows</span>(<span class='no'>x</span>)
-
-<span class='fu'>seq_along_cols</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>expand_dims</span>(<span class='no'>x</span>, <span class='kw'>which_dim</span> <span class='kw'>=</span> -<span class='fl'>1L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a dataframe, array or vector. For <code>seq_along_rows</code>, and
-<code>seq_along_cols</code> sequence along the first and last dimensions,
-respectively. Atomic vectors are treated as 1 dimensional
-arrays (i.e., <code>seq_along_rows</code> is equivalent to <code>seq_along</code> when <code>x</code> is an
-atomic vector or list).</p></td>
+      <td><p>an array. Bare vectors are treated as 1-d arrays.</p></td>
     </tr>
     <tr>
       <th>which_dim</th>
-      <td><p>a scalar integer or character string, specifying which
-dimension to generate a sequence for. Negative numbers count from the back.</p></td>
+      <td><p>numeric. Desired index position of the new axis or axes in
+the returned array. Negative numbers count from the back. Can be any
+length.Throws a warning if any duplicates are provided.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a vector of integers 1:nrow(x), safe for use in <code>for</code> loops and
-vectorized equivalents.</p>
+    <p>the array <code>x</code> with new dim</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>for</span> (<span class='no'>r</span> <span class='kw'>in</span> <span class='fu'>seq_along_rows</span>(<span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>4</span>,]))
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>mtcars</span>[<span class='no'>r</span>,])</div><div class='output co'>#&gt;           mpg cyl disp  hp drat   wt  qsec vs am gear carb
-#&gt; Mazda RX4  21   6  160 110  3.9 2.62 16.46  0  1    4    4
-#&gt;               mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
-#&gt;             mpg cyl disp hp drat   wt  qsec vs am gear carb
-#&gt; Datsun 710 22.8   4  108 93 3.85 2.32 18.61  1  1    4    1
-#&gt;                 mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>3</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/identical'>identical</a></span>(<span class='fu'>seq_along_rows</span>(<span class='no'>x</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_along</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/array'>array</a></span>(<span class='fl'>1</span>:<span class='fl'>24</span>, <span class='fl'>2</span>:<span class='fl'>4</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2 3 4</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='fu'>expand_dims</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] 2 3 4 1</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='fu'>expand_dims</span>(<span class='no'>x</span>, <span class='fl'>2</span>))</div><div class='output co'>#&gt; [1] 2 1 3 4</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='fu'>expand_dims</span>(<span class='no'>x</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>)))</div><div class='output co'>#&gt; [1] 1 1 2 3 4</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='fu'>expand_dims</span>(<span class='no'>x</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,-<span class='fl'>1</span>)))</div><div class='output co'>#&gt; [1] 1 2 3 4 1</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='fu'>expand_dims</span>(<span class='no'>x</span>, <span class='fl'>6</span>)) <span class='co'># implicitly also expands dims 4,5</span></div><div class='output co'>#&gt; [1] 2 3 4 1 1 1</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='fu'>expand_dims</span>(<span class='no'>x</span>, <span class='fl'>4</span>:<span class='fl'>6</span>))</div><div class='output co'>#&gt; [1] 2 3 4 1 1 1</div><div class='input'>
+<span class='co'># error, implicit expansion with negative indexes not supported</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/try'>try</a></span>(<span class='fu'>expand_dims</span>(<span class='no'>x</span>, -<span class='fl'>6</span>))</div><div class='output co'>#&gt; Error in expand_dims(x, -6) : 
+#&gt;   Implicit additional dims for expansion with negative indexes not supported</div><div class='input'>
+<span class='co'># supply them explicitly instead</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='fu'>expand_dims</span>(<span class='no'>x</span>, -(<span class='fl'>4</span>:<span class='fl'>6</span>)))</div><div class='output co'>#&gt; [1] 1 1 1 2 3 4</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

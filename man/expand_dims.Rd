@@ -17,7 +17,8 @@ length.Throws a warning if any duplicates are provided.}
 the array \code{x} with new dim
 }
 \description{
-This is analogous to python's \code{numpy.expand_dims()}, but vectorized on
+This is the inverse operation of \code{base::drop()}.
+It is analogous to python's \code{numpy.expand_dims()}, but vectorized on
 \code{which_dim}.
 }
 \examples{

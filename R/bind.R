@@ -91,9 +91,12 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
   #
   # X <- bind_it(list_of_arrays)
 
+  X <- simplify2array(list_of_arrays)
   rank <- length(base_dim)
-  perm <- append(seq_len(rank), rank + 1L, after = which_dim-1L)
-  X <- aperm(simplify2array(list_of_arrays), perm)
+  if (which_dim != rank + 1L) {
+    perm <- append(seq_len(rank), rank + 1L, after = which_dim - 1L)
+    X <- aperm(X, perm)
+  }
 
   # if(!is.null(names(list_of_arrays)))
   #   dimnames(X)[[which_dim]] <- names(list_of_arrays)
@@ -203,13 +206,3 @@ bind_on_cols <- function(...) {
 
   bind_on_dim(list_of_arrays, which_dim = -1L)
 }
-
-
-
-
-
-## Maybe add this?
-# map_*_dim <- function(x, which_dim, .f) {
-#   map(x, .f) %>%
-#     bind_*_dim()
-# }

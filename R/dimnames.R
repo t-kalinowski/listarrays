@@ -138,7 +138,7 @@ set_dimnames <- function(x, nm, which_dim = NULL) {
 #' @param which_dim If `NULL` (the default) then all dimnames are dropped. If
 #'   integer vector, then dimnames only at the specified dimensions are dropped.
 #' @param keep_axis_names TRUE or FALSE, whether to preserve the axis names when
-#'   dropping the dimanmes
+#'   dropping the dimnames
 #'
 #' @export
 drop_dimnames <- function(x, which_dim = NULL, keep_axis_names = FALSE) {

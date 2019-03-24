@@ -82,3 +82,5 @@ quick_cbind <- function(lst) {
   dim(x) <- c(length(lst[[1]]), length(lst))
   x
 }
+
+# arr <- function(...) array(seq_len(prod(unlist(c(...)))), unlist(c(...)))

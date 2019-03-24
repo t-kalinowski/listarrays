@@ -72,7 +72,7 @@ onehot <- function(y, order = NULL, named = TRUE) {
       warning("value supplied to `order` is ignored since y is a factor")
 
     order <- levels(y)
-    ncols <- length(order)
+    ncats <- length(order)
     idx_col <- unclass(y)
 
   } else if (is.character(y) || is.numeric(y)) {
@@ -87,12 +87,12 @@ onehot <- function(y, order = NULL, named = TRUE) {
       stop("`order` must be NULL, FALSE, or a character vector")
 
     idx_col <- match(y, order)
-    ncols <- length(order)
+    ncats <- length(order)
 
   } else
     stop("`y` must be a character, numeric, or factor")
 
-  Y <- matrix(0, ncol = ncols, nrow = length(y))
+  Y <- array(0, dim = c(DIM(y), ncats))
   idx <- cbind(seq_along(y), idx_col, deparse.level = 0L)
   Y[idx] <- 1
 

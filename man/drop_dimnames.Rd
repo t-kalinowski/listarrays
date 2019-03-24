@@ -19,7 +19,7 @@ drop_dim2(x)
 integer vector, then dimnames only at the specified dimensions are dropped.}
 
 \item{keep_axis_names}{TRUE or FALSE, whether to preserve the axis names when
-dropping the dimanmes}
+dropping the dimnames}
 }
 \description{
 A pipe-friendly wrapper for \code{dim(x) <- NULL} and \code{dimnames(x) <- NULL} or, if

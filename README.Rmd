@@ -47,10 +47,11 @@ The package provides:
 *   `dim2()<-`,  `set_dim2()`, `array2()`, which reshape or fills arrays using
     row-major (C-style) semantics
     
-*   `t.array()` a transpose method for multi-dimentional arrays
+*   `t.array()` a transpose method for multi-dimensional arrays
     
 *  A handful of lower-level helpers that abstract out patterns commonly
-   encountered while working with arrays, for example `seq_along_rows()` (a
+   encountered while working with arrays, for example `expand_dims()` 
+   (the inverse of `base::drop()`, or seq_along_rows()` (a
    combination of `seq_along()` and `nrow()`).
 
 *  A set of functions that help encode atomic vectors as `onehot()` binary

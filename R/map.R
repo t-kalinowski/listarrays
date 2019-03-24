@@ -63,3 +63,10 @@ map_along_rows <- function(X, .f, ..., .drop = NULL)
 map_along_cols <- function(X, .f, ..., .drop = NULL)
   map_along_dim(X, -1L, .f, ..., .drop = .drop)
 
+
+
+## Maybe add this?
+# map_*_dim <- function(x, which_dim, .f) {
+#   map(x, .f) %>%
+#     bind_*_dim()
+# }

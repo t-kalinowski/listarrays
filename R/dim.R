@@ -72,7 +72,8 @@ set_dim <- function(x, new_dim,
 
 #' Expand the shape of an array
 #'
-#' This is analogous to python's `numpy.expand_dims()`, but vectorized on
+#' This is the inverse operation of `base::drop()`.
+#' It is analogous to python's `numpy.expand_dims()`, but vectorized on
 #' `which_dim`.
 #'
 #' @param x an array. Bare vectors are treated as 1-d arrays.

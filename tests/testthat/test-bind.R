@@ -10,6 +10,7 @@ test_that("bind arrays works", {
   for(d in 1:3)
     expect_equal(dim(bind_on_dim(lx, d))[d], 10L*dim(lx[[1]])[d])
 
+
   # dnn <- dimnames(provideDimnames(lx[[1]]))
   # dnn <- lapply(seq_along(dnn), function(i) {
   #   paste(i, dnn[[i]], sep = "_")
