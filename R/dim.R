@@ -67,3 +67,71 @@ set_dim <- function(x, new_dim,
 
   x
 }
+
+
+
+#' Expand the shape of an array
+#'
+#' This is analogous to python's `numpy.expand_dims()`, but vectorized on
+#' `which_dim`.
+#'
+#' @param x an array. Bare vectors are treated as 1-d arrays.
+#' @param which_dim numeric. Desired index position of the new axis or axes in
+#'   the returned array. Negative numbers count from the back. Can be any
+#'   length.Throws a warning if any duplicates are provided.
+#'
+#'
+#' @return the array `x` with new dim
+#' @export
+#'
+#' @examples
+#' x <- array(1:24, 2:4)
+#' dim(x)
+#' dim(expand_dims(x))
+#' dim(expand_dims(x, 2))
+#' dim(expand_dims(x, c(1,2)))
+#' dim(expand_dims(x, c(1,-1)))
+#' dim(expand_dims(x, 6)) # implicitly also expands dims 4,5
+#' dim(expand_dims(x, 4:6))
+#'
+#' # error, implicit expansion with negative indexes not supported
+#' try(expand_dims(x, -6))
+#'
+#' # supply them explicitly instead
+#' dim(expand_dims(x, -(4:6)))
+expand_dims <- function(x, which_dim = -1L) {
+  d <- DIM(x)
+  nd <- length(d)
+  nwd <- length(which_dim)
+
+  stopifnot(is.integerish(which_dim))
+  wd <- which_dim
+  storage.mode(wd) <- "integer"
+
+
+  neg <- wd < 0L
+  if(any(neg))
+    wd[neg] <- wd[neg] + nd + nwd + 1L
+
+  if (min(wd) < 1L)
+    stop("Implicit additional dims for expansion with negative indexes not supported")
+
+  if ((max_wd <- max(wd)) > nd + nwd) {
+    # implicitly pad on right
+    wd <- unique(c(wd, (nd + 1L):max_wd))
+    ndout <- max_wd
+  } else
+    ndout <- nd + nwd
+
+
+  if(anyDuplicated(wd)) {
+    warning("Duplicate axis specified, ignored")
+    wd <- unique(wd)
+  }
+
+  dims <- rep(1L, ndout)
+  dims[-wd] <- d
+
+  dim(x) <- dims
+  x
+}
