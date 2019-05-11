@@ -5,6 +5,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/listarrays)](https://cran.r-project.org/package=listarrays)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-month/listarrays?color=blue)](https://r-pkg.org/pkg/listarrays)
 
 A toolbox for working with R arrays in a functional programming style.
 Flexibly split, bind, reshape, modify, subset, and name arrays.
