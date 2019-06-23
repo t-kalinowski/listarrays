@@ -3,6 +3,7 @@
 S3method(t,array)
 export("dim2<-")
 export(DIM)
+export(DROP)
 export(array2)
 export(bind_as_cols)
 export(bind_as_dim)

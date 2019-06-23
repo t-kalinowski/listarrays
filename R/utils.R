@@ -17,7 +17,7 @@ ndim <- function(x) {
 
 
 
-#' DIM
+#' Helpers for working with 1-d arrays
 #'
 #' `DIM()` is to `dim()` as `NROW()` is to `nrow()`. That is, it is identical to
 #' `dim()` in most cases except if the input is a bare atomic vector with no
@@ -25,9 +25,43 @@ ndim <- function(x) {
 #' of `NULL`.
 #'
 #' @param x an array or atomic vector
+#' @rdname DIM
 #'
 #' @export
+#' @return For `DIM`, the `dim` attribute, or if that's not found, then `length(x)`
+#' @examples
+#' x <- 1:3
+#' dim(x)
+#' dim(array(x))
+#'
+#' DIM(x)
+#' DIM(array(x))
+#'
 DIM <- function(x) dim(x) %||% length(x)
+
+
+#' DROP
+#'
+#' `DROP` first calls `base::drop`, but and then completely removes the `dim`
+#' attribute if the result is a 1-d array
+#'
+#' @param an R vector, potentially with dim attributes
+#'
+#' @return For `DROP` an array with 2 or more axes, or a vector with no `dim`
+#'   attributes.
+#' @export
+#' @rdname DIM
+#'
+#' @examples
+#' x <- array(1:3)
+#' str(drop(x))
+#' str(DROP(x))
+DROP <- function(x) {
+  x <- drop(x)
+  if(identical(length(DIM(x)), 1L))
+    dim(x) <- NULL
+  x
+}
 
 
 `%||%` <- function (x, y) {

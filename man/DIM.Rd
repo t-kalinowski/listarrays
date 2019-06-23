@@ -2,16 +2,42 @@
 % Please edit documentation in R/utils.R
 \name{DIM}
 \alias{DIM}
-\title{DIM}
+\alias{DROP}
+\title{Helpers for working with 1-d arrays}
 \usage{
 DIM(x)
+
+DROP(x)
 }
 \arguments{
 \item{x}{an array or atomic vector}
+
+\item{an}{R vector, potentially with dim attributes}
+}
+\value{
+For \code{DIM}, the \code{dim} attribute, or if that's not found, then \code{length(x)}
+
+For \code{DROP} an array with 2 or more axes, or a vector with no \code{dim}
+attributes.
 }
 \description{
 \code{DIM()} is to \code{dim()} as \code{NROW()} is to \code{nrow()}. That is, it is identical to
 \code{dim()} in most cases except if the input is a bare atomic vector with no
 \code{dim} attribute, in which case, the length of the vector is returned instead
 of \code{NULL}.
+
+\code{DROP} first calls \code{base::drop}, but and then completely removes the \code{dim}
+attribute if the result is a 1-d array
+}
+\examples{
+x <- 1:3
+dim(x)
+dim(array(x))
+
+DIM(x)
+DIM(array(x))
+
+x <- array(1:3)
+str(drop(x))
+str(DROP(x))
 }
