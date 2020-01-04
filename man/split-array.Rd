@@ -4,9 +4,9 @@
 \alias{split_on_dim}
 \alias{split_on_rows}
 \alias{split_on_cols}
+\alias{split_along_dim}
 \alias{split_along_rows}
 \alias{split_along_cols}
-\alias{split_along_dim}
 \title{Split an array along a dimension}
 \usage{
 split_on_dim(
@@ -21,11 +21,11 @@ split_on_rows(X, f = rownames(X), drop = FALSE, depth = Inf)
 
 split_on_cols(X, f = rownames(X), drop = FALSE, depth = Inf)
 
-split_along_rows(X, drop = NULL, depth = Inf)
+split_along_dim(X, which_dim, depth = Inf)
 
-split_along_cols(X, drop = NULL, depth = Inf)
+split_along_rows(X, depth = Inf)
 
-split_along_dim(X, which_dim, drop = NULL, depth = Inf)
+split_along_cols(X, depth = Inf)
 }
 \arguments{
 \item{X}{an array, or list of arrays. An atomic vector without a dimension

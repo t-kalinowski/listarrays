@@ -6,7 +6,7 @@
 \alias{map_along_cols}
 \title{Apply a function across subsets along an array dimension}
 \usage{
-map_along_dim(X, .dim, .f, ..., .drop = NULL)
+map_along_dim(X, .dim, .f, ...)
 
 map_along_rows(X, .f, ..., .drop = NULL)
 

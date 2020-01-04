@@ -69,37 +69,12 @@ bind_as_dim <- function(list_of_arrays, which_dim) {
   if(is.negative(which_dim))
     which_dim <- which_dim + length(base_dim) + 2L
 
-  # padding_ones <- rep_len(1L, pmax(0, which_dim - length(base_dim) - 1L))
-  # new_dim <- c(base_dim, padding_ones)
-  # new_dim <- append(new_dim, length(list_of_arrays), after = which_dim - 1L)
-  #
-  # Xi <- extract_dim_chr_expr(var_to_subset = "X", idx_var_nm = "i",
-  #                            which_dim = which_dim, ndims = length(new_dim))
-  #
-  # args <- as.pairlist(alist( list_of_arrays = ))
-  # body <- parse1(sprintf("{
-  #   X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
-  #   for (i in seq_along(list_of_arrays))
-  #     %s <- list_of_arrays[[i]]
-  #   X
-  # }", Xi))
-  #
-  # bind_it <- eval(call("function", args, body))
-  #
-  # if(length(list_of_arrays) > 100)
-  #   bind_it <- cmpfun(bind_it)
-  #
-  # X <- bind_it(list_of_arrays)
-
   X <- simplify2array(list_of_arrays)
   rank <- length(base_dim)
   if (which_dim != rank + 1L) {
     perm <- append(seq_len(rank), rank + 1L, after = which_dim - 1L)
     X <- aperm(X, perm)
   }
-
-  # if(!is.null(names(list_of_arrays)))
-  #   dimnames(X)[[which_dim]] <- names(list_of_arrays)
 
   if(!is.null(new_axis_nm))
     names(dimnames(X))[which_dim] <- new_axis_nm
@@ -162,7 +137,6 @@ minimal_bind_on_env <-
 
 new_bind_on_fn <- function(extract_call) {
   BIND_ON_FN_TEMPLATE[[c(4L, 4L, 4L, 3L, 2L)]] <- extract_call
-
   as.function.default(BIND_ON_FN_TEMPLATE, envir = minimal_bind_on_env)
 }
 

@@ -155,17 +155,6 @@ split_on_cols <- function(X,
 
 
 
-#' @rdname split-array
-#' @export
-split_along_rows <- function(X, drop = NULL, depth = Inf)
-  split_along_dim(X, 1L, drop = drop, depth = depth)
-
-#' @rdname split-array
-#' @export
-split_along_cols <- function(X, drop = NULL, depth = Inf)
-  split_along_dim(X, -1L, drop = drop, depth = depth)
-
-
 
 minimal_split_along_fn_env <- as.environment(list(
   `<-` = `<-`,
@@ -212,17 +201,6 @@ SPLIT_ALONG_FN_TEMPLATE <- alist(X = , {
   out
 })
 
-# new_split_along_fn <- function() {
-#   TEMPLATE[[c(2L, 2L, 3L, 3L)]] <- 11L
-#   TEMPLATE[[c(2L, 3L, 3L, 2L)]] <- 11L
-#   TEMPLATE
-# }
-
-# fn2() way faster (10x)
-
-# bench::mark(
-#   fn1(), fn2()
-# ) %>% plot()
 
 new_split_along_fn <- function(extract_call, length_out) {
   SPLIT_ALONG_FN_TEMPLATE[[c(2L, 3L, 4L, 3L)]] <- extract_call
@@ -236,57 +214,37 @@ new_split_along_fn <- function(extract_call, length_out) {
 #' @rdname split-array
 #' @export
 #' @importFrom compiler cmpfun
-split_along_dim <- function(X, which_dim, drop = NULL, depth = Inf) {
+split_along_dim <- function(X, which_dim, depth = Inf) {
 
   # don't recurse on data.frame or other overloaded array-type classes
   if (is.list(X) && is.null(dim(X)) && depth > 0L)
     return(lapply(X, function(x)
-      split_along_dim(x, which_dim, drop = drop, depth = depth - 1L)))
+      split_along_dim(x, which_dim, depth = depth - 1L)))
 
-  which_dim <- standardize_which_dim(which_dim, X)
+  which_dim <- standardize_which_dim(which_dim, X, multiple_OK = TRUE)
+  if(ndim(X) == 1L)
+    X <- expand_dims(X)
+  X <- as.array(X)
 
-  if (identical(which_dim, 1L) && ndim(X) >= 3L && dim(X)[1L] >= 1e5L &&
-      any(dim(X)[-1L] != 1L) && is.array(X) && (is.null(drop)) || isTRUE(drop)) {
-    # subsetting on first index is OOM slower than on last index for large
-    # arrays due to F style (column major) ordering of arrays. aperm() has a
-    # very fast strided slice written in C, and for large arrays it makes sense
-    # to do this upfront. maybe this whole function will be rewritten in C and
-    # this workaround won't be necessary in the future
-    X <- aperm(X, c(2:length(dim(X)), 1L))
-    which_dim <- length(dim(X))
-  }
-
-  extract_cl <- extract_dim_expr(X, which_dim, idx_var_sym = quote(i),
-                                 drop = drop, var_to_subset = quote(X))
-
-  length_out <- DIM(X)[[which_dim]]
-  split_it <- new_split_along_fn(extract_cl, length_out)
-
-
-  if(length_out > 100)
-    split_it <- cmpfun(split_it)
-
-  out <- split_it(X)
-  names(out) <- dimnames(X)[[which_dim]]
-  out
+  X <- asplit(as.array(X), which_dim)
+  X
 }
 
-# if(FALSE) {
-#   x <- matrix(1:12, nrow = 3)
-#   fn <- new_split_along_fn(quote(X[i, ]))
-#   fn(x, 3)
-# }
 
-# fn <- function(x) {
-#   l <- vector("list", length(x))
-#   for(i in seq_along(x))
-#     l[[i]] <- x[i,,]
-#   l
-# }
-#
-# as.function
-#
-#
-# body(fn)[[1]]
-#
-# as.stepfun()
+
+#' @rdname split-array
+#' @export
+split_along_rows <- function(X, depth = Inf)
+  split_along_dim(X, 1L, depth = depth)
+
+#' @rdname split-array
+#' @export
+split_along_cols <- function(X, depth = Inf)
+  split_along_dim(X, -1L, depth = depth)
+
+
+# TODO:
+as_listarray <- function() {}
+unlist.listarray <- function() {}
+
+

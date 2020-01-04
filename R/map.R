@@ -40,7 +40,7 @@
 #' identical(
 #'   map_along_cols(X, identity),
 #'   map_along_dim(X, -1, identity)) # TRUE
-map_along_dim <- function(X, .dim, .f, ..., .drop = NULL) {
+map_along_dim <- function(X, .dim, .f, ...) {
   stopifnot(is.array(X))
   if (requireNamespace("rlang", quietly = TRUE)) {
     .f <- rlang::as_function(.f)
@@ -50,7 +50,7 @@ map_along_dim <- function(X, .dim, .f, ..., .drop = NULL) {
            "package rlang to be available")
     .f <- match.fun(.f)
   }
-  lapply( split_along_dim(X, .dim, drop = .drop), .f, ...)
+  lapply(split_along_dim(X, .dim), .f, ...)
 }
 
 #' @export
