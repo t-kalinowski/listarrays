@@ -8,9 +8,9 @@
 \usage{
 map_along_dim(X, .dim, .f, ...)
 
-map_along_rows(X, .f, ..., .drop = NULL)
+map_along_rows(X, .f, ...)
 
-map_along_cols(X, .f, ..., .drop = NULL)
+map_along_cols(X, .f, ...)
 }
 \arguments{
 \item{X}{an R array}
@@ -26,8 +26,6 @@ and accepts all the same inputs. Valid inputs include
 \item{.f}{A function, string of a function name, or \code{purrr} style compact lambda syntax (e.g, \code{~.x + 1})}
 
 \item{...}{passed on to \code{.f()}}
-
-\item{.drop}{passed on to \code{[} when subsetting the array.}
 }
 \value{
 An R list

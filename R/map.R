@@ -21,7 +21,6 @@
 #'  *   character vector (corresponding to array dimnames)
 #' @param .f A function, string of a function name, or `purrr` style compact lambda syntax (e.g, `~.x + 1`)
 #' @param ... passed on to `.f()`
-#' @param .drop passed on to `[` when subsetting the array.
 #'
 #' @return An R list
 #' @export
@@ -55,13 +54,13 @@ map_along_dim <- function(X, .dim, .f, ...) {
 
 #' @export
 #' @rdname map_along_dim
-map_along_rows <- function(X, .f, ..., .drop = NULL)
-  map_along_dim(X, 1L, .f, ..., .drop = .drop)
+map_along_rows <- function(X, .f, ...)
+  map_along_dim(X, 1L, .f, ...)
 
 #' @export
 #' @rdname map_along_dim
-map_along_cols <- function(X, .f, ..., .drop = NULL)
-  map_along_dim(X, -1L, .f, ..., .drop = .drop)
+map_along_cols <- function(X, .f, ...)
+  map_along_dim(X, -1L, .f, ...)
 
 
 
