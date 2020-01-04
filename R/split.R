@@ -226,6 +226,7 @@ split_along_dim <- function(X, which_dim, depth = Inf) {
     X <- expand_dims(X)
   X <- as.array(X)
 
+  # TODO: consider adding support for `drop = TRUE` old behavior
   X <- asplit(as.array(X), which_dim)
   X
 }
