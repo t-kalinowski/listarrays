@@ -4,23 +4,28 @@
 \alias{split_on_dim}
 \alias{split_on_rows}
 \alias{split_on_cols}
-\alias{split_along_dim}
 \alias{split_along_rows}
 \alias{split_along_cols}
+\alias{split_along_dim}
 \title{Split an array along a dimension}
 \usage{
-split_on_dim(X, which_dim, f = dimnames(X)[[which_dim]], drop = FALSE,
-  depth = Inf)
+split_on_dim(
+  X,
+  which_dim,
+  f = dimnames(X)[[which_dim]],
+  drop = FALSE,
+  depth = Inf
+)
 
 split_on_rows(X, f = rownames(X), drop = FALSE, depth = Inf)
 
 split_on_cols(X, f = rownames(X), drop = FALSE, depth = Inf)
 
-split_along_dim(X, which_dim, drop = NULL, depth = Inf)
-
 split_along_rows(X, drop = NULL, depth = Inf)
 
 split_along_cols(X, drop = NULL, depth = Inf)
+
+split_along_dim(X, which_dim, drop = NULL, depth = Inf)
 }
 \arguments{
 \item{X}{an array, or list of arrays. An atomic vector without a dimension
@@ -46,14 +51,14 @@ dimension being split.}
 
 \item{a numeric vector where \code{all(f<0)}}{specifies the relative size
 proportions of the groups being split. \code{sum(f)} must be \code{1}. For
-example \code{c(0.2, 0.2, 0.6)} will return approximately a 20\%-20\%-60\%
+example \code{c(0.2, 0.2, 0.6)} will return approximately a 20\\%-20\\%-60\\%
 split.} }}
 
 \item{drop}{passed on to \code{[}.}
 
 \item{depth}{Scalar number, how many levels to recurse down. Set this if you
 want to explicitly treat a list as a vector (that is, a one-dimensional
-array). (You can alternatively set dim attributes with \code{dim<-} on the list
+array). (You can alternatively set dim attributes with \verb{dim<-} on the list
 to prevent recursion)
 
 \code{split_along_dim(X, which_dim)} is equivalent to \code{split_on_dim(X, which_dim, seq_along_dim(X, which_dim))}.}

@@ -17,7 +17,7 @@ set_dimnames(x, nm, which_dim = NULL)
 x, with modified dimnames and or axisnames
 }
 \description{
-A more flexible and pipe-friendly version of \code{dimnames<-}.
+A more flexible and pipe-friendly version of \verb{dimnames<-}.
 }
 \details{
 This function is quite flexible. See examples for the complete

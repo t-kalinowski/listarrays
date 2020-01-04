@@ -74,3 +74,11 @@ modify_along_rows <- function(X, .f, ...)
 #' @rdname modify_along_dim
 modify_along_cols <- function(X, .f, ...)
   modify_along_dim(X, -1L, .f, ...)
+
+MODIFY_ALONG_FN_TEMPLATE <- alist(X = , .f = , ... = , {
+  oX <- X
+  storage.mode(X) <- "logical"
+  for (idx1 in .seq_along_dim(X, 3))
+    X[, , idx1] <- .f(oX[, , idx1], ...)
+  X
+})

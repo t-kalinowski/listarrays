@@ -37,15 +37,15 @@ list}
 An array, with one additional dimension.
 }
 \description{
-\code{bind_as_*} introduces a new dimension, such that each element in
+\verb{bind_as_*} introduces a new dimension, such that each element in
 \code{list_of_arrays} corresponds to one index position along the new dimension in
-the returned array. \code{bind_on_*} binds all elements along an existing
+the returned array. \verb{bind_on_*} binds all elements along an existing
 dimension, (meaning, the returned array has the same number of dimensions as
 each of the arrays in the list).
 }
 \details{
-\code{bind_*_rows()} is a wrapper for the common case of \code{bind_*_dim(X, 1)}.
-\code{bind_*_cols()} is a wrapper for the common case of \code{bind_*_dim(X, -1)}.
+\verb{bind_*_rows()} is a wrapper for the common case of \verb{bind_*_dim(X, 1)}.
+\verb{bind_*_cols()} is a wrapper for the common case of \verb{bind_*_dim(X, -1)}.
 }
 \examples{
 list_of_arrays <- replicate(10, array(1:8, dim = c(2,3,4)), FALSE)

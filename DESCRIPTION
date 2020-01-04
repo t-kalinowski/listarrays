@@ -1,7 +1,7 @@
 Package: listarrays
 Type: Package
 Title: A Toolbox for Working with R Arrays in a Functional Programming Style
-Version: 0.2.0.9000
+Version: 0.2.0.9001
 Authors@R: person("Tomasz", "Kalinowski", email = "kalinowskit@gmail.com", 
     role = c("aut", "cre"))
 Description: A toolbox for R arrays. Flexibly split, bind, reshape, modify, 
@@ -12,7 +12,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 Suggests:
     testthat, magrittr, zeallot, rlang, tibble, purrr

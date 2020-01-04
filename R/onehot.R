@@ -1,4 +1,3 @@
-
 #' Convert vector to a onehot representation (binary class matrix)
 #'
 #' @param y character, factor, or numeric vector

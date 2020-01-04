@@ -127,6 +127,45 @@ bind_as_cols <- function(...) {
 
 
 
+
+
+
+BIND_ON_FN_TEMPLATE <-
+  alist(list_of_arrays = ,  n_entries_per_array = , new_dim = , {
+    X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
+    start <- 1L
+    for (i in seq_along(list_of_arrays)) {
+      end <- start + n_entries_per_array[[i]] - 1L
+      EXTRACT_CALL <- list_of_arrays[[i]]
+      start <- end + 1L
+    }
+    X
+  })
+
+minimal_bind_on_env <-
+  as.environment(mget(
+    c(
+      "array",
+      "vector",
+      "typeof",
+      "seq_along",
+      "<-",
+      "+",
+      "-",
+      "[[",
+      "[<-",
+      ":", "{", "for"
+    ),
+    envir = baseenv()
+  ))
+
+
+new_bind_on_fn <- function(extract_call) {
+  BIND_ON_FN_TEMPLATE[[c(4L, 4L, 4L, 3L, 2L)]] <- extract_call
+
+  as.function.default(BIND_ON_FN_TEMPLATE, envir = minimal_bind_on_env)
+}
+
 #' @rdname bind-arrays
 #' @export
 bind_on_dim <- function(list_of_arrays, which_dim) {
@@ -146,7 +185,8 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
       all_axis_names[[1]]
     }, n_dim = n_dim)
 
-  base_dim <- unique(lapply(all_dims, function(d) d[-which_dim]))
+  base_dim <- unique(lapply(all_dims, function(d)
+    d[-which_dim]))
   stopifnot(identical(length(base_dim), 1L))
   base_dim <- base_dim[[1]]
 
@@ -155,34 +195,20 @@ bind_on_dim <- function(list_of_arrays, which_dim) {
   new_dim <- all_dims[[1]]
   new_dim[which_dim] <- sum(n_entries_per_array)
 
-  X_start_to_end <- extract_dim_chr_expr(
-    var_to_subset = "X", idx_var_nm = "start:end",
+  X_start_to_end <- extract_dim_expr(
+    var_to_subset = quote(X), idx_var_sym = quote(start:end),
     which_dim = which_dim, ndims = length(new_dim))
 
-  args <- as.pairlist(alist(
-    list_of_arrays =,  n_entries_per_array = ))
-
-  body <- parse1(sprintf("{
-    X <- array(vector(typeof(list_of_arrays[[1L]])), dim = new_dim)
-    start <- 1L
-    for (i in seq_along(list_of_arrays)) {
-      end <- start + n_entries_per_array[[i]] - 1L
-      %s <- list_of_arrays[[i]]
-      start <- end + 1L
-    }
-    X
-  }", X_start_to_end))
-
-  bind_it <- eval(call("function", args, body))
+  bind_it <- new_bind_on_fn(X_start_to_end)
 
   if(length(list_of_arrays) > 100)
     bind_it <- cmpfun(bind_it)
 
-  X <- bind_it(list_of_arrays, n_entries_per_array)
+  X <- bind_it(list_of_arrays, n_entries_per_array, new_dim)
 
   if (!is.null(names(list_of_arrays)))
     dimnames(X)[[which_dim]] <-
-      rep(names(list_of_arrays), times = n_entries_per_array)
+    rep(names(list_of_arrays), times = n_entries_per_array)
 
   X
 }

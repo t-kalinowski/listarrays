@@ -4,8 +4,13 @@
 \alias{set_dim}
 \title{Reshape an array}
 \usage{
-set_dim(x, new_dim, pad = getOption("listarrays.autopad_arrays_with",
-  NULL), order = c("F", "C"), verbose = getOption("verbose"))
+set_dim(
+  x,
+  new_dim,
+  pad = getOption("listarrays.autopad_arrays_with", NULL),
+  order = c("F", "C"),
+  verbose = getOption("verbose")
+)
 }
 \arguments{
 \item{x}{A vector or array to set dimensions on}
@@ -17,7 +22,7 @@ padding.}
 
 \item{order}{whether to use row-major (C) or column major (F) style
 semantics. The default, "F", corresponds to the default behavior of R's
-\code{dim<-()}, while "C" corresponds to the default behavior of
+\verb{dim<-()}, while "C" corresponds to the default behavior of
 \code{reticulate::array_reshape()}, numpy, reshaping semantics commonly
 encountered in the python world.}
 
@@ -27,7 +32,7 @@ encountered in the python world.}
 Object with dimensions set
 }
 \description{
-Pipe friendly \code{dim<-()}, with option to pad to necessary length. Also allows
+Pipe friendly \verb{dim<-()}, with option to pad to necessary length. Also allows
 for filling the array using C style row-major semantics.
 }
 \examples{

@@ -11,8 +11,11 @@ onehot_with_decoder(y, order = NULL, named = TRUE)
 
 onehot(y, order = NULL, named = TRUE)
 
-decode_onehot(Y, classes = colnames(Y), n_classes = ncol(Y) \%||\%
-  length(classes))
+decode_onehot(
+  Y,
+  classes = colnames(Y),
+  n_classes = ncol(Y) \%||\% length(classes)
+)
 
 onehot_decoder(Y, classes = colnames(Y), n_classes = length(classes))
 }
