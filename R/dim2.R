@@ -1,4 +1,3 @@
-
 #' Make or reshape an array with C-style (row-major) semantics
 #'
 #' These functions reshape or make an array using C-style, row-major semantics.

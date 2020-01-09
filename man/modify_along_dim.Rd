@@ -31,7 +31,7 @@ was passed in.
 \description{
 This function can be thought of as a version of \code{base::apply()} that is
 guaranteed to return a object of the same dimensions as it was input. It also
-generally preserves attributes, as it's built on top of \code{[<-}.
+generally preserves attributes, as it's built on top of \verb{[<-}.
 }
 \examples{
 x <- array(1:6, 1:3)

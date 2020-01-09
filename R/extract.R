@@ -38,8 +38,7 @@ extract_dim <- function(X, which_dim, idx, drop = NULL, depth = Inf) {
     return(lapply(X, function(x)
       extract_dim(x, which_dim, idx, drop = drop, depth = depth - 1L)))
 
-  expr <- extract_dim_chr_expr(X, which_dim, idx_var_nm = "idx", drop = drop)
-  expr <- parse(text = expr, keep.source = FALSE)[[1]]
+  expr <- extract_dim_expr(X, which_dim, idx_var_sym = quote(idx), drop = drop)
   eval(expr)
 }
 
@@ -78,3 +77,41 @@ extract_dim_chr_expr <-
     args <- paste0(args, collapse = ",")
     sprintf("%s[%s]", var_to_subset, args)
   }
+
+
+extract_dim_expr <-
+  function(X,
+           which_dim,
+           drop = NULL,
+           ndims = ndim(X),
+           idx_var_sym = names(which_dim) %||%
+             paste0("idx", if (length(which_dim) > 1L)
+               seq_along(which_dim)),
+           var_to_subset = substitute(X)) {
+    args <- rep(list(quote(expr =)), ndims)
+    args[[which_dim]] <- idx_var_sym
+    if(!is.null(drop))
+      args$drop <- drop
+    as.call(c(quote(`[`), var_to_subset, args))
+
+  }
+
+
+
+#
+# extract_call <-
+#   function(X,
+#            which_dim,
+#            drop = NULL,
+#            ndims = ndim(X),
+#            idx_var_sym = names(which_dim) %||%
+#              paste0("idx", if (length(which_dim) > 1L)
+#                seq_along(which_dim)),
+#            var_to_subset = substitute(X)) {
+#     args <- rep(list(quote(expr =)), ndims)
+#     args[[which_dim]] <- idx_var_sym
+#     if(!is.null(drop))
+#       args$drop <- drop
+#     as.call(c(quote(`[`), var_to_subset, args))
+#
+#   }

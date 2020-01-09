@@ -8,11 +8,13 @@
 
 <title>Split an array along a dimension — split_on_dim • listarrays</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -34,10 +36,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Split an array along a dimension — split_on_dim" />
 
+<meta property="og:title" content="Split an array along a dimension — split_on_dim" />
 <meta property="og:description" content="Split an array along a dimension" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -68,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">listarrays</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -84,7 +87,6 @@
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/t-kalinowski/listarrays">
@@ -111,24 +113,27 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Split an array along a dimension</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>split_on_dim</span>(<span class='no'>X</span>, <span class='no'>which_dim</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>X</span>)<span class='kw'>[[</span><span class='no'>which_dim</span>]], <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+    <pre class="usage"><span class='fu'>split_on_dim</span>(
+  <span class='no'>X</span>,
+  <span class='no'>which_dim</span>,
+  <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>X</span>)<span class='kw'>[[</span><span class='no'>which_dim</span>]],
+  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
+)
 
 <span class='fu'>split_on_rows</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
 <span class='fu'>split_on_cols</span>(<span class='no'>X</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>X</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_along_dim</span>(<span class='no'>X</span>, <span class='no'>which_dim</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+<span class='fu'>split_along_dim</span>(<span class='no'>X</span>, <span class='no'>which_dim</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_along_rows</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+<span class='fu'>split_along_rows</span>(<span class='no'>X</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
-<span class='fu'>split_along_cols</span>(<span class='no'>X</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
-    
+<span class='fu'>split_along_cols</span>(<span class='no'>X</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -161,8 +166,9 @@ dimension being split.</p></dd>
 
 <dt>a numeric vector where <code>all(f&lt;0)</code></dt><dd><p>specifies the relative size
 proportions of the groups being split. <code><a href='https://rdrr.io/r/base/sum.html'>sum(f)</a></code> must be <code>1</code>. For
-example <code><a href='https://rdrr.io/r/base/c.html'>c(0.2, 0.2, 0.6)</a></code> will return approximately a 20%-20%-60%
-split.</p></dd> </dl></td>
+example <code><a href='https://rdrr.io/r/base/c.html'>c(0.2, 0.2, 0.6)</a></code> will return approximately a 20\<!-- %-20\\%-60\\% -->
+split.</p></dd> 
+</dl></td>
     </tr>
     <tr>
       <th>drop</th>
@@ -177,12 +183,11 @@ to prevent recursion)</p>
 <p><code>split_along_dim(X, which_dim)</code> is equivalent to <code>split_on_dim(X, which_dim, seq_along_dim(X, which_dim))</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list of arrays, or if a list of arrays was passed in, then a list
 of lists of arrays.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fl'>1</span>:<span class='fl'>8</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>))
@@ -280,14 +285,14 @@ of lists of arrays.</p>
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>3</span>, <span class='fl'>3</span>)
 <span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/prod.html'>prod</a></span>(<span class='no'>d</span>), <span class='no'>d</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>10</span>]
-<span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'>onehot</span>(<span class='no'>y</span>)
+<span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='onehot.html'>onehot</a></span>(<span class='no'>y</span>)
 
 <span class='co'># specify `f`` as relative partition sizes</span>
 <span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>zeallot</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>magrittr</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>purrr</span>)) {
 
 <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>train</span>, <span class='no'>validate</span>, <span class='no'>test</span>) <span class='kw'>%&lt;-%</span> {
   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>X</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Y</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>shuffle_rows</span>() <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='shuffle_rows.html'>shuffle_rows</a></span>() <span class='kw'>%&gt;%</span>
     <span class='fu'>split_on_rows</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.6</span>, <span class='fl'>0.2</span>, <span class='fl'>0.2</span>)) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://purrr.tidyverse.org/reference/transpose.html'>transpose</a></span>()
 }
@@ -296,15 +301,10 @@ of lists of arrays.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>train</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>validate</span>)
 
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘magrittr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    equals, is_less_than, not</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: purrr</span></div><div class='output co'>#&gt; <span class='message'></span>
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: purrr</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘purrr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:magrittr’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    set_names</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    is_null</span></div><div class='output co'>#&gt; List of 3
+#&gt; <span class='message'>    set_names</span></div><div class='output co'>#&gt; List of 3
 #&gt;  $ X: int [1:2, 1:3, 1:3] 1 10 11 20 21 30 31 40 41 50 ...
 #&gt;  $ Y: num [1:2, 1:10] 1 0 0 0 0 0 0 0 0 0 ...
 #&gt;   ..- attr(*, "dimnames")=List of 2
@@ -346,9 +346,7 @@ of lists of arrays.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -362,7 +360,7 @@ of lists of arrays.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

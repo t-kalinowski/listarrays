@@ -52,7 +52,7 @@ The package provides:
     
 *  A handful of lower-level helpers that abstract out patterns commonly
    encountered while working with arrays, for example `expand_dims()` 
-   (the inverse of `base::drop()`, or seq_along_rows()` (a
+   (the inverse of `base::drop()`, or `seq_along_rows()` (a
    combination of `seq_along()` and `nrow()`).
 
 *  A set of functions that help encode atomic vectors as `onehot()` binary

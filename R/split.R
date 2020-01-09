@@ -92,7 +92,7 @@ split_on_dim <- function(X, which_dim,
   else if (is.numeric(f) && all(f < 1)) {
     stopifnot(sum(f) == 1)
     f <- cut(id, c(0, cumsum(f) * length(id)),
-          labels = names(f) %||% paste0("grp", seq_along(f)))
+             labels = names(f) %||% paste0("grp", seq_along(f)))
   }
 
   if (!identical(length(id), length(f)))
@@ -100,26 +100,41 @@ split_on_dim <- function(X, which_dim,
 
   l <- split(id, f)
 
-  extract_expr <- extract_dim_chr_expr(X, which_dim, idx_var_nm = "l[[i]]", drop = drop)
-
-  args <-  as.pairlist(alist(X = , l = ))
-  body <-  parse1(sprintf("{
-      out <- vector('list', length(l))
-      for (i in seq_along(l))
-        out[[i]] <- %s
-      out
-    }", extract_expr))
-
-  split_it <- eval(call("function", args, body))
+  extract_call <- extract_dim_expr(X, which_dim,
+                                   idx_var_sym = quote(l[[i]]), drop = drop)
+  split_it <- new_split_on_fn(extract_call)
 
   if(length(l) > 5000)
     split_it <- cmpfun(split_it)
 
   out <- split_it(X, l)
 
-  names(out) <- names(l)
+  # names(out) <- names(l)
   out
 }
+
+SPLIT_ON_FN_TEMPLATE <- alist(X = , l = , {
+  out <- vector("list", length(l))
+  for (i in seq_along(l))
+    out[[i]] <- EXTRACT_EXPR
+  out
+})
+new_split_on_fn <- function(extract_expr) {
+  SPLIT_ON_FN_TEMPLATE[[c(3, 3, 4, 3)]] <- extract_expr
+}
+
+SPLIT_ON_FN_TEMPLATE <- alist(X = , l = , {
+  for (i in seq_along(l))
+    l[[i]] <- EXTRACT_EXPR
+  l
+})
+
+new_split_on_fn <- function(extract_expr) {
+  SPLIT_ON_FN_TEMPLATE[[c(3, 2, 4, 3)]] <- extract_expr
+  as.function.default(SPLIT_ON_FN_TEMPLATE, envir = minimal_split_along_fn_env)
+}
+
+
 
 #' @rdname split-array
 #' @export
@@ -137,60 +152,100 @@ split_on_cols <- function(X,
 
 
 
+
+
+
+
+minimal_split_along_fn_env <- as.environment(list(
+  `<-` = `<-`,
+  `{` = `{`,
+  `[` = `[`,
+  `[[<-` = `[[<-`,
+  `[[` = `[[`,
+  vector = vector,
+  `for` = `for`,
+  seq_len = seq_len,
+  seq_along = seq_along
+))
+
+
+SPLIT_ALONG_FN_TEMPLATE <-
+  alist(X = , length_out = , {
+    out <- vector('list', length_out)
+    for (i in seq_len(length_out))
+      out[[i]] <-  EXTRACT_CALL
+    out
+  })
+
+SPLIT_ALONG_FN_TEMPLATE <-
+  alist(X = , length_out = , {
+    out <- vector('list', LENGTH_OUT)
+    for (i in seq_len(LENGTH_OUT))
+      out[[i]] <-  EXTRACT_CALL
+    out
+  })
+
+fn1 <- function() {
+  eval(substitute(alist(X = , {
+    out <- vector('list', LENGTH_OUT)
+    for (i in seq_len(LENGTH_OUT))
+      out[[i]] <-  EXTRACT_CALL
+    out
+  }), list(LENGTH_OUT = 11L)))
+}
+
+SPLIT_ALONG_FN_TEMPLATE <- alist(X = , {
+  out <- vector('list', LENGTH_OUT)
+  for (i in seq_len(LENGTH_OUT))
+    out[[i]] <-  EXTRACT_CALL
+  out
+})
+
+
+new_split_along_fn <- function(extract_call, length_out) {
+  SPLIT_ALONG_FN_TEMPLATE[[c(2L, 3L, 4L, 3L)]] <- extract_call
+  SPLIT_ALONG_FN_TEMPLATE[[c(2L, 2L, 3L, 3L)]] <- length_out
+  SPLIT_ALONG_FN_TEMPLATE[[c(2L, 3L, 3L, 2L)]] <- length_out
+
+  as.function.default(SPLIT_ALONG_FN_TEMPLATE,
+                      envir = minimal_split_along_fn_env)
+}
+
 #' @rdname split-array
 #' @export
 #' @importFrom compiler cmpfun
-split_along_dim <- function(X, which_dim, drop = NULL, depth = Inf) {
+split_along_dim <- function(X, which_dim, depth = Inf) {
 
   # don't recurse on data.frame or other overloaded array-type classes
   if (is.list(X) && is.null(dim(X)) && depth > 0L)
     return(lapply(X, function(x)
-      split_along_dim(x, which_dim, drop = drop, depth = depth - 1L)))
+      split_along_dim(x, which_dim, depth = depth - 1L)))
 
-  which_dim <- standardize_which_dim(which_dim, X)
+  which_dim <- standardize_which_dim(which_dim, X, multiple_OK = TRUE)
+  if(ndim(X) == 1L)
+    X <- expand_dims(X)
+  X <- as.array(X)
 
-  if (identical(which_dim, 1L) && ndim(X) >= 3L && dim(X)[1L] >= 1e5L &&
-      any(dim(X)[-1L] != 1L) && is.array(X) && (is.null(drop)) || isTRUE(drop)) {
-    # subsetting on first index is OOM slower than on last index for large
-    # arrays due to F style (column major) ordering of arrays. aperm() has a
-    # very fast strided slice written in C, and for large arrays it makes sense
-    # to do this upfront. maybe this whole function will be rewritten in C and
-    # this workaround won't be necessary in the future
-    X <- aperm(X, c(2:length(dim(X)), 1L))
-    which_dim <- length(dim(X))
-  }
-
-  extract <- extract_dim_chr_expr(X, which_dim, idx_var_nm = "i",
-                               drop = drop, var_to_subset = "X")
-
-  length_out <-  DIM(X)[[which_dim]]
-
-  args <-  as.pairlist(alist(X = , length_out = ))
-  body <- parse1(sprintf("{
-      out <- vector('list', length_out)
-      for (i in seq_len(length_out))
-        out[[i]] <- %s
-      out
-   }", extract))
-
-  split_it <- eval(call("function", args, body))
-
-  if(length_out > 500)
-    split_it <- cmpfun(split_it)
-
-  out <- split_it(X, length_out)
-  names(out) <- dimnames(X)[[which_dim]]
-  out
+  # TODO: consider adding support for `drop = TRUE` old behavior
+  X <- asplit(as.array(X), which_dim)
+  X
 }
 
 
-#' @rdname split-array
-#' @export
-split_along_rows <- function(X, drop = NULL, depth = Inf)
-  split_along_dim(X, 1L, drop = drop, depth = depth)
 
 #' @rdname split-array
 #' @export
-split_along_cols <- function(X, drop = NULL, depth = Inf)
-  split_along_dim(X, -1L, drop = drop, depth = depth)
+split_along_rows <- function(X, depth = Inf)
+  split_along_dim(X, 1L, depth = depth)
+
+#' @rdname split-array
+#' @export
+split_along_cols <- function(X, depth = Inf)
+  split_along_dim(X, -1L, depth = depth)
+
+
+# TODO:
+as_listarray <- function() {}
+unlist.listarray <- function() {}
+
 

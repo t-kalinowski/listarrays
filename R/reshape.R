@@ -1,4 +1,3 @@
-
 #' Reshape an array to send a dimension forward or back
 #'
 #' @param X an array

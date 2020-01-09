@@ -8,11 +8,13 @@
 
 <title>Apply a function across subsets along an array dimension — map_along_dim • listarrays</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -34,16 +36,18 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Apply a function across subsets along an array dimension — map_along_dim" />
 
+<meta property="og:title" content="Apply a function across subsets along an array dimension — map_along_dim" />
 <meta property="og:description" content="map_along_dim(X, dim, func) is a simple wrapper around split_along_dim(X, dim) %&amp;gt;% map(func). It is conceptually and functionally equivalent to
 base::apply(), with the following key differences:
 it is guaranteed to return a list (base::apply() attempts to simplify the
 output to an array, sometimes unsuccessfully, making the output unstable)
 it accepts the compact lambda notation ~.x just like in purrr::map
 (and modify_along_dim())
+
 " />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -74,7 +78,7 @@ it accepts the compact lambda notation ~.x just like in purrr::map
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">listarrays</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -90,7 +94,6 @@ it accepts the compact lambda notation ~.x just like in purrr::map
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/t-kalinowski/listarrays">
@@ -117,23 +120,22 @@ it accepts the compact lambda notation ~.x just like in purrr::map
     </div>
 
     <div class="ref-description">
-    
     <p><code>map_along_dim(X, dim, func)</code> is a simple wrapper around <code>split_along_dim(X, dim) %&gt;% map(func)</code>. It is conceptually and functionally equivalent to
 <code><a href='https://rdrr.io/r/base/apply.html'>base::apply()</a></code>, with the following key differences:</p><ul>
 <li><p>it is guaranteed to return a list (<code><a href='https://rdrr.io/r/base/apply.html'>base::apply()</a></code> attempts to simplify the
 output to an array, sometimes unsuccessfully, making the output unstable)</p></li>
 <li><p>it accepts the compact lambda notation <code>~.x</code> just like in <code><a href='https://purrr.tidyverse.org/reference/map.html'>purrr::map</a></code>
-(and <code>modify_along_dim()</code>)</p></li>
+(and <code><a href='modify_along_dim.html'>modify_along_dim()</a></code>)</p></li>
 </ul>
-    
+
     </div>
 
-    <pre class="usage"><span class='fu'>map_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>map_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
 
 <span class='fu'>map_along_rows</span>(<span class='no'>X</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>map_along_cols</span>(<span class='no'>X</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -143,7 +145,7 @@ output to an array, sometimes unsuccessfully, making the output unstable)</p></l
     </tr>
     <tr>
       <th>.dim</th>
-      <td><p>which dimension to map along. Passed on to <code>split_along_dim()</code>,
+      <td><p>which dimension to map along. Passed on to <code><a href='split-array.html'>split_along_dim()</a></code>,
 and accepts all the same inputs. Valid inputs include</p><ul>
 <li><p>positive integers (index position(s) of dimension),</p></li>
 <li><p>negative integers (index positions(s) of dimensions, counting from the back), or</p></li>
@@ -163,14 +165,13 @@ and accepts all the same inputs. Valid inputs include</p><ul>
       <td><p>passed on to <code>[</code> when subsetting the array.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An R list</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix2</span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>15</span>], <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+    <pre class="examples"><div class='input'><span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='array2.html'>matrix2</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>15</span>], <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>X</span>, <span class='fl'>1</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>x</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='st'>""</span>))   <span class='co'># simplifies to a vector</span></div><div class='output co'>#&gt; [1] "abc" "def" "ghi" "jkl" "mno"</div><div class='input'><span class='fu'>map_along_dim</span>(<span class='no'>X</span>, <span class='fl'>1</span>, ~<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>.x</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='st'>""</span>))     <span class='co'># returns a list</span></div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "abc"
@@ -189,18 +190,16 @@ and accepts all the same inputs. Valid inputs include</p><ul>
 #&gt; </div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(
   <span class='fu'>map_along_rows</span>(<span class='no'>X</span>, <span class='no'>identity</span>),
-  <span class='fu'>map_along_dim</span>(<span class='no'>X</span>, <span class='fl'>1</span>, <span class='no'>identity</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+  <span class='fu'>map_along_dim</span>(<span class='no'>X</span>, <span class='fl'>1</span>, <span class='no'>identity</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; <span class='error'>Error in FUN(X[[i]], ...): unused argument (.drop = .drop)</span></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(
   <span class='fu'>map_along_cols</span>(<span class='no'>X</span>, <span class='no'>identity</span>),
-  <span class='fu'>map_along_dim</span>(<span class='no'>X</span>, -<span class='fl'>1</span>, <span class='no'>identity</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
+  <span class='fu'>map_along_dim</span>(<span class='no'>X</span>, -<span class='fl'>1</span>, <span class='no'>identity</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; <span class='error'>Error in FUN(X[[i]], ...): unused argument (.drop = .drop)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -214,7 +213,7 @@ and accepts all the same inputs. Valid inputs include</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

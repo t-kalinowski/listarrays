@@ -21,7 +21,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">listarrays</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -67,12 +67,7 @@
       
 
       </header><div class="row">
-  <div class="col-md-9 contents">
-    
-
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+  <div class="contents col-md-9">
 <div id="listarrays" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#listarrays" class="anchor"></a>listarrays</h1></div>
@@ -80,25 +75,25 @@
 <p>A toolbox for working with R arrays in a functional programming style. Flexibly split, bind, reshape, modify, subset, and name arrays.</p>
 <p>The package provides:</p>
 <ul>
-<li><p><code>split_on_dim()</code> and <code>split_along_dim()</code> which take an array and return a list.</p></li>
-<li><p><code>bind_on_dim()</code> and <code>bind_as_dim()</code> take a list and return an array.</p></li>
-<li><p><code>modify_along_dim()</code> takes an array, calls the passed function <code>.f()</code> on each subset of the specified dimension, and returns an array of the same shape. (think of this as a safer and sometimes faster alternative to <code><a href="https://rdrr.io/r/base/apply.html">base::apply()</a></code> that is guaranteed to return an array of the same shape as it received)</p></li>
-<li><p><code>extract_dim()</code> a wrapper around <code>[</code> that allows you to specify the dimension being subset as a function argument. For example, <code>extract_dim(X, 1, idx)</code> will extract <code>idx</code> on the first dimension, regardless how many dimensions are in the array <code>X</code>. Contrast this with the base alternative <code>X[idx,,]</code>, where you have to match the number of commas <code>,</code> to the number of dimensions in <code>X</code>.</p></li>
-<li><p>Many of the functions have two variants <code>*_rows()</code> and <code>*_cols()</code> for the two most common case of the first and last dimension. For example <code>split_on_rows()</code> which is equivalent to <code>split_on_dim(X, 1)</code> and <code>split_on_cols()</code> which is equivalent to <code>split_on_dim(X, -1)</code></p></li>
-<li><p><code>set_dim()</code> and <code>set_dimnames()</code>, pipe-friendly and more flexible versions of <code>dim&lt;-</code> and <code>dimnames&lt;-</code></p></li>
-<li><p><code>dim2()&lt;-</code>, <code>set_dim2()</code>, <code>array2()</code>, which reshape or fills arrays using row-major (C-style) semantics</p></li>
-<li><p><code>t.array()</code> a transpose method for multi-dimensional arrays</p></li>
-<li><p>A handful of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example <code>expand_dims()</code> (the inverse of <code><a href="https://rdrr.io/r/base/drop.html">base::drop()</a></code>, or seq_along_rows()<code>(a combination of</code>seq_along()<code>and</code>nrow()`).</p></li>
-<li><p>A set of functions that help encode atomic vectors as <code>onehot()</code> binary matrix’s and <code>decode_onehot()</code> back into atomic vectors. (for example if training a neural network with keras)</p></li>
+<li><p><code><a href="reference/split-array.html">split_on_dim()</a></code> and <code><a href="reference/split-array.html">split_along_dim()</a></code> which take an array and return a list.</p></li>
+<li><p><code><a href="reference/bind-arrays.html">bind_on_dim()</a></code> and <code><a href="reference/bind-arrays.html">bind_as_dim()</a></code> take a list and return an array.</p></li>
+<li><p><code><a href="reference/modify_along_dim.html">modify_along_dim()</a></code> takes an array, calls the passed function <code>.f()</code> on each subset of the specified dimension, and returns an array of the same shape. (think of this as a safer and sometimes faster alternative to <code><a href="https://rdrr.io/r/base/apply.html">base::apply()</a></code> that is guaranteed to return an array of the same shape as it received)</p></li>
+<li><p><code><a href="reference/extract_dim.html">extract_dim()</a></code> a wrapper around <code><a href="https://rdrr.io/r/base/Extract.html">[</a></code> that allows you to specify the dimension being subset as a function argument. For example, <code><a href="reference/extract_dim.html">extract_dim(X, 1, idx)</a></code> will extract <code>idx</code> on the first dimension, regardless how many dimensions are in the array <code>X</code>. Contrast this with the base alternative <code>X[idx,,]</code>, where you have to match the number of commas <code>,</code> to the number of dimensions in <code>X</code>.</p></li>
+<li><p>Many of the functions have two variants <code>*_rows()</code> and <code>*_cols()</code> for the two most common case of the first and last dimension. For example <code><a href="reference/split-array.html">split_on_rows()</a></code> which is equivalent to <code><a href="reference/split-array.html">split_on_dim(X, 1)</a></code> and <code><a href="reference/split-array.html">split_on_cols()</a></code> which is equivalent to <code><a href="reference/split-array.html">split_on_dim(X, -1)</a></code></p></li>
+<li><p><code><a href="reference/set_dim.html">set_dim()</a></code> and <code><a href="reference/set_dimnames.html">set_dimnames()</a></code>, pipe-friendly and more flexible versions of <code>dim&lt;-</code> and <code>dimnames&lt;-</code></p></li>
+<li><p><code>dim2()&lt;-</code>, <code><a href="reference/array2.html">set_dim2()</a></code>, <code><a href="reference/array2.html">array2()</a></code>, which reshape or fills arrays using row-major (C-style) semantics</p></li>
+<li><p><code><a href="reference/t.array.html">t.array()</a></code> a transpose method for multi-dimensional arrays</p></li>
+<li><p>A handful of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example <code><a href="reference/expand_dims.html">expand_dims()</a></code> (the inverse of <code><a href="https://rdrr.io/r/base/drop.html">base::drop()</a></code>, or seq_along_rows()<code>(a combination of</code>seq_along()<code>and</code>nrow()`).</p></li>
+<li><p>A set of functions that help encode atomic vectors as <code><a href="reference/onehot.html">onehot()</a></code> binary matrix’s and <code><a href="reference/onehot.html">decode_onehot()</a></code> back into atomic vectors. (for example if training a neural network with keras)</p></li>
 <li><p>Many of the functions work recursively if provided a list of arrays.</p></li>
 </ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install listarrays from CRAN with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"listarrays"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"listarrays"</span>)</span></code></pre></div>
 <p>Or install the development version from github with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"t-kalinowski/listarrays"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"t-kalinowski/listarrays"</span>)</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -129,7 +124,7 @@
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=listarrays"><img src="https://www.r-pkg.org/badges/version/listarrays" alt="CRAN status"></a></li>
@@ -137,7 +132,6 @@
 </ul>
 </div>
 </div>
-
 </div>
 
 
@@ -147,7 +141,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

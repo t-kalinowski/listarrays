@@ -29,7 +29,7 @@ objects, including arrays)}
 \item{depth}{Scalar number, how many levels to recurse down if \code{X} is a list
 of arrays. Set this if you want to explicitly treat a list as a vector
 (that is, a one-dimensional array). (You can alternatively set a dim
-attribute with \code{dim<-} on the list to prevent recursion)}
+attribute with \verb{dim<-} on the list to prevent recursion)}
 }
 \description{
 Extract with \code{[} on a specified dimension
