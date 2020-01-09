@@ -132,9 +132,9 @@ output to an array, sometimes unsuccessfully, making the output unstable)</p></l
 
     <pre class="usage"><span class='fu'>map_along_dim</span>(<span class='no'>X</span>, <span class='no'>.dim</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
 
-<span class='fu'>map_along_rows</span>(<span class='no'>X</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>map_along_rows</span>(<span class='no'>X</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
 
-<span class='fu'>map_along_cols</span>(<span class='no'>X</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>map_along_cols</span>(<span class='no'>X</span>, <span class='no'>.f</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,10 +159,6 @@ and accepts all the same inputs. Valid inputs include</p><ul>
     <tr>
       <th>...</th>
       <td><p>passed on to <code>.f()</code></p></td>
-    </tr>
-    <tr>
-      <th>.drop</th>
-      <td><p>passed on to <code>[</code> when subsetting the array.</p></td>
     </tr>
     </table>
 
@@ -190,10 +186,10 @@ and accepts all the same inputs. Valid inputs include</p><ul>
 #&gt; </div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(
   <span class='fu'>map_along_rows</span>(<span class='no'>X</span>, <span class='no'>identity</span>),
-  <span class='fu'>map_along_dim</span>(<span class='no'>X</span>, <span class='fl'>1</span>, <span class='no'>identity</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; <span class='error'>Error in FUN(X[[i]], ...): unused argument (.drop = .drop)</span></div><div class='input'>
+  <span class='fu'>map_along_dim</span>(<span class='no'>X</span>, <span class='fl'>1</span>, <span class='no'>identity</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(
   <span class='fu'>map_along_cols</span>(<span class='no'>X</span>, <span class='no'>identity</span>),
-  <span class='fu'>map_along_dim</span>(<span class='no'>X</span>, -<span class='fl'>1</span>, <span class='no'>identity</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; <span class='error'>Error in FUN(X[[i]], ...): unused argument (.drop = .drop)</span></div></pre>
+  <span class='fu'>map_along_dim</span>(<span class='no'>X</span>, -<span class='fl'>1</span>, <span class='no'>identity</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
