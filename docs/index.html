@@ -83,7 +83,7 @@
 <li><p><code><a href="reference/set_dim.html">set_dim()</a></code> and <code><a href="reference/set_dimnames.html">set_dimnames()</a></code>, pipe-friendly and more flexible versions of <code>dim&lt;-</code> and <code>dimnames&lt;-</code></p></li>
 <li><p><code>dim2()&lt;-</code>, <code><a href="reference/array2.html">set_dim2()</a></code>, <code><a href="reference/array2.html">array2()</a></code>, which reshape or fills arrays using row-major (C-style) semantics</p></li>
 <li><p><code><a href="reference/t.array.html">t.array()</a></code> a transpose method for multi-dimensional arrays</p></li>
-<li><p>A handful of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example <code><a href="reference/expand_dims.html">expand_dims()</a></code> (the inverse of <code><a href="https://rdrr.io/r/base/drop.html">base::drop()</a></code>, or seq_along_rows()<code>(a combination of</code>seq_along()<code>and</code>nrow()`).</p></li>
+<li><p>A handful of lower-level helpers that abstract out patterns commonly encountered while working with arrays, for example <code><a href="reference/expand_dims.html">expand_dims()</a></code> (the inverse of <code><a href="https://rdrr.io/r/base/drop.html">base::drop()</a></code>, or seq_along_rows()<code>(a combination     of</code>seq_along()<code>and</code>nrow()`).</p></li>
 <li><p>A set of functions that help encode atomic vectors as <code><a href="reference/onehot.html">onehot()</a></code> binary matrix’s and <code><a href="reference/onehot.html">decode_onehot()</a></code> back into atomic vectors. (for example if training a neural network with keras)</p></li>
 <li><p>Many of the functions work recursively if provided a list of arrays.</p></li>
 </ul>
@@ -91,9 +91,9 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install listarrays from CRAN with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"listarrays"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"listarrays"</span>)</span></code></pre></div>
 <p>Or install the development version from github with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"t-kalinowski/listarrays"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"t-kalinowski/listarrays"</span>)</span></code></pre></div>
 </div>
 </div>
   </div>
