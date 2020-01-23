@@ -10,19 +10,17 @@ test_that("split_along_dim", {
 
 
 test_that("split_on_dim", {
-
   x <- array(1:840, 4:7)
 
   for (d in seq_along(dim(x))) {
     f <- rep_len(1:2, dim(x)[d])
-    expect_length( split_on_dim(x, d, f), 2L)
+    expect_length(split_on_dim(x, d, f), 2L)
   }
 
 })
 
 
 test_that("split* works recursively", {
-
   x1 <- 1:4
   x2 <- matrix(1:20, nrow = 4, ncol = 5)
   x3 <- array(1:840, 4:7)
@@ -36,7 +34,6 @@ test_that("split* works recursively", {
 })
 
 test_that("split_on f inputs", {
-
   x <- array(1:840, 4:7)
 
   # test a scalar integer
@@ -57,5 +54,19 @@ test_that("split_on f inputs", {
   expect_equal(nrow(l[[1]]), 2L)
   expect_equal(nrow(l[[2]]), 2L)
   expect_equal(nrow(l[[3]]), 6L)
+
+})
+
+
+
+test_that("c impl of split_along_rows works", {
+  m <-  matrix(1:20, nrow = 4, ncol = 5)
+
+
+  for (mode in c("integer", "double", "complex", "logical")) {
+    storage.mode(m) <- mode
+    identical(.split_along_rows(m),
+              lapply(1:4, function(r) m[r, ]))
+  }
 
 })
