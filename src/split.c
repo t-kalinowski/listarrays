@@ -2,6 +2,32 @@
 #include <R.h>
 #include <Rinternals.h>
 
+#define SPLIT_ALONG_ROWS(SOURCE, DESTVEC, RTYPE, CTYPE, DEREF, NROWS, ROWSIZE) \
+  CTYPE *rp, *srp, *sp = DEREF(SOURCE);                                        \
+  int i = 0, j;                                                                \
+  while (i < NROWS)                                                            \
+  {                                                                            \
+    r = SET_VECTOR_ELT(DESTVEC, i++, Rf_allocVector(RTYPE, ROWSIZE));          \
+    rp = DEREF(r);                                                             \
+    srp = sp++;                                                                \
+    for (j = ROWSIZE; j != 0; j--)                                             \
+    {                                                                          \
+      *(rp++) = *srp;                                                          \
+      srp += ROWSIZE;                                                          \
+    }                                                                          \
+    Rf_setAttrib(r, R_DimSymbol, rdim);                                        \
+  }
+
+
+
+
+#define STRIDED_MEMCPY(SOURCEPTR, DESTPTR, N, STRIDESIZE) \
+  for (int n = N; n != 0; n--)                            \
+  {                                                       \
+    *(DESTPTR++) = *SOURCEPTR;                            \
+    SOURCEPTR += STRIDESIZE;                              \
+  }                                                       \
+
 SEXP listarrays_split_along_rows(SEXP a, SEXP drop)
 {
 
@@ -19,10 +45,11 @@ SEXP listarrays_split_along_rows(SEXP a, SEXP drop)
   else
     doDrop = Rf_asLogical(drop);
 
-  int i = 0, ri = 0;
+  // int i = 0, ri = 0;
 
   R_xlen_t nadim = XLENGTH(adim);
   int nrdim = 0, adim_idx = 0;
+
 
   if (doDrop)
   {
@@ -71,75 +98,22 @@ SEXP listarrays_split_along_rows(SEXP a, SEXP drop)
   {
   case LGLSXP:
   {
-    int *ap = LOGICAL(a);
-    int *rp, *arp;
-    for (; ri < nr; ri++)
-    {
-      r = SET_VECTOR_ELT(out, ri, Rf_allocVector(LGLSXP, rsize));
-      rp = LOGICAL(r);
-      arp = ap++;
-      for (i = 0; i < rsize; i++)
-      {
-        *(rp++) = *arp;
-        arp += nr;
-      }
-      // ATTRIB(r) =
-      Rf_setAttrib(r, R_DimSymbol, rdim);
-    }
+    SPLIT_ALONG_ROWS(a, out, LGLSXP, int, LOGICAL, nr, rsize);
     break;
   }
   case INTSXP:
   {
-    int *ap = INTEGER(a);
-    int *rp, *arp;
-    for (; ri < nr; ri++)
-    {
-      r = SET_VECTOR_ELT(out, ri, Rf_allocVector(INTSXP, rsize));
-      rp = INTEGER(r);
-      arp = ap++;
-      for (i = 0; i < rsize; i++)
-      {
-        *(rp++) = *arp;
-        arp += nr;
-      }
-      Rf_setAttrib(r, R_DimSymbol, rdim);
-    }
+    SPLIT_ALONG_ROWS(a, out, INTSXP, int, INTEGER, nr, rsize);
     break;
   }
   case REALSXP:
   {
-    double *ap = REAL(a);
-    double *rp, *arp;
-    for (; ri < nr; ri++)
-    {
-      r = SET_VECTOR_ELT(out, ri, Rf_allocVector(REALSXP, rsize));
-      rp = REAL(r);
-      arp = ap++;
-      for (i = 0; i < rsize; i++)
-      {
-        *(rp++) = *arp;
-        arp += nr;
-      }
-      Rf_setAttrib(r, R_DimSymbol, rdim);
-    }
+    SPLIT_ALONG_ROWS(a, out, REALSXP, double, REAL, nr, rsize);
     break;
   }
   case CPLXSXP:
   {
-    Rcomplex *ap = COMPLEX(a);
-    Rcomplex *rp, *arp;
-    for (; ri < nr; ri++)
-    {
-      r = SET_VECTOR_ELT(out, ri, Rf_allocVector(CPLXSXP, rsize));
-      rp = COMPLEX(r);
-      arp = ap++;
-      for (i = 0; i < rsize; i++)
-      {
-        *(rp++) = *arp;
-        arp += nr;
-      }
-      Rf_setAttrib(r, R_DimSymbol, rdim);
-    }
+    SPLIT_ALONG_ROWS(a, out, CPLXSXP, Rcomplex, COMPLEX, nr, rsize);
     break;
   }
   }

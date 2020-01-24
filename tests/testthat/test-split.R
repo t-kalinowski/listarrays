@@ -62,9 +62,11 @@ test_that("split_on f inputs", {
 test_that("c impl of split_along_rows works", {
   m <-  matrix(1:20, nrow = 4, ncol = 5)
 
-
+  set.seed(42)
   for (mode in c("integer", "double", "complex", "logical")) {
     storage.mode(m) <- mode
+    if(mode == "logical")
+      m[] <- sample(c(TRUE, FALSE), length(m), TRUE)
     identical(.split_along_rows(m),
               lapply(1:4, function(r) m[r, ]))
   }

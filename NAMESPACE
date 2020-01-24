@@ -2,6 +2,7 @@
 
 S3method(t,array)
 export("dim2<-")
+export(.split_along_rows)
 export(DIM)
 export(DROP)
 export(array2)
@@ -47,3 +48,4 @@ export(split_on_dim)
 export(split_on_rows)
 importFrom(compiler,cmpfun)
 importFrom(utils,modifyList)
+useDynLib(listarrays, .registration = TRUE)
