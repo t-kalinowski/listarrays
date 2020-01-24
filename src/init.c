@@ -1,4 +1,3 @@
-#define R_NO_REMAP
 #include <R.h>
 #include <Rinternals.h>
 #include <stdlib.h> // for NULL
@@ -6,10 +5,10 @@
 
 
 /* .Call calls */
-extern SEXP listarrays_split_along_rows(SEXP, SEXP);
+extern SEXP listarrays_split_along_rows(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-  {"listarrays_split_along_rows", (DL_FUNC) &listarrays_split_along_rows, 2},
+  {"listarrays_split_along_rows", (DL_FUNC) &listarrays_split_along_rows, 1},
   {NULL, NULL, 0}
 };
 
