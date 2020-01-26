@@ -235,8 +235,13 @@ split_along_dim <- function(X, which_dim, depth = Inf) {
 
 #' @rdname split-array
 #' @export
-split_along_rows <- function(X, depth = Inf)
-  split_along_dim(X, 1L, depth = depth)
+split_along_rows <- function(X, depth = Inf) {
+  if (is.list(X) && is.null(dim(X)) && depth > 0L)
+    return(lapply(X, function(x)
+      split_along_rows(x, depth = depth - 1L)))
+  .split_along_rows(X)
+}
+  # split_along_dim(X, 1L, depth = depth)
 
 #' @rdname split-array
 #' @export
