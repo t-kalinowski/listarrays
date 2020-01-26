@@ -68,7 +68,8 @@ SEXP listarrays_split_along_rows(SEXP a)
       return Rf_coerceVector(a, VECSXP);
   }
 
-  if (Rf_getAttrib(a, R_DimNamesSymbol) != R_NilValue)
+  if (Rf_getAttrib(a, R_DimNamesSymbol) != R_NilValue ||
+      ALTREP(a))
     return split_along_rows_default(a);
 
   R_xlen_t asize = XLENGTH(a);
