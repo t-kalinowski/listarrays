@@ -31,4 +31,5 @@ test_that("bind arrays works", {
   new_dnn <- dimnames(bind_as_rows(lx))
   expect_identical(new_dnn, c(list(names(lx)), dnn))
 
+
 })

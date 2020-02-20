@@ -1,7 +1,6 @@
 context("test-map.R")
 
 
-
 test_that("map_along_dim", {
   A <- matrix2(letters[1:15], ncol = 3)
 
