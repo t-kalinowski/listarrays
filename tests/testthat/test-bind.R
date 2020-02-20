@@ -31,5 +31,16 @@ test_that("bind arrays works", {
   new_dnn <- dimnames(bind_as_rows(lx))
   expect_identical(new_dnn, c(list(names(lx)), dnn))
 
+  # trip cmpfun limit
+  lx <- as.list(1:2000)
+  names(lx) <- as.character(1:2000)
+  lx <- lapply(lx, function(.) matrix(as.character(1:12), nrow = 4))
+
+  x <- bind_on_rows(lx)
+
+  y <- do.call(rbind, lx)
+  rownames(y) <- rep(names(lx), each = 4)
+
+  expect_identical(x, y)
 
 })

@@ -118,7 +118,7 @@ BIND_ON_FN_TEMPLATE <-
   })
 
 minimal_bind_on_env <-
-  as.environment(mget(
+  list2env(mget(
     c(
       "array",
       "vector",

@@ -156,7 +156,7 @@ split_on_cols <- function(X,
 
 
 
-minimal_split_along_fn_env <- as.environment(list(
+minimal_split_along_fn_env <- list2env(list(
   `<-` = `<-`,
   `{` = `{`,
   `[` = `[`,
