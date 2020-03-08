@@ -79,24 +79,9 @@ test_that("c impl of split_along_rows works", {
       if (mode == "logical")
         a[] <- sample(c(TRUE, FALSE), length(a), TRUE)
 
-
       expect_identical(.split_along_rows(a),
-                lapply(1:nrow(a), function(r) extract_rows(a, r)))
-
-
-      a <- provideDimnames(a)
-      expect_identical(.split_along_rows(a),
-                       lapply(1:nrow(a), function(r) extract_rows(a, r)))
-      dimnames(a) <- NULL
+                lapply(1:4, function(r) extract_rows(a, r)))
     }
   }
-
-  # test dataframes
-  expect_identical(
-    .split_along_rows(mtcars),
-    lapply(1:nrow(mtcars), function(r) mtcars[r,])
-  )
-
-
 
 })
