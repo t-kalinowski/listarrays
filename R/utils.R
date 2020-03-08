@@ -24,7 +24,7 @@ ndim <- function(x) {
 #' `dim` attribute, in which case, the length of the vector is returned instead
 #' of `NULL`.
 #'
-#' @param x an array or atomic vector
+#' @param x an R vector, potentially with a dim attribute
 #' @rdname DIM
 #'
 #' @export
@@ -42,10 +42,9 @@ DIM <- function(x) dim(x) %||% length(x)
 
 #' DROP
 #'
-#' `DROP` first calls `base::drop`, but and then completely removes the `dim`
+#' `DROP` first calls `base::drop`  and then completely removes the `dim`
 #' attribute if the result is a 1-d array
 #'
-#' @param an R vector, potentially with dim attributes
 #'
 #' @return For `DROP` an array with 2 or more axes, or a vector with no `dim`
 #'   attributes.

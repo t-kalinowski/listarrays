@@ -10,9 +10,7 @@ DIM(x)
 DROP(x)
 }
 \arguments{
-\item{x}{an array or atomic vector}
-
-\item{an}{R vector, potentially with dim attributes}
+\item{x}{an R vector, potentially with a dim attribute}
 }
 \value{
 For \code{DIM}, the \code{dim} attribute, or if that's not found, then \code{length(x)}
@@ -26,7 +24,7 @@ attributes.
 \code{dim} attribute, in which case, the length of the vector is returned instead
 of \code{NULL}.
 
-\code{DROP} first calls \code{base::drop}, but and then completely removes the \code{dim}
+\code{DROP} first calls \code{base::drop}  and then completely removes the \code{dim}
 attribute if the result is a 1-d array
 }
 \examples{
