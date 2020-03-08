@@ -1,0 +1,7 @@
+{
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "C_Cpp.workspaceSymbols": "All",
+    "files.associations": {
+        "rinternals.h": "c"
+    }
+}
