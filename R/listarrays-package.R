@@ -5,6 +5,6 @@
 NULL
 
 #' @export
-.split_along_rows <- function(a) {
-  .Call("listarrays_split_along_rows", a, PACKAGE = "listarrays")
+.split_along_rows <- function(a, drop = NULL) {
+  .Call("listarrays_split_along_rows", a, drop, PACKAGE = "listarrays")
 }

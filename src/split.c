@@ -13,57 +13,86 @@
     for (j = ROWSIZE; j != 0; j--)                                             \
     {                                                                          \
       *(rp++) = *srp;                                                          \
-      srp += NROWS;                                                            \
+      srp += ROWSIZE;                                                          \
     }                                                                          \
     Rf_setAttrib(r, R_DimSymbol, rdim);                                        \
   }
 
-SEXP listarrays_split_along_rows(SEXP a)
+
+
+
+#define STRIDED_MEMCPY(SOURCEPTR, DESTPTR, N, STRIDESIZE) \
+  for (int n = N; n != 0; n--)                            \
+  {                                                       \
+    *(DESTPTR++) = *SOURCEPTR;                            \
+    SOURCEPTR += STRIDESIZE;                              \
+  }                                                       \
+
+SEXP listarrays_split_along_rows(SEXP a, SEXP drop)
 {
 
   R_xlen_t asize = XLENGTH(a);
   SEXP adim = Rf_getAttrib(a, R_DimSymbol);
   int *adimp = INTEGER(adim);
-  int nr = *(adimp++);
+  int nr = *adimp;
   int rsize = asize / nr;
 
-  if (rsize == 1)
-  {
-    // basically cast to as.list()
-    return Rf_coerceVector(a, VECSXP);
-  }
-
-  R_xlen_t len_adim = XLENGTH(adim), len_rdim = 0;
-  for (int adim_idx = 1; adim_idx < len_adim; adim_idx++)
-  {
-    if (*(adimp++) != 1)
-      len_rdim++;
-  }
-
+  SEXP out = PROTECT(Rf_allocVector(VECSXP, nr));
   SEXP r, rdim;
+  int doDrop;
+  if (drop == R_NilValue)
+    doDrop = 1;
+  else
+    doDrop = Rf_asLogical(drop);
 
-  if (len_rdim == 1)
+  // int i = 0, ri = 0;
+
+  R_xlen_t nadim = XLENGTH(adim);
+  int nrdim = 0, adim_idx = 0;
+
+
+  if (doDrop)
   {
-    // basically cast to as.list()
-    PROTECT(rdim = R_NilValue);
+    adimp++;
+    adim_idx++;
+
+    for (; adim_idx < nadim; adim_idx++, adimp++)
+    {
+      if (*adimp != 1)
+        nrdim++;
+    }
+
+    if (nrdim == 1)
+    {
+      PROTECT(rdim = R_NilValue);
+    }
+    else
+    {
+
+      rdim = PROTECT(Rf_allocVector(INTSXP, nrdim));
+      int *rdimp = INTEGER(rdim);
+
+      int tmpd;
+      adimp = INTEGER(adim) + 1;
+      for (int i = doDrop; i < nadim; i++)
+      {
+        tmpd = *(adimp++);
+        if (tmpd == 1)
+          continue;
+        *(rdimp++) = tmpd;
+      }
+    }
   }
   else
   {
-
-    rdim = PROTECT(Rf_allocVector(INTSXP, len_rdim));
+    rdim = PROTECT(Rf_allocVector(INTSXP, nadim));
     int *rdimp = INTEGER(rdim);
-    int d;
-    adimp = INTEGER(adim) + 1;
-    for (int i = 1; i < len_adim; i++)
-    {
-      d = *(adimp++);
-      if (d != 1)
-        *(rdimp++) = d;
-    }
-    MARK_NOT_MUTABLE(rdim);
+    *rdimp = 1;
+    for (adim_idx = 1; adim_idx < nadim; adim_idx++)
+      *(++rdimp) = *(++adimp);
   }
 
-  SEXP out = PROTECT(Rf_allocVector(VECSXP, nr));
+  MARK_NOT_MUTABLE(rdim);
 
   switch (TYPEOF(a))
   {
