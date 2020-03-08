@@ -27,9 +27,11 @@ SEXP listarrays_split_along_rows(SEXP a)
   int nr = *(adimp++);
   int rsize = asize / nr;
 
-    // basically cast to as.list()
   if (rsize == 1)
+  {
+    // basically cast to as.list()
     return Rf_coerceVector(a, VECSXP);
+  }
 
   R_xlen_t len_adim = XLENGTH(adim), len_rdim = 0;
   for (int adim_idx = 1; adim_idx < len_adim; adim_idx++)
@@ -41,7 +43,10 @@ SEXP listarrays_split_along_rows(SEXP a)
   SEXP r, rdim;
 
   if (len_rdim == 1)
+  {
+    // basically cast to as.list()
     PROTECT(rdim = R_NilValue);
+  }
   else
   {
 
