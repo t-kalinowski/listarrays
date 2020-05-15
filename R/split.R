@@ -169,31 +169,6 @@ minimal_split_along_fn_env <- list2env(list(
 ))
 
 
-SPLIT_ALONG_FN_TEMPLATE <-
-  alist(X = , length_out = , {
-    out <- vector('list', length_out)
-    for (i in seq_len(length_out))
-      out[[i]] <-  EXTRACT_CALL
-    out
-  })
-
-SPLIT_ALONG_FN_TEMPLATE <-
-  alist(X = , length_out = , {
-    out <- vector('list', LENGTH_OUT)
-    for (i in seq_len(LENGTH_OUT))
-      out[[i]] <-  EXTRACT_CALL
-    out
-  })
-
-fn1 <- function() {
-  eval(substitute(alist(X = , {
-    out <- vector('list', LENGTH_OUT)
-    for (i in seq_len(LENGTH_OUT))
-      out[[i]] <-  EXTRACT_CALL
-    out
-  }), list(LENGTH_OUT = 11L)))
-}
-
 SPLIT_ALONG_FN_TEMPLATE <- alist(X = , {
   out <- vector('list', LENGTH_OUT)
   for (i in seq_len(LENGTH_OUT))
@@ -245,7 +220,9 @@ split_along_cols <- function(X, depth = Inf)
 
 
 # TODO:
-as_listarray <- function() {}
-unlist.listarray <- function() {}
+if(FALSE) {
+  as_listarray <- function() {}
+  unlist.listarray <- function() {}
+}
 
 
