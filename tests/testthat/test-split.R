@@ -65,10 +65,10 @@ test_that("split_along_rows works with common vector types", {
   set.seed(42)
   for (mode in c("integer", "double", "complex", "logical", "list", "character")) {
     storage.mode(m) <- mode
-    if(mode == "logical")
+    if (mode == "logical")
       m[] <- sample(c(TRUE, FALSE), length(m), TRUE)
-    identical(split_along_rows(m),
-              lapply(1:4, function(r) m[r, ]))
+    expect_equal(split_along_rows(m),
+                 array(lapply(1:4, function(r) array(m[r, ]))))
   }
 
 })
