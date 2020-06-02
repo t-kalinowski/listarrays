@@ -5,7 +5,8 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/listarrays)](https://cran.r-project.org/package=listarrays)
-[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-month/listarrays?color=blue)](https://r-pkg.org/pkg/listarrays)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/last-month/listarrays?color=blue)](https://r-pkg.org/pkg/listarrays)
 
 A toolbox for working with R arrays in a functional programming style.
 Flexibly split, bind, reshape, modify, subset, and name arrays.
@@ -42,12 +43,10 @@ The package provides:
   - `dim2()<-`, `set_dim2()`, `array2()`, which reshape or fills arrays
     using row-major (C-style) semantics
 
-  - `t.array()` a transpose method for multi-dimensional arrays
-
   - A handful of lower-level helpers that abstract out patterns commonly
     encountered while working with arrays, for example `expand_dims()`
-    (the inverse of `base::drop()`, or seq\_along\_rows()`(a combination
-    of`seq\_along()`and`nrow()\`).
+    (the inverse of `base::drop()`, or `seq_along_rows()` (a combination
+    of `seq_along()` and `nrow()`).
 
   - A set of functions that help encode atomic vectors as `onehot()`
     binary matrix’s and `decode_onehot()` back into atomic vectors. (for

@@ -143,11 +143,11 @@ supplied, then the single object shuffled</p>
 <span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>zeallot</span>)) {
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>xs</span>, <span class='no'>ys</span>, <span class='no'>zs</span>) <span class='kw'>%&lt;-%</span> <span class='fu'>shuffle_rows</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>)
 
-  <span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>y</span>), <span class='kw'>function</span>(<span class='no'>r</span>) {
+  <span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'>seq_along_rows</span>(<span class='no'>y</span>), <span class='kw'>function</span>(<span class='no'>r</span>) {
     <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>[<span class='no'>r</span>], <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>[<span class='no'>r</span>,], <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>[<span class='no'>r</span>,,])
   })
 
-  <span class='no'>ls</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='seq_along_dim.html'>seq_along_rows</a></span>(<span class='no'>y</span>), <span class='kw'>function</span>(<span class='no'>r</span>) {
+  <span class='no'>ls</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'>seq_along_rows</span>(<span class='no'>y</span>), <span class='kw'>function</span>(<span class='no'>r</span>) {
     <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>xs</span>[<span class='no'>r</span>], <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>ys</span>[<span class='no'>r</span>,], <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>zs</span>[<span class='no'>r</span>,,])
   })
 
