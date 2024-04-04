@@ -111,4 +111,14 @@ array_reshape <- function(x, dim, order = c("C", "F")) {
 #' for (i in 1:3)
 #'   for(j in 1:3)
 #'     stopifnot(x[,j,i] == tx[i,j,])
-t.array <- function(x) aperm(x)
+t.array <- function(x) {
+  if(is.matrix(x)) return(NextMethod()) # copies attrs already
+
+  # handle bug in aperm(), R 4.3.2. aperm() docs say it copies over other attrs,
+  # but in actuality, it doesn't.
+  out <- aperm(x)
+  attrs <- attributes(x)
+  attrs$dim <- attrs$dimnames <- NULL
+  attributes(out) <- a
+  out
+}
