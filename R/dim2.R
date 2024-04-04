@@ -104,14 +104,24 @@ array_reshape <- function(x, dim, order = c("C", "F")) {
 #'
 #' This reverses the dimensions of an array
 #'
-#' @export
+#' #export
+#' @noRd
 #' @examples
 #' x <- array(1:27, c(3,3,3))
 #' tx <- t(x)
 #' for (i in 1:3)
 #'   for(j in 1:3)
 #'     stopifnot(x[,j,i] == tx[i,j,])
-t.array <- function(x) {
+
+# this is no longer exported because it is now invoked for 2d arrays (matrixes)
+# too, and before dispatch to the primitive. This introduces substantial
+# overhead in code that would otherwise not dispatch. Additionally, aperm() does
+# not preserve attributes. This was discovered when utils::getParseData() was
+# raising an error, because the expression `t(unclass(data))` was losing
+# attributes(data) if listarrays was loaded.
+
+# t.array <-
+function(x) {
   if(is.matrix(x)) return(NextMethod()) # copies attrs already
 
   # handle bug in aperm(), R 4.3.2. aperm() docs say it copies over other attrs,
