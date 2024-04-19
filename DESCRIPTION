@@ -1,7 +1,7 @@
 Package: listarrays
 Type: Package
 Title: A Toolbox for Working with R Arrays in a Functional Programming Style
-Version: 0.3.1.9000
+Version: 0.4.0
 Authors@R: person("Tomasz", "Kalinowski", email = "kalinowskit@gmail.com", 
     role = c("aut", "cre"))
 Description: A toolbox for R arrays. Flexibly split, bind, reshape, modify, 
